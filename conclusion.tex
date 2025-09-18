@@ -1,0 +1,24 @@
+\section{Conclusion}\label{sec:conclusion}
+
+This study confirmed the massive potential of using \ac{ml} methods and fusing external data to model Ship Fuel Consumption, which is the basis for all ship optimization approaches. Additional environmental factors also proved helpful in improving the predictive power. However, only a small subset of factors had a significant impact, with internal parameters such as engine \ac{rpm} being the most predictive factor for \ac{fc}. 
+Most of the features have not contributed to the overall predictive power, which is good that with fewer features, the \ac{fc} could be, to some extent, accurately predicted. Still, on the other hand, this raises the question of more investigation regarding the extensive data preparation explicitly required on the environmental parameters, for example, computing ship heading and then the angle of attack relative to the vessel. Moreover, more voyage report samples are needed to drill down on those features. Additionally, the principles developed in this study could be tested against different vessels of the same class to validate generalization on a broader scope. 
+Additionally other marine fuels should be explored. Currently, the target ships of \ac{fc} models are mostly diesel-powered, and the fuel consumption is primarily diesel. With the emergence of new or hybrid energy ships, more energy-efficient fuels such as LNG, fuel cells, methanol, and ammonia can be adopted to save ships energy.
+The \ac{fc} models should be combined with energy efficiency optimization methods. The ship energy efficiency optimization method can be divided into the supply side (inside the ship) and the demand side (outside the ship), corresponding to the energy management and operation optimization strategies. Thus it would be interesting to explore some data sources of bunker fuel consumption with a finer data granularity, such as sensor data, and the benefits of combining these data sources with other data sources that provide complementary information.
+
+An advanced model is developed using the features identified by the \ac{rf}. Two significant insights have been derived. First, non-linear models tend to perform much better than baseline models. Secondly, the performance significantly rose from 76 percent using the baseline model to 90 percent, 
+which highlights that with a handful of features, 90 percent of the \ac{fc} could be accurately estimated.
+
+The comparison clearly indicates that advanced modeling approaches result in superior predictive accuracy, lower error metrics, and more stable performance across validation folds. The transition from baseline to advanced models, particularly using more informative variables plays a critical role in enhancing fuel consumption estimation models. The findings reinforce the importance of model selection, feature engineering, and hyperparameter tuning in achieving reliable maritime fuel prediction.
+
+Nevertheless, all models demonstrate strong predictive capability, indicating the effectiveness of machine learning approaches for this application.
+
+Overall, the results demonstrate that fuel consumption prediction is most sensitive to 
+engine and propulsion parameters, with contextual and environmental 
+variables providing complementary but lesser explanatory power. 
+These insights can guide feature selection and data acquisition strategies in future model refinement.
+
+Another angle would be to investigate how sailing in unpopular regions like the Arctic could influence \ac{fc} since it has been observed in this study that seawater temperature and salinity played massive role in the \ac{fc} and ultimately to act as a guide to suggest a most efficient route for maritime navigation. 
+
+To streamline further research on the ideas developed in this study, a modular and comprehensive package has been developed that provides a baseline to build on top of for reproducible research and additional investigations.   
+
+This study has been an attempt to contribute toward environmentally sustainable shipping operations. 

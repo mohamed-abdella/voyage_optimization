@@ -1,0 +1,18 @@
+\begin{table}[!ht]
+        \centering
+        \caption{Advanced Model Performance Comparison with Five Fold Cross}
+        \resizebox{\textwidth}{!}{%
+        \begin{tabular}{lrrrrrrrr}
+        \toprule
+        {} &   \textbf{r2\_mean} &    \textbf{r2\_std} &  \textbf{adj\_r2\_mean} &  \textbf{adj\_r2\_std} &  \textbf{rmse\_mean} &  \textbf{rmse\_std} &  \textbf{mae\_mean} &   \textbf{mae\_std} \\
+        \midrule
+        randomforest &  0.902077 &  0.057732 &     0.900576 &    0.058617 &   3.538472 &  1.140355 &  2.186424 &  0.231431 \\
+        ridge        &  0.891360 &  0.064465 &     0.889695 &    0.065453 &   3.716946 &  1.182466 &  2.355040 &  0.359092 \\
+        xgboost      &  0.890620 &  0.063637 &     0.888944 &    0.064612 &   3.716129 &  1.194261 &  2.352869 &  0.472801 \\
+        svr          & 0.894117	 &  0.069662 &    0.892494  &    0.070730 &  3.639306 &  1.263992 &  2.251402  &  0.414863 \\
+        \bottomrule
+        \end{tabular}%
+        }
+        \label{tab:advanced_model_cross_validation}
+\end{table}
+
