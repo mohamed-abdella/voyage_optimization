@@ -1,0 +1,1073 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="./">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Data Fusion and Machine Learning for Ship Fuel Consumption Modelling - A Case of Bulk Carrier Vessel &mdash; Voyage Optimization 0.0.99 documentation</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=fa44fd50" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=19f00094" />
+
+  
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="_static/jquery.js?v=5d32c60e"></script>
+        <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="_static/documentation_options.js?v=bf4bdb9e"></script>
+        <script src="_static/doctools.js?v=9a2dae69"></script>
+        <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="#" class="icon icon-home">
+            Voyage Optimization
+          </a>
+              <div class="version">
+                0.99-dev
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <!-- Local TOC -->
+              <div class="local-toc"><ul>
+<li><a class="reference internal" href="#">Data Fusion and Machine Learning for Ship Fuel Consumption Modelling - A Case of Bulk Carrier Vessel</a></li>
+<li><a class="reference internal" href="#module-voyage_optimization.paper_1.extraction.extract_era">Extraction</a><ul>
+<li><a class="reference internal" href="#voyage_optimization.paper_1.extraction.extract_era.ExtractERA"><code class="docutils literal notranslate"><span class="pre">ExtractERA</span></code></a><ul>
+<li><a class="reference internal" href="#voyage_optimization.paper_1.extraction.extract_era.ExtractERA.extract_data_by_year_and_month"><code class="docutils literal notranslate"><span class="pre">ExtractERA.extract_data_by_year_and_month()</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#voyage_optimization.paper_1.extraction.extract_cmems.Boundary"><code class="docutils literal notranslate"><span class="pre">Boundary</span></code></a><ul>
+<li><a class="reference internal" href="#voyage_optimization.paper_1.extraction.extract_cmems.Boundary.max_lat"><code class="docutils literal notranslate"><span class="pre">Boundary.max_lat</span></code></a></li>
+<li><a class="reference internal" href="#voyage_optimization.paper_1.extraction.extract_cmems.Boundary.max_lon"><code class="docutils literal notranslate"><span class="pre">Boundary.max_lon</span></code></a></li>
+<li><a class="reference internal" href="#voyage_optimization.paper_1.extraction.extract_cmems.Boundary.min_lat"><code class="docutils literal notranslate"><span class="pre">Boundary.min_lat</span></code></a></li>
+<li><a class="reference internal" href="#voyage_optimization.paper_1.extraction.extract_cmems.Boundary.min_lon"><code class="docutils literal notranslate"><span class="pre">Boundary.min_lon</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#voyage_optimization.paper_1.extraction.extract_cmems.Depth"><code class="docutils literal notranslate"><span class="pre">Depth</span></code></a><ul>
+<li><a class="reference internal" href="#voyage_optimization.paper_1.extraction.extract_cmems.Depth.max_depth"><code class="docutils literal notranslate"><span class="pre">Depth.max_depth</span></code></a></li>
+<li><a class="reference internal" href="#voyage_optimization.paper_1.extraction.extract_cmems.Depth.min_depth"><code class="docutils literal notranslate"><span class="pre">Depth.min_depth</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#voyage_optimization.paper_1.extraction.extract_cmems.ExtractCMEMS"><code class="docutils literal notranslate"><span class="pre">ExtractCMEMS</span></code></a><ul>
+<li><a class="reference internal" href="#voyage_optimization.paper_1.extraction.extract_cmems.ExtractCMEMS.extract_data"><code class="docutils literal notranslate"><span class="pre">ExtractCMEMS.extract_data()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a class="reference internal" href="#module-voyage_optimization.paper_1.preprocessing.preprocessing_pipeline">Preprocessing</a><ul>
+<li><a class="reference internal" href="#voyage_optimization.paper_1.preprocessing.date_from_geneva_to_utc.DateFromGenevaToUTC"><code class="docutils literal notranslate"><span class="pre">DateFromGenevaToUTC</span></code></a><ul>
+<li><a class="reference internal" href="#voyage_optimization.paper_1.preprocessing.date_from_geneva_to_utc.DateFromGenevaToUTC.fit"><code class="docutils literal notranslate"><span class="pre">DateFromGenevaToUTC.fit()</span></code></a></li>
+<li><a class="reference internal" href="#voyage_optimization.paper_1.preprocessing.date_from_geneva_to_utc.DateFromGenevaToUTC.transform"><code class="docutils literal notranslate"><span class="pre">DateFromGenevaToUTC.transform()</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#voyage_optimization.paper_1.preprocessing.derive_date_components.DeriveDateComponents"><code class="docutils literal notranslate"><span class="pre">DeriveDateComponents</span></code></a><ul>
+<li><a class="reference internal" href="#voyage_optimization.paper_1.preprocessing.derive_date_components.DeriveDateComponents.fit"><code class="docutils literal notranslate"><span class="pre">DeriveDateComponents.fit()</span></code></a></li>
+<li><a class="reference internal" href="#voyage_optimization.paper_1.preprocessing.derive_date_components.DeriveDateComponents.transform"><code class="docutils literal notranslate"><span class="pre">DeriveDateComponents.transform()</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#voyage_optimization.paper_1.preprocessing.derive_fuel_main_engine.DeriveFuelMainEngine"><code class="docutils literal notranslate"><span class="pre">DeriveFuelMainEngine</span></code></a><ul>
+<li><a class="reference internal" href="#voyage_optimization.paper_1.preprocessing.derive_fuel_main_engine.DeriveFuelMainEngine.fit"><code class="docutils literal notranslate"><span class="pre">DeriveFuelMainEngine.fit()</span></code></a></li>
+<li><a class="reference internal" href="#voyage_optimization.paper_1.preprocessing.derive_fuel_main_engine.DeriveFuelMainEngine.transform"><code class="docutils literal notranslate"><span class="pre">DeriveFuelMainEngine.transform()</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#voyage_optimization.paper_1.preprocessing.derive_total_fuel.DeriveTotalFuel"><code class="docutils literal notranslate"><span class="pre">DeriveTotalFuel</span></code></a><ul>
+<li><a class="reference internal" href="#voyage_optimization.paper_1.preprocessing.derive_total_fuel.DeriveTotalFuel.fit"><code class="docutils literal notranslate"><span class="pre">DeriveTotalFuel.fit()</span></code></a></li>
+<li><a class="reference internal" href="#voyage_optimization.paper_1.preprocessing.derive_total_fuel.DeriveTotalFuel.transform"><code class="docutils literal notranslate"><span class="pre">DeriveTotalFuel.transform()</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#voyage_optimization.paper_1.preprocessing.derive_trim.DeriveTrim"><code class="docutils literal notranslate"><span class="pre">DeriveTrim</span></code></a><ul>
+<li><a class="reference internal" href="#voyage_optimization.paper_1.preprocessing.derive_trim.DeriveTrim.fit"><code class="docutils literal notranslate"><span class="pre">DeriveTrim.fit()</span></code></a></li>
+<li><a class="reference internal" href="#voyage_optimization.paper_1.preprocessing.derive_trim.DeriveTrim.transform"><code class="docutils literal notranslate"><span class="pre">DeriveTrim.transform()</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#voyage_optimization.paper_1.preprocessing.derive_voyage_segments.DeriveVoyageSegments"><code class="docutils literal notranslate"><span class="pre">DeriveVoyageSegments</span></code></a><ul>
+<li><a class="reference internal" href="#voyage_optimization.paper_1.preprocessing.derive_voyage_segments.DeriveVoyageSegments.fit"><code class="docutils literal notranslate"><span class="pre">DeriveVoyageSegments.fit()</span></code></a></li>
+<li><a class="reference internal" href="#voyage_optimization.paper_1.preprocessing.derive_voyage_segments.DeriveVoyageSegments.transform"><code class="docutils literal notranslate"><span class="pre">DeriveVoyageSegments.transform()</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#voyage_optimization.paper_1.preprocessing.drop_columns.DropColumns"><code class="docutils literal notranslate"><span class="pre">DropColumns</span></code></a><ul>
+<li><a class="reference internal" href="#voyage_optimization.paper_1.preprocessing.drop_columns.DropColumns.fit"><code class="docutils literal notranslate"><span class="pre">DropColumns.fit()</span></code></a></li>
+<li><a class="reference internal" href="#voyage_optimization.paper_1.preprocessing.drop_columns.DropColumns.transform"><code class="docutils literal notranslate"><span class="pre">DropColumns.transform()</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#voyage_optimization.paper_1.preprocessing.drop_rows.DropRows"><code class="docutils literal notranslate"><span class="pre">DropRows</span></code></a><ul>
+<li><a class="reference internal" href="#voyage_optimization.paper_1.preprocessing.drop_rows.DropRows.fit"><code class="docutils literal notranslate"><span class="pre">DropRows.fit()</span></code></a></li>
+<li><a class="reference internal" href="#voyage_optimization.paper_1.preprocessing.drop_rows.DropRows.transform"><code class="docutils literal notranslate"><span class="pre">DropRows.transform()</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#voyage_optimization.paper_1.preprocessing.expand_draft.ExpandDraft"><code class="docutils literal notranslate"><span class="pre">ExpandDraft</span></code></a><ul>
+<li><a class="reference internal" href="#voyage_optimization.paper_1.preprocessing.expand_draft.ExpandDraft.fit"><code class="docutils literal notranslate"><span class="pre">ExpandDraft.fit()</span></code></a></li>
+<li><a class="reference internal" href="#voyage_optimization.paper_1.preprocessing.expand_draft.ExpandDraft.transform"><code class="docutils literal notranslate"><span class="pre">ExpandDraft.transform()</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#voyage_optimization.paper_1.preprocessing.geolocation_from_dmm_to_dd.GeoLocationFromDMMToDD"><code class="docutils literal notranslate"><span class="pre">GeoLocationFromDMMToDD</span></code></a><ul>
+<li><a class="reference internal" href="#voyage_optimization.paper_1.preprocessing.geolocation_from_dmm_to_dd.GeoLocationFromDMMToDD.fit"><code class="docutils literal notranslate"><span class="pre">GeoLocationFromDMMToDD.fit()</span></code></a></li>
+<li><a class="reference internal" href="#voyage_optimization.paper_1.preprocessing.geolocation_from_dmm_to_dd.GeoLocationFromDMMToDD.transform"><code class="docutils literal notranslate"><span class="pre">GeoLocationFromDMMToDD.transform()</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#voyage_optimization.paper_1.preprocessing.rename_columns.RenameColumns"><code class="docutils literal notranslate"><span class="pre">RenameColumns</span></code></a><ul>
+<li><a class="reference internal" href="#voyage_optimization.paper_1.preprocessing.rename_columns.RenameColumns.fit"><code class="docutils literal notranslate"><span class="pre">RenameColumns.fit()</span></code></a></li>
+<li><a class="reference internal" href="#voyage_optimization.paper_1.preprocessing.rename_columns.RenameColumns.transform"><code class="docutils literal notranslate"><span class="pre">RenameColumns.transform()</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#voyage_optimization.paper_1.preprocessing.transform_to_float.TransformToFloat"><code class="docutils literal notranslate"><span class="pre">TransformToFloat</span></code></a><ul>
+<li><a class="reference internal" href="#voyage_optimization.paper_1.preprocessing.transform_to_float.TransformToFloat.fit"><code class="docutils literal notranslate"><span class="pre">TransformToFloat.fit()</span></code></a></li>
+<li><a class="reference internal" href="#voyage_optimization.paper_1.preprocessing.transform_to_float.TransformToFloat.transform"><code class="docutils literal notranslate"><span class="pre">TransformToFloat.transform()</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#voyage_optimization.paper_1.preprocessing.transform_to_object.TransformToObject"><code class="docutils literal notranslate"><span class="pre">TransformToObject</span></code></a><ul>
+<li><a class="reference internal" href="#voyage_optimization.paper_1.preprocessing.transform_to_object.TransformToObject.fit"><code class="docutils literal notranslate"><span class="pre">TransformToObject.fit()</span></code></a></li>
+<li><a class="reference internal" href="#voyage_optimization.paper_1.preprocessing.transform_to_object.TransformToObject.transform"><code class="docutils literal notranslate"><span class="pre">TransformToObject.transform()</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#voyage_optimization.paper_1.preprocessing.outliers_remover.OutliersRemover"><code class="docutils literal notranslate"><span class="pre">OutliersRemover</span></code></a><ul>
+<li><a class="reference internal" href="#voyage_optimization.paper_1.preprocessing.outliers_remover.OutliersRemover.fit"><code class="docutils literal notranslate"><span class="pre">OutliersRemover.fit()</span></code></a></li>
+<li><a class="reference internal" href="#voyage_optimization.paper_1.preprocessing.outliers_remover.OutliersRemover.transform"><code class="docutils literal notranslate"><span class="pre">OutliersRemover.transform()</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#voyage_optimization.paper_1.preprocessing.fuse_voyage_with_cmems.FuseVoyageWithCMEMS"><code class="docutils literal notranslate"><span class="pre">FuseVoyageWithCMEMS</span></code></a><ul>
+<li><a class="reference internal" href="#voyage_optimization.paper_1.preprocessing.fuse_voyage_with_cmems.FuseVoyageWithCMEMS.fit"><code class="docutils literal notranslate"><span class="pre">FuseVoyageWithCMEMS.fit()</span></code></a></li>
+<li><a class="reference internal" href="#voyage_optimization.paper_1.preprocessing.fuse_voyage_with_cmems.FuseVoyageWithCMEMS.transform"><code class="docutils literal notranslate"><span class="pre">FuseVoyageWithCMEMS.transform()</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#voyage_optimization.paper_1.preprocessing.fuse_voyage_with_era.FuseVoyageWithEra"><code class="docutils literal notranslate"><span class="pre">FuseVoyageWithEra</span></code></a><ul>
+<li><a class="reference internal" href="#voyage_optimization.paper_1.preprocessing.fuse_voyage_with_era.FuseVoyageWithEra.fit"><code class="docutils literal notranslate"><span class="pre">FuseVoyageWithEra.fit()</span></code></a></li>
+<li><a class="reference internal" href="#voyage_optimization.paper_1.preprocessing.fuse_voyage_with_era.FuseVoyageWithEra.transform"><code class="docutils literal notranslate"><span class="pre">FuseVoyageWithEra.transform()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a class="reference internal" href="#module-voyage_optimization.paper_1.prediction.evaluate_models">Prediction</a><ul>
+<li><a class="reference internal" href="#voyage_optimization.paper_1.prediction.evaluate_models.EvaluateModels"><code class="docutils literal notranslate"><span class="pre">EvaluateModels</span></code></a><ul>
+<li><a class="reference internal" href="#voyage_optimization.paper_1.prediction.evaluate_models.EvaluateModels.get_predictions"><code class="docutils literal notranslate"><span class="pre">EvaluateModels.get_predictions()</span></code></a></li>
+<li><a class="reference internal" href="#voyage_optimization.paper_1.prediction.evaluate_models.EvaluateModels.get_scores"><code class="docutils literal notranslate"><span class="pre">EvaluateModels.get_scores()</span></code></a></li>
+<li><a class="reference internal" href="#voyage_optimization.paper_1.prediction.evaluate_models.EvaluateModels.print_scores"><code class="docutils literal notranslate"><span class="pre">EvaluateModels.print_scores()</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#voyage_optimization.paper_1.prediction.visualize_models.VisualizeModels"><code class="docutils literal notranslate"><span class="pre">VisualizeModels</span></code></a><ul>
+<li><a class="reference internal" href="#voyage_optimization.paper_1.prediction.visualize_models.VisualizeModels.plot_autocorrelation"><code class="docutils literal notranslate"><span class="pre">VisualizeModels.plot_autocorrelation()</span></code></a></li>
+<li><a class="reference internal" href="#voyage_optimization.paper_1.prediction.visualize_models.VisualizeModels.plot_models_score"><code class="docutils literal notranslate"><span class="pre">VisualizeModels.plot_models_score()</span></code></a></li>
+<li><a class="reference internal" href="#voyage_optimization.paper_1.prediction.visualize_models.VisualizeModels.plot_multicollinearity"><code class="docutils literal notranslate"><span class="pre">VisualizeModels.plot_multicollinearity()</span></code></a></li>
+<li><a class="reference internal" href="#voyage_optimization.paper_1.prediction.visualize_models.VisualizeModels.plot_prediction_vs_actual_and_residual"><code class="docutils literal notranslate"><span class="pre">VisualizeModels.plot_prediction_vs_actual_and_residual()</span></code></a></li>
+<li><a class="reference internal" href="#voyage_optimization.paper_1.prediction.visualize_models.VisualizeModels.plot_residuals_normality"><code class="docutils literal notranslate"><span class="pre">VisualizeModels.plot_residuals_normality()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="#">Voyage Optimization</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="#" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Data Fusion and Machine Learning for Ship Fuel Consumption Modelling - A Case of Bulk Carrier Vessel</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/index.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="data-fusion-and-machine-learning-for-ship-fuel-consumption-modelling-a-case-of-bulk-carrier-vessel">
+<h1>Data Fusion and Machine Learning for Ship Fuel Consumption Modelling - A Case of Bulk Carrier Vessel<a class="headerlink" href="#data-fusion-and-machine-learning-for-ship-fuel-consumption-modelling-a-case-of-bulk-carrier-vessel" title="Link to this heading"></a></h1>
+<div class="toctree-wrapper compound">
+</div>
+</section>
+<section id="module-voyage_optimization.paper_1.extraction.extract_era">
+<span id="extraction"></span><h1>Extraction<a class="headerlink" href="#module-voyage_optimization.paper_1.extraction.extract_era" title="Link to this heading"></a></h1>
+<p>Module Name: extract_era.py</p>
+<p>Description: Extract ERA5 Climate Data.</p>
+<p>Author: Abdella Mohamed</p>
+<dl class="py class">
+<dt class="sig sig-object py" id="voyage_optimization.paper_1.extraction.extract_era.ExtractERA">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">voyage_optimization.paper_1.extraction.extract_era.</span></span><span class="sig-name descname"><span class="pre">ExtractERA</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">product_name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">variables</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">area_counterclockwise</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/voyage_optimization/paper_1/extraction/extract_era.html#ExtractERA"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#voyage_optimization.paper_1.extraction.extract_era.ExtractERA" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="py method">
+<dt class="sig sig-object py" id="voyage_optimization.paper_1.extraction.extract_era.ExtractERA.extract_data_by_year_and_month">
+<span class="sig-name descname"><span class="pre">extract_data_by_year_and_month</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">year</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">month</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">download_file_path</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="_modules/voyage_optimization/paper_1/extraction/extract_era.html#ExtractERA.extract_data_by_year_and_month"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#voyage_optimization.paper_1.extraction.extract_era.ExtractERA.extract_data_by_year_and_month" title="Link to this definition"></a></dt>
+<dd><p>Extract Monthly Data for all days in hourly frequency.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>year</strong> (<em>int</em>) – year to consider</p></li>
+<li><p><strong>month</strong> (<em>int</em>) – month to consider</p></li>
+<li><p><strong>download_file_path</strong> (<em>str</em>) – file path</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Function with side effect only of data download to disk.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>None</p>
+</dd>
+</dl>
+<p class="rubric">Notes</p>
+<ul class="simple">
+<li><p>we cant just start from mid of the days for a month and for another month all therefore extract for all months</p></li>
+<li><p>time window meta is aligned in this function</p></li>
+</ul>
+</dd></dl>
+
+</dd></dl>
+
+<p id="module-voyage_optimization.paper_1.extraction.extract_cmems">Module Name: extract_cmems.py</p>
+<p>Description: Extract CMEMS Ocean Data.</p>
+<p>Author: Abdella Mohamed</p>
+<dl class="py class">
+<dt class="sig sig-object py" id="voyage_optimization.paper_1.extraction.extract_cmems.Boundary">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">voyage_optimization.paper_1.extraction.extract_cmems.</span></span><span class="sig-name descname"><span class="pre">Boundary</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">min_lat</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_lat</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">min_lon</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_lon</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#voyage_optimization.paper_1.extraction.extract_cmems.Boundary" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">tuple</span></code></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="voyage_optimization.paper_1.extraction.extract_cmems.Boundary.max_lat">
+<span class="sig-name descname"><span class="pre">max_lat</span></span><a class="headerlink" href="#voyage_optimization.paper_1.extraction.extract_cmems.Boundary.max_lat" title="Link to this definition"></a></dt>
+<dd><p>Alias for field number 1</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="voyage_optimization.paper_1.extraction.extract_cmems.Boundary.max_lon">
+<span class="sig-name descname"><span class="pre">max_lon</span></span><a class="headerlink" href="#voyage_optimization.paper_1.extraction.extract_cmems.Boundary.max_lon" title="Link to this definition"></a></dt>
+<dd><p>Alias for field number 3</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="voyage_optimization.paper_1.extraction.extract_cmems.Boundary.min_lat">
+<span class="sig-name descname"><span class="pre">min_lat</span></span><a class="headerlink" href="#voyage_optimization.paper_1.extraction.extract_cmems.Boundary.min_lat" title="Link to this definition"></a></dt>
+<dd><p>Alias for field number 0</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="voyage_optimization.paper_1.extraction.extract_cmems.Boundary.min_lon">
+<span class="sig-name descname"><span class="pre">min_lon</span></span><a class="headerlink" href="#voyage_optimization.paper_1.extraction.extract_cmems.Boundary.min_lon" title="Link to this definition"></a></dt>
+<dd><p>Alias for field number 2</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="voyage_optimization.paper_1.extraction.extract_cmems.Depth">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">voyage_optimization.paper_1.extraction.extract_cmems.</span></span><span class="sig-name descname"><span class="pre">Depth</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">min_depth</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_depth</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#voyage_optimization.paper_1.extraction.extract_cmems.Depth" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">tuple</span></code></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="voyage_optimization.paper_1.extraction.extract_cmems.Depth.max_depth">
+<span class="sig-name descname"><span class="pre">max_depth</span></span><a class="headerlink" href="#voyage_optimization.paper_1.extraction.extract_cmems.Depth.max_depth" title="Link to this definition"></a></dt>
+<dd><p>Alias for field number 1</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="voyage_optimization.paper_1.extraction.extract_cmems.Depth.min_depth">
+<span class="sig-name descname"><span class="pre">min_depth</span></span><a class="headerlink" href="#voyage_optimization.paper_1.extraction.extract_cmems.Depth.min_depth" title="Link to this definition"></a></dt>
+<dd><p>Alias for field number 0</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="voyage_optimization.paper_1.extraction.extract_cmems.ExtractCMEMS">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">voyage_optimization.paper_1.extraction.extract_cmems.</span></span><span class="sig-name descname"><span class="pre">ExtractCMEMS</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">datasets_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">List</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">boundary</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">NamedTuple</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">depth</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">NamedTuple</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/voyage_optimization/paper_1/extraction/extract_cmems.html#ExtractCMEMS"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#voyage_optimization.paper_1.extraction.extract_cmems.ExtractCMEMS" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="py method">
+<dt class="sig sig-object py" id="voyage_optimization.paper_1.extraction.extract_cmems.ExtractCMEMS.extract_data">
+<span class="sig-name descname"><span class="pre">extract_data</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">start_date</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">end_date</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="_modules/voyage_optimization/paper_1/extraction/extract_cmems.html#ExtractCMEMS.extract_data"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#voyage_optimization.paper_1.extraction.extract_cmems.ExtractCMEMS.extract_data" title="Link to this definition"></a></dt>
+<dd><p>Extract Data.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>start_date</strong> (<em>str</em>) – Start of slice.</p></li>
+<li><p><strong>end_date</strong> (<em>str</em>) – End of slice.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="module-voyage_optimization.paper_1.preprocessing.preprocessing_pipeline">
+<span id="preprocessing"></span><h1>Preprocessing<a class="headerlink" href="#module-voyage_optimization.paper_1.preprocessing.preprocessing_pipeline" title="Link to this heading"></a></h1>
+<p>Module Name: preprocessing_pipeline.py</p>
+<p>Description: Preprocessing and Fusing Pipeline.</p>
+<p>Author: Abdella Mohamed</p>
+<p id="module-voyage_optimization.paper_1.preprocessing.date_from_geneva_to_utc">Module Name: date_from_geneva_to_utc.py</p>
+<p>Description: Convert Date from Geneva to UTC format.</p>
+<p>Author: Abdella Mohamed</p>
+<dl class="py class">
+<dt class="sig sig-object py" id="voyage_optimization.paper_1.preprocessing.date_from_geneva_to_utc.DateFromGenevaToUTC">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">voyage_optimization.paper_1.preprocessing.date_from_geneva_to_utc.</span></span><span class="sig-name descname"><span class="pre">DateFromGenevaToUTC</span></span><a class="reference internal" href="_modules/voyage_optimization/paper_1/preprocessing/date_from_geneva_to_utc.html#DateFromGenevaToUTC"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#voyage_optimization.paper_1.preprocessing.date_from_geneva_to_utc.DateFromGenevaToUTC" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">BaseEstimator</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">TransformerMixin</span></code></p>
+<p>Convert Date from Geneva to UTC format.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>BaseEstimator</strong> (<em>sklearn base inheritance for pipelines</em>)</p></li>
+<li><p><strong>TransformerMixin</strong> (<em>sklearn transformer inheritance for pipelines</em>)</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="voyage_optimization.paper_1.preprocessing.date_from_geneva_to_utc.DateFromGenevaToUTC.fit">
+<span class="sig-name descname"><span class="pre">fit</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">X</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">DataFrame</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Series</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Self</span></span></span><a class="reference internal" href="_modules/voyage_optimization/paper_1/preprocessing/date_from_geneva_to_utc.html#DateFromGenevaToUTC.fit"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#voyage_optimization.paper_1.preprocessing.date_from_geneva_to_utc.DateFromGenevaToUTC.fit" title="Link to this definition"></a></dt>
+<dd><p>Add fit abstract to be compatible with sklearn pipelines.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="voyage_optimization.paper_1.preprocessing.date_from_geneva_to_utc.DateFromGenevaToUTC.transform">
+<span class="sig-name descname"><span class="pre">transform</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">X</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">DataFrame</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">DataFrame</span></span></span><a class="reference internal" href="_modules/voyage_optimization/paper_1/preprocessing/date_from_geneva_to_utc.html#DateFromGenevaToUTC.transform"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#voyage_optimization.paper_1.preprocessing.date_from_geneva_to_utc.DateFromGenevaToUTC.transform" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<p id="module-voyage_optimization.paper_1.preprocessing.derive_date_components">Module Name: derive_date_components.py</p>
+<p>Description: Derive Date Components from date</p>
+<p>Author: Abdella Mohamed</p>
+<dl class="py class">
+<dt class="sig sig-object py" id="voyage_optimization.paper_1.preprocessing.derive_date_components.DeriveDateComponents">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">voyage_optimization.paper_1.preprocessing.derive_date_components.</span></span><span class="sig-name descname"><span class="pre">DeriveDateComponents</span></span><a class="reference internal" href="_modules/voyage_optimization/paper_1/preprocessing/derive_date_components.html#DeriveDateComponents"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#voyage_optimization.paper_1.preprocessing.derive_date_components.DeriveDateComponents" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">BaseEstimator</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">TransformerMixin</span></code></p>
+<p>Derive Date Components from date.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>BaseEstimator</strong> (<em>sklearn base inheritance for pipelines</em>)</p></li>
+<li><p><strong>TransformerMixin</strong> (<em>sklearn transformer inheritance for pipelines</em>)</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="voyage_optimization.paper_1.preprocessing.derive_date_components.DeriveDateComponents.fit">
+<span class="sig-name descname"><span class="pre">fit</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">X</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">DataFrame</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Series</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Self</span></span></span><a class="reference internal" href="_modules/voyage_optimization/paper_1/preprocessing/derive_date_components.html#DeriveDateComponents.fit"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#voyage_optimization.paper_1.preprocessing.derive_date_components.DeriveDateComponents.fit" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="voyage_optimization.paper_1.preprocessing.derive_date_components.DeriveDateComponents.transform">
+<span class="sig-name descname"><span class="pre">transform</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">X</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">DataFrame</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">DataFrame</span></span></span><a class="reference internal" href="_modules/voyage_optimization/paper_1/preprocessing/derive_date_components.html#DeriveDateComponents.transform"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#voyage_optimization.paper_1.preprocessing.derive_date_components.DeriveDateComponents.transform" title="Link to this definition"></a></dt>
+<dd><p>Derive Date Components</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>X</strong> (<em>DataFrame</em>)</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Original dataframe with the additional columns: <cite>year</cite>, <cite>month</cite>, <cite>day</cite>, <cite>season</cite>.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>DataFrame</p>
+</dd>
+</dl>
+<p class="rubric">Notes</p>
+<ul class="simple">
+<li><p>Season column is derived based on the heimsphere info and the month</p></li>
+</ul>
+</dd></dl>
+
+</dd></dl>
+
+<p id="module-voyage_optimization.paper_1.preprocessing.derive_fuel_main_engine">Module Name: derive_fuel_main_engine.py</p>
+<p>Description: Derive Total Fuel of the Main Engine.</p>
+<p>Author: Abdella Mohamed</p>
+<dl class="py class">
+<dt class="sig sig-object py" id="voyage_optimization.paper_1.preprocessing.derive_fuel_main_engine.DeriveFuelMainEngine">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">voyage_optimization.paper_1.preprocessing.derive_fuel_main_engine.</span></span><span class="sig-name descname"><span class="pre">DeriveFuelMainEngine</span></span><a class="reference internal" href="_modules/voyage_optimization/paper_1/preprocessing/derive_fuel_main_engine.html#DeriveFuelMainEngine"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#voyage_optimization.paper_1.preprocessing.derive_fuel_main_engine.DeriveFuelMainEngine" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">BaseEstimator</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">TransformerMixin</span></code></p>
+<p>Derive Total Fuel of the Main Engine.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>BaseEstimator</strong> (<em>sklearn base inheritance for pipelines</em>)</p></li>
+<li><p><strong>TransformerMixin</strong> (<em>sklearn transformer inheritance for pipelines</em>)</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="voyage_optimization.paper_1.preprocessing.derive_fuel_main_engine.DeriveFuelMainEngine.fit">
+<span class="sig-name descname"><span class="pre">fit</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">X</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">DataFrame</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Series</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Self</span></span></span><a class="reference internal" href="_modules/voyage_optimization/paper_1/preprocessing/derive_fuel_main_engine.html#DeriveFuelMainEngine.fit"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#voyage_optimization.paper_1.preprocessing.derive_fuel_main_engine.DeriveFuelMainEngine.fit" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="voyage_optimization.paper_1.preprocessing.derive_fuel_main_engine.DeriveFuelMainEngine.transform">
+<span class="sig-name descname"><span class="pre">transform</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">X</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">DataFrame</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/voyage_optimization/paper_1/preprocessing/derive_fuel_main_engine.html#DeriveFuelMainEngine.transform"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#voyage_optimization.paper_1.preprocessing.derive_fuel_main_engine.DeriveFuelMainEngine.transform" title="Link to this definition"></a></dt>
+<dd><p>Derive Total Fuel of the Main Engine.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>X</strong> (<em>DataFrame</em>) – Dataframe with following columns: [‘uls_fo_bunker_consumption_last_24h_main_engine’, ‘mgo_bunker_consumption_last_24h_main_engine’]</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Original dataframe with additional column <cite>fuel_main_engine</cite>.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>DataFrame</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<p id="module-voyage_optimization.paper_1.preprocessing.derive_total_fuel">Module Name: derive_total_fuel.py</p>
+<p>Description: Derive Total Fuel</p>
+<p>Author: Abdella Mohamed</p>
+<dl class="py class">
+<dt class="sig sig-object py" id="voyage_optimization.paper_1.preprocessing.derive_total_fuel.DeriveTotalFuel">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">voyage_optimization.paper_1.preprocessing.derive_total_fuel.</span></span><span class="sig-name descname"><span class="pre">DeriveTotalFuel</span></span><a class="reference internal" href="_modules/voyage_optimization/paper_1/preprocessing/derive_total_fuel.html#DeriveTotalFuel"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#voyage_optimization.paper_1.preprocessing.derive_total_fuel.DeriveTotalFuel" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">BaseEstimator</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">TransformerMixin</span></code></p>
+<p>Derive Total Fuel.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>BaseEstimator</strong> (<em>sklearn base inheritance for pipelines</em>)</p></li>
+<li><p><strong>TransformerMixin</strong> (<em>sklearn transformer inheritance for pipelines</em>)</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="voyage_optimization.paper_1.preprocessing.derive_total_fuel.DeriveTotalFuel.fit">
+<span class="sig-name descname"><span class="pre">fit</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">X</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">DataFrame</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Series</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Self</span></span></span><a class="reference internal" href="_modules/voyage_optimization/paper_1/preprocessing/derive_total_fuel.html#DeriveTotalFuel.fit"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#voyage_optimization.paper_1.preprocessing.derive_total_fuel.DeriveTotalFuel.fit" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="voyage_optimization.paper_1.preprocessing.derive_total_fuel.DeriveTotalFuel.transform">
+<span class="sig-name descname"><span class="pre">transform</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">X</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">DataFrame</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/voyage_optimization/paper_1/preprocessing/derive_total_fuel.html#DeriveTotalFuel.transform"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#voyage_optimization.paper_1.preprocessing.derive_total_fuel.DeriveTotalFuel.transform" title="Link to this definition"></a></dt>
+<dd><p>Derive Total Fuel.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>X</strong> (<em>DataFrame</em>) – Dataframe with following columns: [‘uls_fo_bunker_consumption_last_24h_main_engine’, ‘mgo_bunker_consumption_last_24h_main_engine’, ‘uls_fo_bunker_consumption_last_24h_boiler’,  ‘mgo_bunker_consumption_last_24h_boiler’, ‘uls_fo_bunker_consumption_last_24h_auxiliary’, ‘mgo_bunker_consumption_last_24h_auxiliary’]</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Original dataframe with additional column <cite>total_fuel</cite>.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>DataFrame</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<p id="module-voyage_optimization.paper_1.preprocessing.derive_trim">Module Name: derive_trim.py</p>
+<p>Description: Derive Trim from Draft aft/forward.</p>
+<p>Author: Abdella Mohamed</p>
+<dl class="py class">
+<dt class="sig sig-object py" id="voyage_optimization.paper_1.preprocessing.derive_trim.DeriveTrim">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">voyage_optimization.paper_1.preprocessing.derive_trim.</span></span><span class="sig-name descname"><span class="pre">DeriveTrim</span></span><a class="reference internal" href="_modules/voyage_optimization/paper_1/preprocessing/derive_trim.html#DeriveTrim"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#voyage_optimization.paper_1.preprocessing.derive_trim.DeriveTrim" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">BaseEstimator</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">TransformerMixin</span></code></p>
+<p>Derive Trim from Draft aft/forward.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>BaseEstimator</strong> (<em>sklearn base inheritance for pipelines</em>)</p></li>
+<li><p><strong>TransformerMixin</strong> (<em>sklearn transformer inheritance for pipelines</em>)</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="voyage_optimization.paper_1.preprocessing.derive_trim.DeriveTrim.fit">
+<span class="sig-name descname"><span class="pre">fit</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">X</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">DataFrame</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Series</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Self</span></span></span><a class="reference internal" href="_modules/voyage_optimization/paper_1/preprocessing/derive_trim.html#DeriveTrim.fit"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#voyage_optimization.paper_1.preprocessing.derive_trim.DeriveTrim.fit" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="voyage_optimization.paper_1.preprocessing.derive_trim.DeriveTrim.transform">
+<span class="sig-name descname"><span class="pre">transform</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">X</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">DataFrame</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/voyage_optimization/paper_1/preprocessing/derive_trim.html#DeriveTrim.transform"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#voyage_optimization.paper_1.preprocessing.derive_trim.DeriveTrim.transform" title="Link to this definition"></a></dt>
+<dd><p>Derive Trim from Draft aft/forward.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>X</strong> (<em>DataFrame</em>) – Dataframe with following columns: <cite>draft_aft</cite> and <cite>draft_forward</cite>.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Original dataframe with additional column <cite>trim</cite> based on the following formula: Trim= draft aft - draft forward.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>DataFrame</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<p id="module-voyage_optimization.paper_1.preprocessing.derive_voyage_segments">Module Name: derive_voyage_segments.py</p>
+<p>Description: Derive Voyage Segments</p>
+<p>Author: Abdella Mohamed</p>
+<dl class="py class">
+<dt class="sig sig-object py" id="voyage_optimization.paper_1.preprocessing.derive_voyage_segments.DeriveVoyageSegments">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">voyage_optimization.paper_1.preprocessing.derive_voyage_segments.</span></span><span class="sig-name descname"><span class="pre">DeriveVoyageSegments</span></span><a class="reference internal" href="_modules/voyage_optimization/paper_1/preprocessing/derive_voyage_segments.html#DeriveVoyageSegments"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#voyage_optimization.paper_1.preprocessing.derive_voyage_segments.DeriveVoyageSegments" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">BaseEstimator</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">TransformerMixin</span></code></p>
+<p>Derive Voyage Segments.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>BaseEstimator</strong> (<em>sklearn base inheritance for pipelines</em>)</p></li>
+<li><p><strong>TransformerMixin</strong> (<em>sklearn transformer inheritance for pipelines</em>)</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="voyage_optimization.paper_1.preprocessing.derive_voyage_segments.DeriveVoyageSegments.fit">
+<span class="sig-name descname"><span class="pre">fit</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">X</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">DataFrame</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Series</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Self</span></span></span><a class="reference internal" href="_modules/voyage_optimization/paper_1/preprocessing/derive_voyage_segments.html#DeriveVoyageSegments.fit"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#voyage_optimization.paper_1.preprocessing.derive_voyage_segments.DeriveVoyageSegments.fit" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="voyage_optimization.paper_1.preprocessing.derive_voyage_segments.DeriveVoyageSegments.transform">
+<span class="sig-name descname"><span class="pre">transform</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">X</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">DataFrame</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/voyage_optimization/paper_1/preprocessing/derive_voyage_segments.html#DeriveVoyageSegments.transform"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#voyage_optimization.paper_1.preprocessing.derive_voyage_segments.DeriveVoyageSegments.transform" title="Link to this definition"></a></dt>
+<dd><p>Derive Voyage Segments based on Ports Switch.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>X</strong> (<em>DataFrame</em>) – Dataframe with following columns: <cite>next_port_name</cite></p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Original dataframe with additional columns <cite>port_name_encode</cite> and <cite>voyages</cite>.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>DataFrame</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<p id="module-voyage_optimization.paper_1.preprocessing.drop_columns">Module Name: drop_columns.py</p>
+<p>Description: Drop Columns.</p>
+<p>Author: Abdella Mohamed</p>
+<dl class="py class">
+<dt class="sig sig-object py" id="voyage_optimization.paper_1.preprocessing.drop_columns.DropColumns">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">voyage_optimization.paper_1.preprocessing.drop_columns.</span></span><span class="sig-name descname"><span class="pre">DropColumns</span></span><a class="reference internal" href="_modules/voyage_optimization/paper_1/preprocessing/drop_columns.html#DropColumns"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#voyage_optimization.paper_1.preprocessing.drop_columns.DropColumns" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">BaseEstimator</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">TransformerMixin</span></code></p>
+<p>Drop Columns.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>BaseEstimator</strong> (<em>sklearn base inheritance for pipelines</em>)</p></li>
+<li><p><strong>TransformerMixin</strong> (<em>sklearn transformer inheritance for pipelines</em>)</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="voyage_optimization.paper_1.preprocessing.drop_columns.DropColumns.fit">
+<span class="sig-name descname"><span class="pre">fit</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">X</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">DataFrame</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Series</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Self</span></span></span><a class="reference internal" href="_modules/voyage_optimization/paper_1/preprocessing/drop_columns.html#DropColumns.fit"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#voyage_optimization.paper_1.preprocessing.drop_columns.DropColumns.fit" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="voyage_optimization.paper_1.preprocessing.drop_columns.DropColumns.transform">
+<span class="sig-name descname"><span class="pre">transform</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">X</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">DataFrame</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/voyage_optimization/paper_1/preprocessing/drop_columns.html#DropColumns.transform"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#voyage_optimization.paper_1.preprocessing.drop_columns.DropColumns.transform" title="Link to this definition"></a></dt>
+<dd><p>Drop columns.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>X</strong> (<em>DataFrame</em>) – <dl class="simple">
+<dt>Dataframe with following columns to drop:</dt><dd><ul class="simple">
+<li><p>without use: <cite>current_speed_over_ground</cite>, <cite>average_speed_since_departure</cite>, <cite>bunkers_rob_uls_fo&lt;0.5%s</cite>, <cite>bunkers_rob_vlsfo&lt;0.5%s</cite>, <cite>bunkers_rob_lsmgo&lt;0.1%s</cite>, <cite>fw_rob</cite>, <cite>suppliers_required_in_next_port</cite></p></li>
+<li><p>after usage: <cite>uls_fo_bunker_consumption_last_24h_main_engine</cite>, <cite>mgo_bunker_consumption_last_24h_main_engine</cite>, <cite>uls_fo_bunker_consumption_last_24h_boiler</cite>, <cite>mgo_bunker_consumption_last_24h_boiler</cite>, <cite>uls_fo_bunker_consumption_last_24h_auxiliary</cite>, <cite>mgo_bunker_consumption_last_24h_auxiliary</cite></p></li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Original dataframe minus 13 columns removed.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>DataFrame</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<p id="module-voyage_optimization.paper_1.preprocessing.drop_rows">Module Name: drop_rows.py</p>
+<p>Description: Drop Rows that are Completely Empty</p>
+<p>Author: Abdella Mohamed</p>
+<dl class="py class">
+<dt class="sig sig-object py" id="voyage_optimization.paper_1.preprocessing.drop_rows.DropRows">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">voyage_optimization.paper_1.preprocessing.drop_rows.</span></span><span class="sig-name descname"><span class="pre">DropRows</span></span><a class="reference internal" href="_modules/voyage_optimization/paper_1/preprocessing/drop_rows.html#DropRows"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#voyage_optimization.paper_1.preprocessing.drop_rows.DropRows" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">BaseEstimator</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">TransformerMixin</span></code></p>
+<p>Drop Rows that are Completely Empty.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>BaseEstimator</strong> (<em>sklearn base inheritance for pipelines</em>)</p></li>
+<li><p><strong>TransformerMixin</strong> (<em>sklearn transformer inheritance for pipelines</em>)</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="voyage_optimization.paper_1.preprocessing.drop_rows.DropRows.fit">
+<span class="sig-name descname"><span class="pre">fit</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">X</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">DataFrame</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Series</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Self</span></span></span><a class="reference internal" href="_modules/voyage_optimization/paper_1/preprocessing/drop_rows.html#DropRows.fit"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#voyage_optimization.paper_1.preprocessing.drop_rows.DropRows.fit" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="voyage_optimization.paper_1.preprocessing.drop_rows.DropRows.transform">
+<span class="sig-name descname"><span class="pre">transform</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">X</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">DataFrame</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">DataFrame</span></span></span><a class="reference internal" href="_modules/voyage_optimization/paper_1/preprocessing/drop_rows.html#DropRows.transform"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#voyage_optimization.paper_1.preprocessing.drop_rows.DropRows.transform" title="Link to this definition"></a></dt>
+<dd><p>Drop Rows.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>X</strong> (<em>DataFrame</em>)</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Original dataframe minus X rows.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>DataFrame</p>
+</dd>
+</dl>
+<p class="rubric">Notes</p>
+<dl class="simple">
+<dt>Droping rows where there are only operations change and no values in the fields which could be identified if the complete cells in the rows are empty</dt><dd><ul class="simple">
+<li><p>Loading Operation</p></li>
+<li><p>Anchor</p></li>
+<li><p>Bunkering Operation</p></li>
+<li><p>Discharging Operation</p></li>
+<li><p>VSL ANCHORED</p></li>
+<li><p>Drifitng</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<p id="module-voyage_optimization.paper_1.preprocessing.expand_draft">Module Name: drop_rows.py</p>
+<p>Description: Drop Rows that are Completely Empty</p>
+<p>Author: Abdella Mohamed</p>
+<dl class="py class">
+<dt class="sig sig-object py" id="voyage_optimization.paper_1.preprocessing.expand_draft.ExpandDraft">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">voyage_optimization.paper_1.preprocessing.expand_draft.</span></span><span class="sig-name descname"><span class="pre">ExpandDraft</span></span><a class="reference internal" href="_modules/voyage_optimization/paper_1/preprocessing/expand_draft.html#ExpandDraft"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#voyage_optimization.paper_1.preprocessing.expand_draft.ExpandDraft" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">BaseEstimator</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">TransformerMixin</span></code></p>
+<p>Expand Draft.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>BaseEstimator</strong> (<em>sklearn base inheritance for pipelines</em>)</p></li>
+<li><p><strong>TransformerMixin</strong> (<em>sklearn transformer inheritance for pipelines</em>)</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="voyage_optimization.paper_1.preprocessing.expand_draft.ExpandDraft.fit">
+<span class="sig-name descname"><span class="pre">fit</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">X</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">DataFrame</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Series</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Self</span></span></span><a class="reference internal" href="_modules/voyage_optimization/paper_1/preprocessing/expand_draft.html#ExpandDraft.fit"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#voyage_optimization.paper_1.preprocessing.expand_draft.ExpandDraft.fit" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="voyage_optimization.paper_1.preprocessing.expand_draft.ExpandDraft.transform">
+<span class="sig-name descname"><span class="pre">transform</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">X</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">DataFrame</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/voyage_optimization/paper_1/preprocessing/expand_draft.html#ExpandDraft.transform"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#voyage_optimization.paper_1.preprocessing.expand_draft.ExpandDraft.transform" title="Link to this definition"></a></dt>
+<dd><p>Expand Draft into draft forward and draft aft.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>X</strong> (<em>DataFrame</em>) – Dataframe with following column: <cite>draft_current_fwd/aft</cite></p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><ul class="simple">
+<li><p>Original dataframe with additional columns <cite>draft_forward</cite> and <cite>draft_aft</cite></p></li>
+<li><p>Following columns are dropped <cite>draft_current_fwd/aft</cite> and <cite>draft_arrival_fwd/aft</cite></p></li>
+</ul>
+</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>DataFrame</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<p id="module-voyage_optimization.paper_1.preprocessing.geolocation_from_dmm_to_dd">Module Name: geolocation_from_dmm_to_dd.py</p>
+<p>Description: Convert Geolocation from Degrees Decimal Minutes (DMM) to Decimal Degrees (DD) Format.</p>
+<p>Author: Abdella Mohamed</p>
+<dl class="py class">
+<dt class="sig sig-object py" id="voyage_optimization.paper_1.preprocessing.geolocation_from_dmm_to_dd.GeoLocationFromDMMToDD">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">voyage_optimization.paper_1.preprocessing.geolocation_from_dmm_to_dd.</span></span><span class="sig-name descname"><span class="pre">GeoLocationFromDMMToDD</span></span><a class="reference internal" href="_modules/voyage_optimization/paper_1/preprocessing/geolocation_from_dmm_to_dd.html#GeoLocationFromDMMToDD"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#voyage_optimization.paper_1.preprocessing.geolocation_from_dmm_to_dd.GeoLocationFromDMMToDD" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">BaseEstimator</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">TransformerMixin</span></code></p>
+<p>Convert Geolocation from Degrees Decimal Minutes (DMM) to Decimal Degrees (DD) Format.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>BaseEstimator</strong> (<em>sklearn base inheritance for pipelines</em>)</p></li>
+<li><p><strong>TransformerMixin</strong> (<em>sklearn transformer inheritance for pipelines</em>)</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="voyage_optimization.paper_1.preprocessing.geolocation_from_dmm_to_dd.GeoLocationFromDMMToDD.fit">
+<span class="sig-name descname"><span class="pre">fit</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">X</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">DataFrame</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Series</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/voyage_optimization/paper_1/preprocessing/geolocation_from_dmm_to_dd.html#GeoLocationFromDMMToDD.fit"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#voyage_optimization.paper_1.preprocessing.geolocation_from_dmm_to_dd.GeoLocationFromDMMToDD.fit" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="voyage_optimization.paper_1.preprocessing.geolocation_from_dmm_to_dd.GeoLocationFromDMMToDD.transform">
+<span class="sig-name descname"><span class="pre">transform</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">X</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">DataFrame</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/voyage_optimization/paper_1/preprocessing/geolocation_from_dmm_to_dd.html#GeoLocationFromDMMToDD.transform"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#voyage_optimization.paper_1.preprocessing.geolocation_from_dmm_to_dd.GeoLocationFromDMMToDD.transform" title="Link to this definition"></a></dt>
+<dd><p>Convert Geolocation from Degrees Decimal Minutes (DMM) to Decimal Degrees (DD) Format.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>X</strong> (<em>DataFrame</em>) – Dataframe with following column: <cite>position</cite>.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><ul class="simple">
+<li><p>Original dataframe with additional columns <cite>latitude</cite>, <cite>longitude</cite>, <cite>latitude_direction</cite> and <cite>longitude_direction</cite></p></li>
+<li><p>Following columns are dropped <cite>position</cite></p></li>
+</ul>
+</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>DataFrame</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<p id="module-voyage_optimization.paper_1.preprocessing.rename_columns">Module Name: rename_columns.py</p>
+<p>Description: Rename Columns.</p>
+<p>Author: Abdella Mohamed</p>
+<dl class="py class">
+<dt class="sig sig-object py" id="voyage_optimization.paper_1.preprocessing.rename_columns.RenameColumns">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">voyage_optimization.paper_1.preprocessing.rename_columns.</span></span><span class="sig-name descname"><span class="pre">RenameColumns</span></span><a class="reference internal" href="_modules/voyage_optimization/paper_1/preprocessing/rename_columns.html#RenameColumns"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#voyage_optimization.paper_1.preprocessing.rename_columns.RenameColumns" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">BaseEstimator</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">TransformerMixin</span></code></p>
+<p>Rename Columns.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>BaseEstimator</strong> (<em>sklearn base inheritance for pipelines</em>)</p></li>
+<li><p><strong>TransformerMixin</strong> (<em>sklearn transformer inheritance for pipelines</em>)</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="voyage_optimization.paper_1.preprocessing.rename_columns.RenameColumns.fit">
+<span class="sig-name descname"><span class="pre">fit</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">X</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">DataFrame</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Series</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/voyage_optimization/paper_1/preprocessing/rename_columns.html#RenameColumns.fit"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#voyage_optimization.paper_1.preprocessing.rename_columns.RenameColumns.fit" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="voyage_optimization.paper_1.preprocessing.rename_columns.RenameColumns.transform">
+<span class="sig-name descname"><span class="pre">transform</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">X</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">DataFrame</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/voyage_optimization/paper_1/preprocessing/rename_columns.html#RenameColumns.transform"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#voyage_optimization.paper_1.preprocessing.rename_columns.RenameColumns.transform" title="Link to this definition"></a></dt>
+<dd><p>Rename Original Columns of the inpute Data.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>X</strong> (<em>DataFrame</em>)</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Original dataframe with modified column names.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>DataFrame</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<p id="module-voyage_optimization.paper_1.preprocessing.transform_to_float">Module Name: transform_to_float.py</p>
+<p>Description: Transform datatype to float.</p>
+<p>Author: Abdella Mohamed</p>
+<dl class="py class">
+<dt class="sig sig-object py" id="voyage_optimization.paper_1.preprocessing.transform_to_float.TransformToFloat">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">voyage_optimization.paper_1.preprocessing.transform_to_float.</span></span><span class="sig-name descname"><span class="pre">TransformToFloat</span></span><a class="reference internal" href="_modules/voyage_optimization/paper_1/preprocessing/transform_to_float.html#TransformToFloat"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#voyage_optimization.paper_1.preprocessing.transform_to_float.TransformToFloat" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">BaseEstimator</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">TransformerMixin</span></code></p>
+<p>Transform datatype to float.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>BaseEstimator</strong> (<em>sklearn base inheritance for pipelines</em>)</p></li>
+<li><p><strong>TransformerMixin</strong> (<em>sklearn transformer inheritance for pipelines</em>)</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="voyage_optimization.paper_1.preprocessing.transform_to_float.TransformToFloat.fit">
+<span class="sig-name descname"><span class="pre">fit</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">X</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">DataFrame</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Series</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Self</span></span></span><a class="reference internal" href="_modules/voyage_optimization/paper_1/preprocessing/transform_to_float.html#TransformToFloat.fit"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#voyage_optimization.paper_1.preprocessing.transform_to_float.TransformToFloat.fit" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="voyage_optimization.paper_1.preprocessing.transform_to_float.TransformToFloat.transform">
+<span class="sig-name descname"><span class="pre">transform</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">X</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">DataFrame</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">DataFrame</span></span></span><a class="reference internal" href="_modules/voyage_optimization/paper_1/preprocessing/transform_to_float.html#TransformToFloat.transform"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#voyage_optimization.paper_1.preprocessing.transform_to_float.TransformToFloat.transform" title="Link to this definition"></a></dt>
+<dd><p>Transform datatype to float</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>X</strong> (<em>DataFrame</em>)</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Original dataframe with the following object columns transformed to float: <cite>average_speed_over_ground_last_24h</cite>, <cite>average_rpm_last_24h</cite>, <cite>slip</cite>, <cite>fuel_main_engine</cite>, <cite>total_fuel</cite></p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>DataFrame</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<p id="module-voyage_optimization.paper_1.preprocessing.transform_to_object">Module Name: transform_to_object.py</p>
+<p>Description: Transform datatype to object.</p>
+<p>Author: Abdella Mohamed</p>
+<dl class="py class">
+<dt class="sig sig-object py" id="voyage_optimization.paper_1.preprocessing.transform_to_object.TransformToObject">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">voyage_optimization.paper_1.preprocessing.transform_to_object.</span></span><span class="sig-name descname"><span class="pre">TransformToObject</span></span><a class="reference internal" href="_modules/voyage_optimization/paper_1/preprocessing/transform_to_object.html#TransformToObject"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#voyage_optimization.paper_1.preprocessing.transform_to_object.TransformToObject" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">BaseEstimator</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">TransformerMixin</span></code></p>
+<p>Transform datatype to object.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>BaseEstimator</strong> (<em>sklearn base inheritance for pipelines</em>)</p></li>
+<li><p><strong>TransformerMixin</strong> (<em>sklearn transformer inheritance for pipelines</em>)</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="voyage_optimization.paper_1.preprocessing.transform_to_object.TransformToObject.fit">
+<span class="sig-name descname"><span class="pre">fit</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">X</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">DataFrame</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Series</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Self</span></span></span><a class="reference internal" href="_modules/voyage_optimization/paper_1/preprocessing/transform_to_object.html#TransformToObject.fit"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#voyage_optimization.paper_1.preprocessing.transform_to_object.TransformToObject.fit" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="voyage_optimization.paper_1.preprocessing.transform_to_object.TransformToObject.transform">
+<span class="sig-name descname"><span class="pre">transform</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">X</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">DataFrame</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">DataFrame</span></span></span><a class="reference internal" href="_modules/voyage_optimization/paper_1/preprocessing/transform_to_object.html#TransformToObject.transform"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#voyage_optimization.paper_1.preprocessing.transform_to_object.TransformToObject.transform" title="Link to this definition"></a></dt>
+<dd><p>Transform datatype to object.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>X</strong> (<em>DataFrame</em>) – Dataframe with following column: <cite>position</cite>.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Original dataframe with the following object columns transformed to float: <cite>port_name_encode</cite>, <cite>year</cite>, <cite>month</cite>, <cite>day</cite></p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>DataFrame</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<p id="module-voyage_optimization.paper_1.preprocessing.outliers_remover">Module Name: outliers_remover.py</p>
+<p>Description: Remove Outliers in the Response Column.</p>
+<p>Author: Abdella Mohamed</p>
+<dl class="py class">
+<dt class="sig sig-object py" id="voyage_optimization.paper_1.preprocessing.outliers_remover.OutliersRemover">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">voyage_optimization.paper_1.preprocessing.outliers_remover.</span></span><span class="sig-name descname"><span class="pre">OutliersRemover</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">target_name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">method</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'iqr'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tolerance</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">1.5</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/voyage_optimization/paper_1/preprocessing/outliers_remover.html#OutliersRemover"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#voyage_optimization.paper_1.preprocessing.outliers_remover.OutliersRemover" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">BaseEstimator</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">TransformerMixin</span></code></p>
+<dl class="py method">
+<dt class="sig sig-object py" id="voyage_optimization.paper_1.preprocessing.outliers_remover.OutliersRemover.fit">
+<span class="sig-name descname"><span class="pre">fit</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">X</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">DataFrame</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Series</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/voyage_optimization/paper_1/preprocessing/outliers_remover.html#OutliersRemover.fit"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#voyage_optimization.paper_1.preprocessing.outliers_remover.OutliersRemover.fit" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="voyage_optimization.paper_1.preprocessing.outliers_remover.OutliersRemover.transform">
+<span class="sig-name descname"><span class="pre">transform</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">X</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">DataFrame</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Series</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/voyage_optimization/paper_1/preprocessing/outliers_remover.html#OutliersRemover.transform"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#voyage_optimization.paper_1.preprocessing.outliers_remover.OutliersRemover.transform" title="Link to this definition"></a></dt>
+<dd><p>Remove Outliers in the Response Column.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>X</strong> (<em>DataFrame</em>)</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Original dataframe with X rows droped as outliers in the response.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>DataFrame</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<p id="module-voyage_optimization.paper_1.preprocessing.fuse_voyage_with_cmems">Module Name: fuse_voyage_with_cmems.py</p>
+<p>Description: Fuse Voyage with Ocean data from CMEMS.</p>
+<p>Author: Abdella Mohamed</p>
+<dl class="py class">
+<dt class="sig sig-object py" id="voyage_optimization.paper_1.preprocessing.fuse_voyage_with_cmems.FuseVoyageWithCMEMS">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">voyage_optimization.paper_1.preprocessing.fuse_voyage_with_cmems.</span></span><span class="sig-name descname"><span class="pre">FuseVoyageWithCMEMS</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ocean_to_merge</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Dataset</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/voyage_optimization/paper_1/preprocessing/fuse_voyage_with_cmems.html#FuseVoyageWithCMEMS"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#voyage_optimization.paper_1.preprocessing.fuse_voyage_with_cmems.FuseVoyageWithCMEMS" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">BaseEstimator</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">TransformerMixin</span></code></p>
+<p>Fuse Voyage with Ocean data from CMEMS.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>BaseEstimator</strong> (<em>sklearn base inheritance for pipelines</em>)</p></li>
+<li><p><strong>TransformerMixin</strong> (<em>sklearn transformer inheritance for pipelines</em>)</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="voyage_optimization.paper_1.preprocessing.fuse_voyage_with_cmems.FuseVoyageWithCMEMS.fit">
+<span class="sig-name descname"><span class="pre">fit</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">X</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">DataFrame</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Series</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Self</span></span></span><a class="reference internal" href="_modules/voyage_optimization/paper_1/preprocessing/fuse_voyage_with_cmems.html#FuseVoyageWithCMEMS.fit"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#voyage_optimization.paper_1.preprocessing.fuse_voyage_with_cmems.FuseVoyageWithCMEMS.fit" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="voyage_optimization.paper_1.preprocessing.fuse_voyage_with_cmems.FuseVoyageWithCMEMS.transform">
+<span class="sig-name descname"><span class="pre">transform</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">X</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">DataFrame</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">DataFrame</span></span></span><a class="reference internal" href="_modules/voyage_optimization/paper_1/preprocessing/fuse_voyage_with_cmems.html#FuseVoyageWithCMEMS.transform"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#voyage_optimization.paper_1.preprocessing.fuse_voyage_with_cmems.FuseVoyageWithCMEMS.transform" title="Link to this definition"></a></dt>
+<dd><p>Fuse Voyage with Ocean data from CMEMS.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>X</strong> (<em>DataFrame</em>)</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Original dataframe with additional columns from CMEMS products.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>DataFrame</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<p id="module-voyage_optimization.paper_1.preprocessing.fuse_voyage_with_era">Module Name: fuse_voyage_with_era.py</p>
+<p>Description: Fuse Voyage with Climate data from ERA5.</p>
+<p>Author: Abdella Mohamed</p>
+<dl class="py class">
+<dt class="sig sig-object py" id="voyage_optimization.paper_1.preprocessing.fuse_voyage_with_era.FuseVoyageWithEra">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">voyage_optimization.paper_1.preprocessing.fuse_voyage_with_era.</span></span><span class="sig-name descname"><span class="pre">FuseVoyageWithEra</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">era_to_merge</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Dataset</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/voyage_optimization/paper_1/preprocessing/fuse_voyage_with_era.html#FuseVoyageWithEra"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#voyage_optimization.paper_1.preprocessing.fuse_voyage_with_era.FuseVoyageWithEra" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">BaseEstimator</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">TransformerMixin</span></code></p>
+<p>Fuse Voyage with Climate data from ERA5.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>BaseEstimator</strong> (<em>sklearn base inheritance for pipelines</em>)</p></li>
+<li><p><strong>TransformerMixin</strong> (<em>sklearn transformer inheritance for pipelines</em>)</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="voyage_optimization.paper_1.preprocessing.fuse_voyage_with_era.FuseVoyageWithEra.fit">
+<span class="sig-name descname"><span class="pre">fit</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">X</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">DataFrame</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Series</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Self</span></span></span><a class="reference internal" href="_modules/voyage_optimization/paper_1/preprocessing/fuse_voyage_with_era.html#FuseVoyageWithEra.fit"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#voyage_optimization.paper_1.preprocessing.fuse_voyage_with_era.FuseVoyageWithEra.fit" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="voyage_optimization.paper_1.preprocessing.fuse_voyage_with_era.FuseVoyageWithEra.transform">
+<span class="sig-name descname"><span class="pre">transform</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">X</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">DataFrame</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">DataFrame</span></span></span><a class="reference internal" href="_modules/voyage_optimization/paper_1/preprocessing/fuse_voyage_with_era.html#FuseVoyageWithEra.transform"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#voyage_optimization.paper_1.preprocessing.fuse_voyage_with_era.FuseVoyageWithEra.transform" title="Link to this definition"></a></dt>
+<dd><p>Fuse Voyage with Climate data from ERA5.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>X</strong> (<em>DataFrame</em>)</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Original dataframe with additional columns from ERA5 products.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>DataFrame</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="module-voyage_optimization.paper_1.prediction.evaluate_models">
+<span id="prediction"></span><h1>Prediction<a class="headerlink" href="#module-voyage_optimization.paper_1.prediction.evaluate_models" title="Link to this heading"></a></h1>
+<p>Module Name: evaluate_models.py</p>
+<p>Description: Evaluate Multiple Models based on <cite>R^2</cite>, <cite>Adjusted R^2</cite> and <cite>Root Mean Squared Error</cite> Perofrmance Metrics.</p>
+<p>Author: Abdella Mohamed</p>
+<dl class="py class">
+<dt class="sig sig-object py" id="voyage_optimization.paper_1.prediction.evaluate_models.EvaluateModels">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">voyage_optimization.paper_1.prediction.evaluate_models.</span></span><span class="sig-name descname"><span class="pre">EvaluateModels</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pipe_cfg</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Dict</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">X</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">array</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">array</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cv</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">KFold</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/voyage_optimization/paper_1/prediction/evaluate_models.html#EvaluateModels"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#voyage_optimization.paper_1.prediction.evaluate_models.EvaluateModels" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="py method">
+<dt class="sig sig-object py" id="voyage_optimization.paper_1.prediction.evaluate_models.EvaluateModels.get_predictions">
+<span class="sig-name descname"><span class="pre">get_predictions</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Dict</span></span></span><a class="reference internal" href="_modules/voyage_optimization/paper_1/prediction/evaluate_models.html#EvaluateModels.get_predictions"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#voyage_optimization.paper_1.prediction.evaluate_models.EvaluateModels.get_predictions" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="voyage_optimization.paper_1.prediction.evaluate_models.EvaluateModels.get_scores">
+<span class="sig-name descname"><span class="pre">get_scores</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Dict</span></span></span><a class="reference internal" href="_modules/voyage_optimization/paper_1/prediction/evaluate_models.html#EvaluateModels.get_scores"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#voyage_optimization.paper_1.prediction.evaluate_models.EvaluateModels.get_scores" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="voyage_optimization.paper_1.prediction.evaluate_models.EvaluateModels.print_scores">
+<span class="sig-name descname"><span class="pre">print_scores</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">scores</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Dict</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">DataFrame</span></span></span><a class="reference internal" href="_modules/voyage_optimization/paper_1/prediction/evaluate_models.html#EvaluateModels.print_scores"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#voyage_optimization.paper_1.prediction.evaluate_models.EvaluateModels.print_scores" title="Link to this definition"></a></dt>
+<dd><p>Print scores</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>scores</strong> (<em>Dict</em>) – Dict of scores to visualize in a table as Dataframe</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Of models scores.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>DataFrame</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<p id="module-voyage_optimization.paper_1.prediction.visualize_models">Module Name: visualize_models.py</p>
+<p>Description: Create Visualization Plots to Verify Linear Assumption and Models Fit.</p>
+<p>Author: Abdella Mohamed</p>
+<dl class="py class">
+<dt class="sig sig-object py" id="voyage_optimization.paper_1.prediction.visualize_models.VisualizeModels">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">voyage_optimization.paper_1.prediction.visualize_models.</span></span><span class="sig-name descname"><span class="pre">VisualizeModels</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">actual</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">array</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">predictions</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Dict</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/voyage_optimization/paper_1/prediction/visualize_models.html#VisualizeModels"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#voyage_optimization.paper_1.prediction.visualize_models.VisualizeModels" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="py method">
+<dt class="sig sig-object py" id="voyage_optimization.paper_1.prediction.visualize_models.VisualizeModels.plot_autocorrelation">
+<span class="sig-name descname"><span class="pre">plot_autocorrelation</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="_modules/voyage_optimization/paper_1/prediction/visualize_models.html#VisualizeModels.plot_autocorrelation"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#voyage_optimization.paper_1.prediction.visualize_models.VisualizeModels.plot_autocorrelation" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="voyage_optimization.paper_1.prediction.visualize_models.VisualizeModels.plot_models_score">
+<span class="sig-name descname"><span class="pre">plot_models_score</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">scores</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">DataFrame</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="_modules/voyage_optimization/paper_1/prediction/visualize_models.html#VisualizeModels.plot_models_score"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#voyage_optimization.paper_1.prediction.visualize_models.VisualizeModels.plot_models_score" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="voyage_optimization.paper_1.prediction.visualize_models.VisualizeModels.plot_multicollinearity">
+<span class="sig-name descname"><span class="pre">plot_multicollinearity</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">X</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">array</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">array</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">target_name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">feat_names</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">List</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="_modules/voyage_optimization/paper_1/prediction/visualize_models.html#VisualizeModels.plot_multicollinearity"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#voyage_optimization.paper_1.prediction.visualize_models.VisualizeModels.plot_multicollinearity" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="voyage_optimization.paper_1.prediction.visualize_models.VisualizeModels.plot_prediction_vs_actual_and_residual">
+<span class="sig-name descname"><span class="pre">plot_prediction_vs_actual_and_residual</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="_modules/voyage_optimization/paper_1/prediction/visualize_models.html#VisualizeModels.plot_prediction_vs_actual_and_residual"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#voyage_optimization.paper_1.prediction.visualize_models.VisualizeModels.plot_prediction_vs_actual_and_residual" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="voyage_optimization.paper_1.prediction.visualize_models.VisualizeModels.plot_residuals_normality">
+<span class="sig-name descname"><span class="pre">plot_residuals_normality</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="_modules/voyage_optimization/paper_1/prediction/visualize_models.html#VisualizeModels.plot_residuals_normality"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#voyage_optimization.paper_1.prediction.visualize_models.VisualizeModels.plot_residuals_normality" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</section>
+
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright .</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

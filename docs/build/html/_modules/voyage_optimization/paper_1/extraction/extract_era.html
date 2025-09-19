@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../../../../">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>voyage_optimization.paper_1.extraction.extract_era &mdash; Voyage Optimization 0.0.99 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../../../_static/pygments.css?v=fa44fd50" />
+      <link rel="stylesheet" type="text/css" href="../../../../_static/css/theme.css?v=19f00094" />
+
+  
+  <!--[if lt IE 9]>
+    <script src="../../../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="../../../../_static/jquery.js?v=5d32c60e"></script>
+        <script src="../../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="../../../../_static/documentation_options.js?v=bf4bdb9e"></script>
+        <script src="../../../../_static/doctools.js?v=9a2dae69"></script>
+        <script src="../../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../../../index.html" class="icon icon-home">
+            Voyage Optimization
+          </a>
+              <div class="version">
+                0.99-dev
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <!-- Local TOC -->
+              <div class="local-toc"></div>
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../../index.html">Voyage Optimization</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../../../index.html">Module code</a></li>
+      <li class="breadcrumb-item active">voyage_optimization.paper_1.extraction.extract_era</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for voyage_optimization.paper_1.extraction.extract_era</h1><div class="highlight"><pre>
+<span></span><span class="ch">#!/usr/bin/env python3</span>
+<span class="c1"># -*- coding: utf-8 -*-</span>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">Module Name: extract_era.py</span>
+
+<span class="sd">Description: Extract ERA5 Climate Data.</span>
+
+<span class="sd">Author: Abdella Mohamed</span>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="kn">from</span> <span class="nn">time</span> <span class="kn">import</span> <span class="n">time</span> 
+<span class="kn">from</span> <span class="nn">typing_extensions</span> <span class="kn">import</span> <span class="n">Self</span>
+<span class="kn">import</span> <span class="nn">voyage_optimization.paper_1</span>
+<span class="kn">from</span> <span class="nn">voyage_optimization.paper_1.utils.log_cfg</span> <span class="kn">import</span> <span class="n">logger</span>
+<span class="kn">import</span> <span class="nn">cdsapi</span>
+<span class="kn">from</span> <span class="nn">pathlib</span> <span class="kn">import</span> <span class="n">Path</span>
+<span class="kn">import</span> <span class="nn">voyage_optimization.paper_1</span>
+
+
+<span class="c1"># #################################################################################################################################################</span>
+<span class="c1"># ############################################################### Setup ###########################################################################</span>
+
+<span class="n">PACKAGE_ROOT</span><span class="o">=</span><span class="n">Path</span><span class="p">(</span><span class="n">voyage_optimization</span><span class="o">.</span><span class="n">paper_1</span><span class="o">.</span><span class="vm">__file__</span><span class="p">)</span><span class="o">.</span><span class="n">resolve</span><span class="p">()</span><span class="o">.</span><span class="n">parent</span>
+<span class="n">PRODUCT_NAME</span><span class="o">=</span> <span class="s2">&quot;reanalysis-era5-single-levels&quot;</span>
+<span class="n">VARIABLES</span><span class="o">=</span> <span class="p">[</span>
+            <span class="s1">&#39;100m_u_component_of_wind&#39;</span><span class="p">,</span> <span class="s1">&#39;100m_v_component_of_wind&#39;</span><span class="p">,</span> <span class="s1">&#39;10m_u_component_of_neutral_wind&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;10m_u_component_of_wind&#39;</span><span class="p">,</span> <span class="s1">&#39;10m_v_component_of_neutral_wind&#39;</span><span class="p">,</span> <span class="s1">&#39;10m_v_component_of_wind&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;10m_wind_gust_since_previous_post_processing&#39;</span><span class="p">,</span> <span class="s1">&#39;2m_dewpoint_temperature&#39;</span><span class="p">,</span> <span class="s1">&#39;2m_temperature&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;air_density_over_the_oceans&#39;</span><span class="p">,</span> <span class="s1">&#39;coefficient_of_drag_with_waves&#39;</span><span class="p">,</span> <span class="s1">&#39;convective_snowfall&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;convective_snowfall_rate_water_equivalent&#39;</span><span class="p">,</span> <span class="s1">&#39;free_convective_velocity_over_the_oceans&#39;</span><span class="p">,</span> <span class="s1">&#39;ice_temperature_layer_1&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;ice_temperature_layer_2&#39;</span><span class="p">,</span> <span class="s1">&#39;ice_temperature_layer_3&#39;</span><span class="p">,</span> <span class="s1">&#39;ice_temperature_layer_4&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;instantaneous_10m_wind_gust&#39;</span><span class="p">,</span> <span class="s1">&#39;large_scale_snowfall&#39;</span><span class="p">,</span> <span class="s1">&#39;large_scale_snowfall_rate_water_equivalent&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;maximum_2m_temperature_since_previous_post_processing&#39;</span><span class="p">,</span> <span class="s1">&#39;maximum_individual_wave_height&#39;</span><span class="p">,</span> <span class="s1">&#39;mean_direction_of_total_swell&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;mean_direction_of_wind_waves&#39;</span><span class="p">,</span> <span class="s1">&#39;mean_period_of_total_swell&#39;</span><span class="p">,</span> <span class="s1">&#39;mean_period_of_wind_waves&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;mean_sea_level_pressure&#39;</span><span class="p">,</span> <span class="s1">&#39;mean_square_slope_of_waves&#39;</span><span class="p">,</span> <span class="s1">&#39;mean_wave_direction&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;mean_wave_direction_of_first_swell_partition&#39;</span><span class="p">,</span> <span class="s1">&#39;mean_wave_direction_of_second_swell_partition&#39;</span><span class="p">,</span> <span class="s1">&#39;mean_wave_direction_of_third_swell_partition&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;mean_wave_period&#39;</span><span class="p">,</span> <span class="s1">&#39;mean_wave_period_based_on_first_moment&#39;</span><span class="p">,</span> <span class="s1">&#39;mean_wave_period_based_on_first_moment_for_swell&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;mean_wave_period_based_on_first_moment_for_wind_waves&#39;</span><span class="p">,</span> <span class="s1">&#39;mean_wave_period_based_on_second_moment_for_swell&#39;</span><span class="p">,</span> <span class="s1">&#39;mean_wave_period_based_on_second_moment_for_wind_waves&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;mean_wave_period_of_first_swell_partition&#39;</span><span class="p">,</span> <span class="s1">&#39;mean_wave_period_of_second_swell_partition&#39;</span><span class="p">,</span> <span class="s1">&#39;mean_wave_period_of_third_swell_partition&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;mean_zero_crossing_wave_period&#39;</span><span class="p">,</span> <span class="s1">&#39;minimum_2m_temperature_since_previous_post_processing&#39;</span><span class="p">,</span> <span class="s1">&#39;model_bathymetry&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;normalized_energy_flux_into_ocean&#39;</span><span class="p">,</span> <span class="s1">&#39;normalized_energy_flux_into_waves&#39;</span><span class="p">,</span> <span class="s1">&#39;normalized_stress_into_ocean&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;ocean_surface_stress_equivalent_10m_neutral_wind_direction&#39;</span><span class="p">,</span> <span class="s1">&#39;ocean_surface_stress_equivalent_10m_neutral_wind_speed&#39;</span><span class="p">,</span> <span class="s1">&#39;peak_wave_period&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;period_corresponding_to_maximum_individual_wave_height&#39;</span><span class="p">,</span> <span class="s1">&#39;sea_surface_temperature&#39;</span><span class="p">,</span> <span class="s1">&#39;significant_height_of_combined_wind_waves_and_swell&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;significant_height_of_total_swell&#39;</span><span class="p">,</span> <span class="s1">&#39;significant_height_of_wind_waves&#39;</span><span class="p">,</span> <span class="s1">&#39;significant_wave_height_of_first_swell_partition&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;significant_wave_height_of_second_swell_partition&#39;</span><span class="p">,</span> <span class="s1">&#39;significant_wave_height_of_third_swell_partition&#39;</span><span class="p">,</span> <span class="s1">&#39;skin_temperature&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;snow_albedo&#39;</span><span class="p">,</span> <span class="s1">&#39;snow_density&#39;</span><span class="p">,</span> <span class="s1">&#39;snow_depth&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;snow_evaporation&#39;</span><span class="p">,</span> <span class="s1">&#39;snowfall&#39;</span><span class="p">,</span> <span class="s1">&#39;snowmelt&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;surface_pressure&#39;</span><span class="p">,</span> <span class="s1">&#39;temperature_of_snow_layer&#39;</span><span class="p">,</span> <span class="s1">&#39;total_column_snow_water&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;wave_spectral_directional_width&#39;</span><span class="p">,</span> <span class="s1">&#39;wave_spectral_directional_width_for_swell&#39;</span><span class="p">,</span> <span class="s1">&#39;wave_spectral_directional_width_for_wind_waves&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;wave_spectral_kurtosis&#39;</span><span class="p">,</span> <span class="s1">&#39;wave_spectral_peakedness&#39;</span><span class="p">,</span> <span class="s1">&#39;wave_spectral_skewness&#39;</span><span class="p">,</span>
+        <span class="p">]</span>
+
+<span class="n">AREA</span><span class="o">=</span> <span class="p">[</span><span class="mi">56</span><span class="p">,</span> <span class="o">-</span><span class="mi">43</span><span class="p">,</span> <span class="o">-</span><span class="mi">36</span><span class="p">,</span> <span class="mi">132</span><span class="p">]</span>
+<span class="n">YEARS</span><span class="o">=</span> <span class="p">[</span><span class="mi">2021</span><span class="p">,</span> <span class="mi">2022</span><span class="p">]</span>
+<span class="n">MONTHS</span><span class="o">=</span> <span class="p">[[</span><span class="mi">11</span><span class="p">,</span> <span class="mi">12</span><span class="p">],</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="mi">9</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">11</span><span class="p">]]</span> 
+<span class="n">DOWNLOAD_LOCATION</span><span class="o">=</span> <span class="n">PACKAGE_ROOT</span> <span class="o">/</span> <span class="s2">&quot;data/test&quot;</span>
+
+<span class="c1"># #################################################################################################################################################</span>
+<span class="c1"># ############################################################### Setup Ends ######################################################################</span>
+
+
+<div class="viewcode-block" id="ExtractERA">
+<a class="viewcode-back" href="../../../../index.html#voyage_optimization.paper_1.extraction.extract_era.ExtractERA">[docs]</a>
+<span class="k">class</span> <span class="nc">ExtractERA</span><span class="p">:</span>
+
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">product_name</span><span class="p">,</span> <span class="n">variables</span><span class="p">,</span> <span class="n">area_counterclockwise</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Self</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Extract Climate Data from ERA5 Store.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        product_name : str</span>
+<span class="sd">            Name of ERA5 Product.</span>
+<span class="sd">        variables : List</span>
+<span class="sd">            List of variables subset to extract.</span>
+<span class="sd">        area_counterclockwise : List</span>
+<span class="sd">            Geographical area to consider counterclockwise i.e North, West, South, East.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        Self</span>
+<span class="sd">            Instance with request meta.</span>
+<span class="sd">        </span>
+<span class="sd">        Notes</span>
+<span class="sd">        -----</span>
+<span class="sd">        - For establishing connection to ERA5. A config hidden file with the name .cdsapirc and enteries `url` and `key` have to be saved in home directory of user. For more please visit -&gt; https://cds.climate.copernicus.eu/api-how-to </span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">product_name</span><span class="p">,</span> <span class="nb">str</span><span class="p">)</span>
+        <span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">variables</span><span class="p">,</span> <span class="nb">list</span><span class="p">)</span>
+        <span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">area_counterclockwise</span><span class="p">,</span> <span class="nb">list</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">product_name</span><span class="o">=</span> <span class="n">product_name</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">variables</span><span class="o">=</span> <span class="n">variables</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">area_counterclockwise</span><span class="o">=</span> <span class="n">area_counterclockwise</span> <span class="c1"># N W S E</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">request_meta</span><span class="o">=</span> <span class="p">[</span><span class="s2">&quot;product_type&quot;</span><span class="p">,</span> <span class="s2">&quot;format&quot;</span><span class="p">,</span> <span class="s2">&quot;variable&quot;</span><span class="p">,</span> <span class="s2">&quot;grid&quot;</span><span class="p">,</span> <span class="s2">&quot;area&quot;</span><span class="p">]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">request_meta_values</span><span class="o">=</span> <span class="p">[</span><span class="s2">&quot;reanalysis&quot;</span><span class="p">,</span> <span class="s2">&quot;grib&quot;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">variables</span><span class="p">,</span> <span class="p">[</span><span class="mf">0.25</span><span class="p">,</span> <span class="mf">0.25</span><span class="p">],</span> <span class="bp">self</span><span class="o">.</span><span class="n">area_counterclockwise</span><span class="p">]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">request</span><span class="o">=</span> <span class="p">{</span> <span class="n">meta</span><span class="p">:</span><span class="n">value</span> <span class="k">for</span> <span class="n">meta</span><span class="p">,</span> <span class="n">value</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">request_meta</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">request_meta_values</span><span class="p">)</span> <span class="p">}</span>
+        
+<div class="viewcode-block" id="ExtractERA.extract_data_by_year_and_month">
+<a class="viewcode-back" href="../../../../index.html#voyage_optimization.paper_1.extraction.extract_era.ExtractERA.extract_data_by_year_and_month">[docs]</a>
+    <span class="k">def</span> <span class="nf">extract_data_by_year_and_month</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">year</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">month</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">download_file_path</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Extract Monthly Data for all days in hourly frequency.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        year : int</span>
+<span class="sd">            year to consider</span>
+<span class="sd">        month : int</span>
+<span class="sd">            month to consider</span>
+<span class="sd">        download_file_path : str</span>
+<span class="sd">            file path</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        None</span>
+<span class="sd">            Function with side effect only of data download to disk.</span>
+<span class="sd">        </span>
+<span class="sd">        Notes</span>
+<span class="sd">        -----</span>
+<span class="sd">        - we cant just start from mid of the days for a month and for another month all therefore extract for all months</span>
+<span class="sd">        - time window meta is aligned in this function </span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">year</span><span class="p">,</span> <span class="nb">int</span><span class="p">)</span>
+        <span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">month</span><span class="p">,</span> <span class="nb">int</span><span class="p">)</span>
+        <span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">download_file_path</span><span class="p">,</span> <span class="nb">str</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">request</span><span class="p">[</span><span class="s2">&quot;year&quot;</span><span class="p">]</span><span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">year</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">request</span><span class="p">[</span><span class="s2">&quot;month&quot;</span><span class="p">]</span><span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">month</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">request</span><span class="p">[</span><span class="s2">&quot;day&quot;</span><span class="p">]</span><span class="o">=</span> <span class="p">[</span>
+                            <span class="s1">&#39;01&#39;</span><span class="p">,</span> <span class="s1">&#39;02&#39;</span><span class="p">,</span> <span class="s1">&#39;03&#39;</span><span class="p">,</span> 
+                            <span class="s1">&#39;04&#39;</span><span class="p">,</span> <span class="s1">&#39;05&#39;</span><span class="p">,</span> <span class="s1">&#39;06&#39;</span><span class="p">,</span>
+                            <span class="s1">&#39;07&#39;</span><span class="p">,</span> <span class="s1">&#39;08&#39;</span><span class="p">,</span> <span class="s1">&#39;09&#39;</span><span class="p">,</span>
+                            <span class="s1">&#39;10&#39;</span><span class="p">,</span> <span class="s1">&#39;11&#39;</span><span class="p">,</span> <span class="s1">&#39;12&#39;</span><span class="p">,</span>
+                            <span class="s1">&#39;13&#39;</span><span class="p">,</span> <span class="s1">&#39;14&#39;</span><span class="p">,</span> <span class="s1">&#39;15&#39;</span><span class="p">,</span>
+                            <span class="s1">&#39;16&#39;</span><span class="p">,</span> <span class="s1">&#39;17&#39;</span><span class="p">,</span> <span class="s1">&#39;18&#39;</span><span class="p">,</span>
+                            <span class="s1">&#39;19&#39;</span><span class="p">,</span> <span class="s1">&#39;20&#39;</span><span class="p">,</span> <span class="s1">&#39;21&#39;</span><span class="p">,</span>
+                            <span class="s1">&#39;22&#39;</span><span class="p">,</span> <span class="s1">&#39;23&#39;</span><span class="p">,</span> <span class="s1">&#39;24&#39;</span><span class="p">,</span>
+                            <span class="s1">&#39;25&#39;</span><span class="p">,</span> <span class="s1">&#39;26&#39;</span><span class="p">,</span> <span class="s1">&#39;27&#39;</span><span class="p">,</span>
+                            <span class="s1">&#39;28&#39;</span><span class="p">,</span> <span class="s1">&#39;29&#39;</span><span class="p">,</span> <span class="s1">&#39;30&#39;</span><span class="p">,</span>
+                        <span class="p">]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">request</span><span class="p">[</span><span class="s2">&quot;time&quot;</span><span class="p">]</span><span class="o">=</span> <span class="p">[</span>
+                            <span class="s1">&#39;00:00&#39;</span><span class="p">,</span> <span class="s1">&#39;01:00&#39;</span><span class="p">,</span> <span class="s1">&#39;02:00&#39;</span><span class="p">,</span>
+                            <span class="s1">&#39;03:00&#39;</span><span class="p">,</span> <span class="s1">&#39;04:00&#39;</span><span class="p">,</span> <span class="s1">&#39;05:00&#39;</span><span class="p">,</span>
+                            <span class="s1">&#39;06:00&#39;</span><span class="p">,</span> <span class="s1">&#39;07:00&#39;</span><span class="p">,</span> <span class="s1">&#39;08:00&#39;</span><span class="p">,</span>
+                            <span class="s1">&#39;09:00&#39;</span><span class="p">,</span> <span class="s1">&#39;10:00&#39;</span><span class="p">,</span> <span class="s1">&#39;11:00&#39;</span><span class="p">,</span>
+                            <span class="s1">&#39;12:00&#39;</span><span class="p">,</span> <span class="s1">&#39;13:00&#39;</span><span class="p">,</span> <span class="s1">&#39;14:00&#39;</span><span class="p">,</span>
+                            <span class="s1">&#39;15:00&#39;</span><span class="p">,</span> <span class="s1">&#39;16:00&#39;</span><span class="p">,</span> <span class="s1">&#39;17:00&#39;</span><span class="p">,</span>
+                            <span class="s1">&#39;18:00&#39;</span><span class="p">,</span> <span class="s1">&#39;19:00&#39;</span><span class="p">,</span> <span class="s1">&#39;20:00&#39;</span><span class="p">,</span>
+                            <span class="s1">&#39;21:00&#39;</span><span class="p">,</span> <span class="s1">&#39;22:00&#39;</span><span class="p">,</span> <span class="s1">&#39;23:00&#39;</span><span class="p">]</span>
+        
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">client</span> <span class="o">=</span> <span class="n">cdsapi</span><span class="o">.</span><span class="n">Client</span><span class="p">()</span>
+            <span class="n">client</span><span class="o">.</span><span class="n">retrieve</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">product_name</span><span class="p">,</span> <span class="n">request</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">request</span><span class="p">,</span> <span class="n">target</span><span class="o">=</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">download_file_path</span><span class="si">}</span><span class="s2">.</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">request</span><span class="p">[</span><span class="s1">&#39;format&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">ee</span><span class="p">:</span>
+            <span class="n">logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="n">ee</span><span class="p">)</span></div>
+</div>
+
+<span class="c1"># #################################################################################################################################################</span>
+<span class="c1"># ############################################################### Entrypoint ######################################################################</span>
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
+    <span class="n">era_extractor</span><span class="o">=</span> <span class="n">ExtractERA</span><span class="p">(</span><span class="n">PRODUCT_NAME</span><span class="p">,</span> <span class="n">VARIABLES</span><span class="p">,</span> <span class="n">AREA</span><span class="p">)</span>
+
+    <span class="n">tic</span><span class="o">=</span> <span class="n">time</span><span class="p">()</span>
+    <span class="k">for</span> <span class="n">year</span> <span class="ow">in</span> <span class="n">YEARS</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">year</span> <span class="o">==</span> <span class="mi">2021</span><span class="p">:</span>
+            <span class="n">months</span><span class="o">=</span> <span class="n">MONTHS</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="k">else</span><span class="p">:</span> <span class="c1">#2022</span>
+            <span class="n">months</span><span class="o">=</span> <span class="n">MONTHS</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+        <span class="k">for</span> <span class="n">month</span> <span class="ow">in</span> <span class="n">months</span><span class="p">:</span>
+           <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Extracting for year: </span><span class="si">{</span><span class="n">year</span><span class="si">}</span><span class="s2"> and month: </span><span class="si">{</span><span class="n">month</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+           <span class="n">era_extractor</span><span class="o">.</span><span class="n">extract_data_by_year_and_month</span><span class="p">(</span><span class="n">year</span><span class="p">,</span> <span class="n">month</span><span class="p">,</span> <span class="n">download_file_path</span><span class="o">=</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">DOWNLOAD_LOCATION</span><span class="si">}</span><span class="s2"> / </span><span class="si">{</span><span class="n">year</span><span class="si">}{</span><span class="n">month</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+           <span class="n">toc</span><span class="o">=</span> <span class="n">time</span><span class="p">()</span>
+           <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Extraction Done for year: </span><span class="si">{</span><span class="n">year</span><span class="si">}</span><span class="s2"> and month: </span><span class="si">{</span><span class="n">month</span><span class="si">}</span><span class="s2">. Elapsed Time: </span><span class="si">{</span><span class="n">toc</span><span class="o">-</span><span class="n">tic</span><span class="o">/</span><span class="mi">60</span><span class="si">}</span><span class="s2"> minutes&quot;</span><span class="p">)</span>
+           <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;===========================================================================================&quot;</span><span class="p">)</span>
+    
+    <span class="n">toc</span><span class="o">=</span> <span class="n">time</span><span class="p">()</span>
+    <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;All Extraction Done. Elapsed Time: </span><span class="si">{</span><span class="n">toc</span><span class="o">-</span><span class="n">tic</span><span class="o">/</span><span class="mi">60</span><span class="si">}</span><span class="s2"> minutes&quot;</span><span class="p">)</span>
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright .</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
