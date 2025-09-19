@@ -1,0 +1,47 @@
+\section{Literature Analysis}\label{sec:literature_analysis}
+
+Our study focuses on modeling \ac{fc} rate (MT/day) of a bulk carrier using \ac{bbm} and fusing operational data with environmental factors. \\
+In this regard, the most recent review papers in the space are done by Huang et al.~\citep{huangMachineLearningSustainable2022} and Fan et al.~\citep{fanReviewShipFuel}.  
+Huang et al.~\citep{huangMachineLearningSustainable2022} covered applications of \ac{bbm} in different ship phases such as ship design, voyage planning, and operational performance. 
+While Fan et al.~\citep{fanReviewShipFuel} analyzed the literature from 2001 to 2021 and focused on applications of \ac{bbm} in operational context only with a comparison of different 
+\ac{ml} classifications in various ship operation stages and based on data availability.
+
+To avoid duplication, this section will focus on work that emerged since then that is not covered in the above reviews regarding \ac{fc} prediction by fusing external data sources. 
+
+Xie et al.~\citep{xieFuelConsumptionPrediction2023} compared between \ac{bbm} and \ac{wbm} and proved \ac{bbm} superiority. They developed two ensemble models, namely \ac{rf} and 
+\ac{xgboost} models for an oil tanker vessel based on eight features. They fused external public weather data from \ac{ecmwf} considering only two parameters: wave height and wave direction, and then applied a novel data cleaning method, namely Kwon formulas, to remove noise from the data. The results revealed that Kwon formulas are a promising approach to improving data quality. However, it could lead to idealized data used for training, which would lead to poor real-world applicability. In addition, 
+they used model test data, a scaled-down representation that is good for predictions in the ship design phase but not in the operational performance context.
+
+In contrast, Zhou et al.~\citep{zhouPredictingShipFuel2023} used in-situ data, which is full-scale data based on the natural environment, e.g., open sea. 
+Their model is a 2-stage sequential model based on a fishing vessel. In the first stage, a prediction of \ac{stw} is made based on \ac{sog} and environmental conditions and then using 
+\ac{stw} predictions as input for predicting \ac{foc} in the second stage. The final selected model is based on \ac{rf} architecture. Their prediction output is \ac{foc}, which is different than \ac{fc}.
+In the sense that \ac{foc} exclusively applies to oil-based fuel types such as \ac{hfo}, which don't take into consideration greener fuel types. This reduces its readiness for future-proof transition to other types of fuels. 
+Also, they fused environmental data from \ac{noaa} data store, which lacks global coverage since it's more suited for voyages within \ac{us} coastal waters. In addition, it lacks standardized APIs that streamline data acquisition, making it impractical for real-world applications. 
+
+Agand et al.~\citep{agandFuelConsumptionPrediction2023} investigated different models such as \ac{mlr}, \ac{ann} and ensemble models. They found that ensemble models performed the best, which aligns with Xie et al.~\citep{xieFuelConsumptionPrediction2023} findings. 
+Their model is based on a passenger ferry within a 2-year span and in-service data, which is high-frequency, high-precision data that reflects near real-time changes. 
+The model predicts hourly \ac{fc}, which makes it, to some extent, suitable for real-time applications such as route optimization. However, they didn't consider localized environmental factors.
+
+Haoqing et al.~\citep{WANG2023104361} attempted to improve \ac{dl} interpretability by building \ac{ann} that integrates physics and domain knowledge in order to have an explainable model that balances 
+the trade-off between interpretability and accuracy. They achieved that by using \ac{shap}, a method developed by Scott et al.~\citep{lundberg2017unified} based on game theory. 
+The model was trained using publically accessible data over two months from a ferry vessel originating from a study published in Petersen et al.~\citep{petersen2012machine} as cited by Haoqing et al.~\citep{WANG2023104361}. 
+The model was trained on very old data, roughly 12 years or more old. This poses a risk of applicability moving forward since the data is no longer relevant, as it won't reflect current shipping practices or take into consideration technologies of new ship builds. 
+
+\subsection{Gaps and Contribution}\label{sec:gaps_and_contribution}
+
+To the best of our knowledge, the most recent and closest work to our study is the work done by Zhang et al.~\citep{zhangDeepLearningMethod2024} and Du et al.~\citep{duDataFusionMachine2022a}. 
+Zhang et al.~\citep{zhangDeepLearningMethod2024} developed a model for bulk carriers. Their model is based on \ac{dl} technique, namely \ac{blstm}, and compared it to traditional \ac{ml} methods. 
+They found that \ac{blstm} provides better accuracy compared to traditional \ac{dl} and \ac{ml}. However, the difference was not significant enough to justify the 
+complexity associated with the usage of such a model in practice. Additionally, they are different to our study that they require high resolution input data and the predictions 
+are made per voyage instead of daily predictions. 
+
+Another study closer to ours that was to some extent used as a reference to our study is Du et al.~\citep{duDataFusionMachine2022a}. 
+The study's main objective was to fuse environmental conditions to AIS data, and the final model selected is \ac{xgboost}. They are different from our study; however, since they applied it to containerships, our work attempts to apply it in a different context, namely on bulk carriers, which is different due to the data structure and nature of sailing.
+
+Looking at the literature landscape concerning modeling \ac{fc} using \ac{bbm} while fusing external public and reliable meteorological factors, 
+To the best of our knowledge, there are not many recent studies that have studied this extensively. Some studies like the work done by Xie et al.~\citep{xieFuelConsumptionPrediction2023} attempted to fuse public environmental parameters but only considering two parameters namely wave heights and direction and therefore no 360° view of the ship envionment was considered.  
+This finding is also supported by latest findings by Li et al.~\citep{liDataFusionMachine2022}. 
+
+This raises the overarching question: "Does fusing meteorological factors in ship \ac{fc} modeling gives a better and more accurate model?"
+
+\clearpage

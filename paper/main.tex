@@ -1,0 +1,151 @@
+%! Author = Abdella Mohamed
+\pdfoutput=1             
+
+\documentclass[preprint,12pt,authoryear]{elsarticle}
+
+\makeatletter
+\def\ps@pprintTitle{%
+   \let\@oddhead\@empty
+   \let\@evenhead\@empty
+   \let\@oddfoot\@empty
+   \let\@evenfoot\@oddfoot}
+\makeatother
+
+\usepackage{setspace} 
+\usepackage{lineno} 
+\usepackage[nohyperlinks]{acronym}
+\usepackage[hidelinks]{hyperref}
+
+\usepackage{wrapfig} 
+\usepackage{lineno} 
+\usepackage{appendix}
+\usepackage{tikz}
+\usetikzlibrary{shapes.geometric, arrows} 
+\usepackage{pdfpages}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{lmodern}
+\usepackage{amsmath,amssymb,mathtools}
+\usepackage[capitalise, noabbrev]{cleveref} 
+\usepackage{graphicx}
+\usepackage{booktabs}
+\usepackage{siunitx}
+\usepackage{doi}
+\usepackage{listings}
+\usepackage{caption}
+\renewcommand{\lstlistingname}{Source Code}            
+\renewcommand{\lstlistlistingname}{List of Source Codes} 
+\usepackage{subcaption} 
+\lstset{
+  showspaces=false,
+  showstringspaces=fsalse,
+  frame=lines,
+  basicstyle=\ttfamily\footnotesize,
+  breaklines=true,
+  tabsize=4,
+  numbers=none,
+  numberstyle=\tiny,
+  captionpos=b
+}
+\renewcommand{\lstlistlistingname}{List of Source Codes}
+\usepackage{natbib}
+\renewcommand{\citep}[1]{(\citeyear{#1})}  
+\bibliographystyle{elsarticle-harv}
+\captionsetup[table]{labelfont=bf}
+\captionsetup[figure]{labelfont=bf}
+
+\begin{document}
+
+\doublespacing
+\acresetall
+\title{Data Fusion and Machine Learning for Ship Fuel Consumption Modelling - A Case of Bulk Carrier Vessel}
+\author[label1,label2]{Abdella Mohamed\corref{mycorrespondingauthor}}
+\ead{mohamed.abdella@tum.de}
+
+\author[label1]{Xiangyu Hu}
+\ead{xiangyu.hu@tum.de}
+
+\author[label2]{Christian Hendricks}
+\ead{christian.hendricks@everllence.com}
+
+\cortext[mycorrespondingauthor]{Corresponding author}
+\affiliation[label1]{organization={Technical Univerisity of Munich},
+         addressline={Boltzmannstraße 15},
+         postcode={85748},
+         city={Garching},
+         country={Germany}}
+\affiliation[label2]{organization={Everllence (formerly: MAN Energy Solutions)},
+         addressline={Stadtbachstraße 1},
+         postcode={86153},
+         city={Augsburg},
+         country={Germany}}
+\input{abstract}
+\input{acronyms}
+\input{introduction}
+\input{literature_analysis}
+\input{methodological_approach}
+\input{results}
+\input{conclusion}
+\section*{CRediT authorship contribution statement}
+\textbf{Abdella Mohamed:} Conceptualization, Methodology, Coding, Data curation, Writing, Visualization, Investigation, Validation. 
+\textbf{Xiangyu Hu:} Supervision, Conceptualization, Methodology, Manuscript review and editing. 
+\textbf{Christian Hendricks:} Mentorship, Conceptualization, Methodology, Manuscript review and editing. 
+\section*{Acknowledgements}
+This work was supported by Technical University of Munich and Everllence (formerly: MAN Energy Solutions).
+The following tools have been used to produce this manuscript:
+\begin{itemize}
+    \item Macbook Pro M3 Pro, 36 GB RAM
+    \item Draw io  
+    \item Python and its Ecosystem
+    \item Jupyter Lab and its Ecosystem
+    \item VScode and its Ecosystem
+    \item Obsidian and its Ecosystem 
+    \item Latex  and its Ecosystem
+    \item Zotero and its Ecosystem
+\end{itemize}
+\section*{Data and Code Availability}
+All code and data are publically accessible. 
+\listoftables
+\listoffigures
+\lstlistoflistings
+\clearpage
+\bibliography{main}
+\newpage
+\appendix
+\setcounter{table}{0}
+\section{Raw Parameters Description}\label{app:raw_parameters_description}
+    \input{voyages_raw_parameters}
+    \clearpage
+    \input{cmems_raw_parameters}
+    \input{era5_raw_parameters}
+\section{Data Distribution}\label{app:data_distribution}
+\begin{figure}
+    \begin{subfigure}[b]{0.45\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{ports_distribution.pdf}
+        \caption{Ports Distribution}
+        \label{fig:ports_disctribution}
+    \end{subfigure}
+    \begin{subfigure}[b]{0.45\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{mean_wave_period.pdf}
+        \caption{Mean Wave Height}
+        \label{fig:mean_wave_height}
+    \end{subfigure}
+    \begin{subfigure}[b]{0.45\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{surface_height.pdf}
+        \caption{Surface Height}
+        \label{fig:surface_height}
+    \end{subfigure}
+    \begin{subfigure}[b]{0.45\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{surface_pressure.pdf}
+        \caption{Surface Pressure}
+        \label{fig:surface_pressure}
+    \end{subfigure}
+\end{figure}
+
+\end{document}
+
+\typeout{get arXiv to do 4 passes: Label(s) may have changed. Rerun}
