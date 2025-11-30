@@ -1,0 +1,48 @@
+cff-version: 1.2.0
+message: >
+  If you use this code or data, please cite it using the metadata below.
+title: "Routing representation and corridor choice for Europe–Asia trade via Suez, Cape and the Northern Sea Route"
+version: "1.0.0"
+doi: 10.5281/zenodo.17767072 
+date-released: 2025-11-30
+url: "https://github.com/mohamed-abdella/ea-corridors-routing-baseline"  # <-- update mohamed-abdella
+repository-code: "https://github.com/mohamed-abdella/ea-corridors-routing-baseline"
+
+authors:
+  - family-names: "Mohamed"
+    given-names: "Abdella"
+    orcid: "0009-0000-9349-1491"   
+
+license: "MIT"   # <-- adjust to your actual license, e.g. Apache-2.0, GPL-3.0-only, etc.
+
+keywords:
+  - "Arctic shipping"
+  - "Northern Sea Route"
+  - "Suez Canal"
+  - "Cape of Good Hope"
+  - "A* routing"
+  - "maritime emissions"
+  - "Europe–Asia trade"
+  - "searoute"
+  - "Python"
+
+abstract: >
+  Code and data accompanying the paper
+  “Routing representation and corridor choice for Europe–Asia trade via Suez, Cape and the Northern Sea Route”.
+  The `ea_corridors` package reproduces all routing, distance, time, fuel, and CO₂ results reported in the manuscript,
+  including GC vs sea-only A* baselines, distance deltas, corridor-typical speed scenarios, and sensitivity tests
+  (endpoint and equal-speed).
+
+preferred-citation:
+  type: article
+  title: "Routing representation and corridor choice for Europe–Asia trade via Suez, Cape and the Northern Sea Route"
+  authors:
+    - family-names: "Mohamed"
+      given-names: "Abdella"
+      orcid: "0009-0000-9349-1491"  
+  year: 2025            # <-- adjust when you know the actual publication year
+  journal: "TBD"        # <-- e.g. "Maritime Transport Research"
+  publisher: "TBD"
+  notes: >
+    Preprint / in review. This CITATION.cff entry refers to the associated research paper;
+    please update journal metadata once the article is accepted.
