@@ -3,6 +3,8 @@
 
 \documentclass[preprint,12pt,authoryear]{elsarticle}
 
+% ---- Bibliography / citations (Elsevier uses natbib) ----
+
 \makeatletter
 \def\ps@pprintTitle{%
    \let\@oddhead\@empty
@@ -18,8 +20,9 @@
 
 \usepackage{wrapfig} 
 \usepackage{lineno} 
-\usepackage{appendix}
+
 \usepackage{tikz}
+
 \usetikzlibrary{shapes.geometric, arrows} 
 \usepackage{pdfpages}
 \usepackage[T1]{fontenc}
@@ -34,7 +37,7 @@
 \usepackage{listings}
 \usepackage{caption}
 \renewcommand{\lstlistingname}{Source Code}            
-\renewcommand{\lstlistlistingname}{List of Source Codes} 
+%\renewcommand{\lstlistlistingname}{List of Source Codes} 
 \usepackage{subcaption} 
 \lstset{
   showspaces=false,
@@ -47,11 +50,15 @@
   numberstyle=\tiny,
   captionpos=b
 }
-\renewcommand{\lstlistlistingname}{List of Source Codes}
+%\renewcommand{\lstlistlistingname}{List of Source Codes}
 \usepackage{natbib}
 \usepackage{doi} % after hyperref
 
-\renewcommand{\citep}[1]{(\citeyear{#1})}  
+\usepackage{enumitem}
+
+\usepackage[section]{placeins} % or just \usepackage{placeins}
+
+%\renewcommand{\citep}[1]{(\citeyear{#1})}  this to make only the year in bracket
 \bibliographystyle{elsarticle-harv}
 \captionsetup[table]{labelfont=bf}
 \captionsetup[figure]{labelfont=bf}
@@ -60,33 +67,43 @@
 
 \doublespacing
 \acresetall
-\title{Data Fusion and Machine Learning for Ship Fuel Consumption Modelling - A Case of Bulk Carrier Vessel}
-\author[label1,label2]{Abdella Mohamed\corref{mycorrespondingauthor}}
+\title{Routing-Method Effects on Distance, Time, Fuel, and Emissions in Europe–Asia Trade: A Comparison of the Suez, Cape, and Northern Sea Route Corridors}
+
+% Authors
+\author[1,2]{Abdella Mohamed}
 \ead{mohamed.abdella@tum.de}
 
-\author[label1]{Xiangyu Hu}
-\ead{xiangyu.hu@tum.de}
-
-\author[label2]{Christian Hendricks}
+\author[2]{Christian Hendricks}
 \ead{christian.hendricks@everllence.com}
 
-\cortext[mycorrespondingauthor]{Corresponding author}
-\affiliation[label1]{organization={Technical Univerisity of Munich},
-         addressline={Boltzmannstraße 15},
-         postcode={85748},
-         city={Garching},
-         country={Germany}}
-\affiliation[label2]{organization={Everllence (formerly: MAN Energy Solutions)},
-         addressline={Stadtbachstraße 1},
-         postcode={86153},
-         city={Augsburg},
-         country={Germany}}
+\author[1]{Xiangyu Hu\corref{cor1}}
+\ead{xiangyu.hu@tum.de}
+
+\cortext[cor1]{Corresponding author}
+
+% Affiliations
+\affiliation[1]{%
+  organization={Technical University of Munich},
+  addressline={Boltzmannstraße 15},
+  postcode={85748},
+  city={Garching},
+  country={Germany}
+}
+
+\affiliation[2]{%
+  organization={Everllence (formerly: MAN Energy Solutions)},
+  addressline={Stadtbachstraße 1},
+  postcode={86153},
+  city={Augsburg},
+  country={Germany}
+}
+
 \input{abstract}
 \input{acronyms}
 \input{introduction}
-\input{literature_analysis}
-\input{methodological_approach}
+\input{methodology}
 \input{results}
+%\input{discussion}
 \input{conclusion}
 \section*{CRediT authorship contribution statement}
 \textbf{Abdella Mohamed:} Conceptualization, Methodology, Coding, Data curation, Writing, Visualization, Investigation, Validation. 
@@ -94,66 +111,23 @@
 \textbf{Christian Hendricks:} Mentorship, Conceptualization, Methodology, Manuscript review and editing. 
 \section*{Acknowledgements}
 This work was supported by Technical University of Munich and Everllence (formerly: MAN Energy Solutions).
-The following tools have been used to produce this manuscript:
-\begin{itemize}
-    \item Macbook Pro M3 Pro, 36 GB RAM
-    \item Draw io  
-    \item Python and its Ecosystem
-    \item Jupyter Lab and its Ecosystem
-    \item VScode and its Ecosystem
-    \item Obsidian and its Ecosystem 
-    \item Latex  and its Ecosystem
-    \item Zotero and its Ecosystem
-\end{itemize}
-\section*{Data and Code Availability}
-The Datasets are available from CMEMS and ECMWF as cited in the manuscript and the code is archived on Zenodo at \doi{10.5281/zenodo.17158071}, 
-which captures the GitHub repository release corresponding to this paper. 
 
-\section*{Declaration of Generative AI and AI-assisted Technologies in the Preparation of this Work}
-The author used OpenAI ChatGPT to assist with language editing during manuscript preparation.The author reviewed and edited the content and accepts full responsibility for the final manuscript.
+\section*{Code and data availability}
+All scripts used to compute distances, energy use, and to generate figures and tables are available in the project repository at [DOI/URL].
+
+\section*{Declaration of generative AI and AI-assisted technologies in the manuscript preparation process}
+
+The author used OpenAI ChatGPT to assist with language editing during
+manuscript preparation. The author reviewed and edited the content and
+accepts full responsibility for the final manuscript.
 
 
 \listoftables
 \listoffigures
-\lstlistoflistings
 \clearpage
 \bibliography{main}
 \newpage
-\appendix
+
 \setcounter{table}{0}
-\section{Raw Parameters Description}\label{app:raw_parameters_description}
-    \input{voyages_raw_parameters}
-    \clearpage
-    \input{cmems_raw_parameters}
-    \input{era5_raw_parameters}
-\section{Data Distribution}\label{app:data_distribution}
-\begin{figure}
-    \begin{subfigure}[b]{0.45\textwidth}
-        \centering
-        \includegraphics[width=\textwidth]{ports_distribution.pdf}
-        \caption{Ports Distribution}
-        \label{fig:ports_disctribution}
-    \end{subfigure}
-    \begin{subfigure}[b]{0.45\textwidth}
-        \centering
-        \includegraphics[width=\textwidth]{mean_wave_period.pdf}
-        \caption{Mean Wave Height}
-        \label{fig:mean_wave_height}
-    \end{subfigure}
-    \begin{subfigure}[b]{0.45\textwidth}
-        \centering
-        \includegraphics[width=\textwidth]{surface_height.pdf}
-        \caption{Surface Height}
-        \label{fig:surface_height}
-    \end{subfigure}
-    \begin{subfigure}[b]{0.45\textwidth}
-        \centering
-        \includegraphics[width=\textwidth]{surface_pressure.pdf}
-        \caption{Surface Pressure}
-        \label{fig:surface_pressure}
-    \end{subfigure}
-\end{figure}
-
 \end{document}
-
 \typeout{get arXiv to do 4 passes: Label(s) may have changed. Rerun}

@@ -2,20 +2,28 @@
 
 \begin{frontmatter}
 
-    \begin{abstract}
-        
-        
-        There is an increasing push for operational measures to reduce ships' bunker \ac{fc} and carbon emissions, driven by \ac{imo} mandates. Key performance indicators like \ac{eeoi} focus on fuel efficiency. Trim optimization, virtual arrival, and green routing strategies have emerged. The theoretical basis for all these approaches lies in the accurate predictions of \ac{fc} based on its sailing speed, displacement, trim, climate, and sea state. 
+\begin{abstract}
 
-        This study utilized 296 voyage reports from a Bulk Carrier Vessel over one year (from November 16, 2021, to November 21, 2022) and 28 parameters, integrating hydrometeorological big data from \ac{cmems} and \ac{ecmwf} with 19 and 61 parameters, respectively, to evaluate if fusing external public data sources may enhance modeling accuracy as well as highlighting most influential parameters affecting \ac{fc}.
-        
-        The experimental results revealed that there is a large potentioal of \ac{ml} techniques in predicting ship \ac{fc} accurately by using voyage reports and fusing reliable climate and sea data. However, further validation on similar class of vessels remains necessary to confirm the model's generalizability.
- 
-    \end{abstract}
+
+Growing interest in decarbonization and Arctic accessibility has renewed attention on Europe--Asia shipping corridors. The Northern Sea Route (NSR) is often portrayed as a 30--40\% shortcut relative to Suez, with savings propagated to time, fuel, and CO$_2$. The effect of enforcing sea-only feasibility on
+these baselines, and its downstream impact on time, fuel, and CO2, remains
+under-examined.
+
+We compare great-circle baselines with sea-only routes computed via A-star search (A*) on a 0.5$^\circ$ grid between Northern Europe and Northeast Asia across the Suez, Cape of Good Hope, and NSR corridors under three waypoint philosophies. Distances are mapped to voyage time using corridor-typical speeds and to fuel/CO$_2$ using main- and auxiliary-engine accounting.
+
+Sea-only routing preserves the ranking NSR $<$ Suez $<$ Cape but compresses NSR’s advantage once realistic speeds are applied. NSR remains shortest (about 8--10k~nm versus 11--12k~nm for Suez), yet typical durations differ modestly and fuel/CO$_2$ savings over Suez are small and variant-dependent. Equal-speed tests restore geometric ordering, and endpoint sensitivity shows larger NSR gains for more northern East Asian ports.
+
+The framework provides a reproducible, corridor-agnostic benchmark for later integration of sea ice, weather, regulatory overlays, and AIS data in dynamic Arctic voyage planning.
+
+\end{abstract}
+
 
     % Research Keywords
     \begin{keyword}
-        Voyage Optimization, Bulk Carrier, \ac{fc} Modelling, Machine Learning, CMEMS, ERA5
+    sea-only routing \sep A* shortest-path search \sep great-circle baseline \sep corridor benchmarking \sep Suez Canal \sep Cape of Good Hope \sep Northern Sea Route (NSR) \sep fuel consumption \sep CO$_2$ emissions \sep Arctic shipping
     \end{keyword}
 
+
 \end{frontmatter}
+
+

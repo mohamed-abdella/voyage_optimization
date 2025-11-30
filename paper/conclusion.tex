@@ -1,24 +1,40 @@
-\section{Conclusion}\label{sec:conclusion}
+\section{Conclusions}\label{sec:conclusions}
 
-This study confirmed the massive potential of using \ac{ml} methods and fusing external data to model Ship Fuel Consumption, which is the basis for all ship optimization approaches. Additional environmental factors also proved helpful in improving the predictive power. However, only a small subset of factors had a significant impact, with internal parameters such as engine \ac{rpm} being the most predictive factor for \ac{fc}. 
-Most of the features have not contributed to the overall predictive power, which is good that with fewer features, the \ac{fc} could be, to some extent, accurately predicted. Still, on the other hand, this raises the question of more investigation regarding the extensive data preparation explicitly required on the environmental parameters, for example, computing ship heading and then the angle of attack relative to the vessel. Moreover, more voyage report samples are needed to drill down on those features. Additionally, the principles developed in this study could be tested against different vessels of the same class to validate generalization on a broader scope. 
-Additionally other marine fuels should be explored. Currently, the target ships of \ac{fc} models are mostly diesel-powered, and the fuel consumption is primarily diesel. With the emergence of new or hybrid energy ships, more energy-efficient fuels such as LNG, fuel cells, methanol, and ammonia can be adopted to save ships energy.
-The \ac{fc} models should be combined with energy efficiency optimization methods. The ship energy efficiency optimization method can be divided into the supply side (inside the ship) and the demand side (outside the ship), corresponding to the energy management and operation optimization strategies. Thus it would be interesting to explore some data sources of bunker fuel consumption with a finer data granularity, such as sensor data, and the benefits of combining these data sources with other data sources that provide complementary information.
+This paper quantified how routing representation---geometric great-circle (GC) 
+versus physically feasible sea-only paths---affects distance, time, fuel, and 
+CO$_2$ estimates for Europe--Asia trade across three strategic corridors: 
+the Suez Canal, the Cape of Good Hope, and the Arctic Northern Sea Route (NSR). 
+A coastline-masked A* framework was applied to Rotterdam--Yokohama with three 
+operational waypoint philosophies per corridor and a transparent main- and 
+auxiliary-engine accounting.
 
-An advanced model is developed using the features identified by the \ac{rf}. Two significant insights have been derived. First, non-linear models tend to perform much better than baseline models. Secondly, the performance significantly rose from 76 percent using the baseline model to 90 percent, 
-which highlights that with a handful of features, 90 percent of the \ac{fc} could be accurately estimated.
+Three main conclusions emerge:
+\begin{enumerate}
+  \item \textbf{Sea-only routing preserves qualitative distance ordering but alters magnitude.} 
+  The ranking NSR $<$ SUEZ $<$ CAPE holds once navigability is enforced, with 
+  small GC$\rightarrow$sea-only adjustments for SUEZ/CAPE and larger adjustments 
+  for NSR driven by Arctic coastal geometry and chokepoints. As a result, NSR’s 
+  widely cited geometric advantage shrinks for this OD pair under feasible routing.
 
-The comparison clearly indicates that advanced modeling approaches result in superior predictive accuracy, lower error metrics, and more stable performance across validation folds. The transition from baseline to advanced models, particularly using more informative variables plays a critical role in enhancing fuel consumption estimation models. The findings reinforce the importance of model selection, feature engineering, and hyperparameter tuning in achieving reliable maritime fuel prediction.
+  \item \textbf{Distance does not translate linearly into time, fuel, or CO$_2$.} 
+  Under corridor-typical speeds, NSR’s schedule and fuel advantages compress 
+  and may disappear relative to SUEZ. CAPE remains longest in both distance and 
+  duration. Fuel and CO$_2$ primarily follow hours at sea, underscoring that 
+  distance alone is an insufficient proxy for operational or environmental performance.
 
-Nevertheless, all models demonstrate strong predictive capability, indicating the effectiveness of machine learning approaches for this application.
+  \item \textbf{Competitiveness depends on endpoint and speed policy.} 
+  NSR’s relative advantage increases for more northerly East Asian ports 
+  (e.g., Busan) and decreases for Yokohama. Equal-speed comparisons recover 
+  pure geometric differences, while corridor-typical speeds show how operating 
+  practices can offset or amplify them. CAPE emerges as a robust canal-
+  independent fallback rather than a competitive primary option.
+\end{enumerate}
 
-Overall, the results demonstrate that fuel consumption prediction is most sensitive to 
-engine and propulsion parameters, with contextual and environmental 
-variables providing complementary but lesser explanatory power. 
-These insights can guide feature selection and data acquisition strategies in future model refinement.
-
-Another angle would be to investigate how sailing in unpopular regions like the Arctic could influence \ac{fc} since it has been observed in this study that seawater temperature and salinity played massive role in the \ac{fc} and ultimately to act as a guide to suggest a most efficient route for maritime navigation. 
-
-To streamline further research on the ideas developed in this study, a modular and comprehensive package has been developed that provides a baseline to build on top of for reproducible research and additional investigations.   
-
-This study has been an attempt to contribute toward environmentally sustainable shipping operations. 
+Methodologically, the study provides a reproducible, corridor-agnostic baseline 
+linking routing-method choice to distance, time, fuel, and CO$_2$ for 
+Europe--Asia services. The findings are robust across waypoint philosophies and 
+sensitivity tests, and the framework is designed for extension. Future work 
+will integrate seasonal and daily sea-ice fields, metocean routing, 
+emission-control areas and canal constraints, and ship-specific propulsion models, 
+extending the static fair-weather baseline toward dynamic voyage-planning and 
+digital-twin applications for Arctic and global shipping.

@@ -1,0 +1,1 @@
+{"type": "FeatureCollection", "features": [{"type": "Feature", "geometry": {"type": "Point", "coordinates": [4.14, 51.95]}, "properties": {"name": "Rotterdam"}}, {"type": "Feature", "geometry": {"type": "Point", "coordinates": [139.65, 35.45]}, "properties": {"name": "Yokohama"}}]}

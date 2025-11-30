@@ -1,0 +1,26 @@
+{
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "properties": {
+        "corridor": "NSR",
+        "scenario": "NSR_VAR1_service"
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [4.14, 51.95],    // Rotterdam
+          [25.0, 71.0],     // Barents
+          [58.0, 70.5],     // Kara
+          [102.0, 76.0],    // Severnaya
+          [160.0, 72.0],    // Chukchi/East Siberian
+          [170.0, 66.0],    // just W of dateline
+          [150.0, 43.0],    // NW Pacific
+          [140.0, 35.0],    // off Japan
+          [139.65, 35.45]   // Yokohama
+        ]
+      }
+    }
+  ]
+}

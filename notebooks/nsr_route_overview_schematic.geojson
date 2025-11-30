@@ -1,0 +1,1 @@
+{"type": "FeatureCollection", "features": [{"type": "Feature", "properties": {"corridor": "NSR"}, "geometry": {"type": "LineString", "coordinates": [[4.139999999999986, 51.95], [20.0, 70.0], [60.0, 71.0], [100.0, 77.0], [150.0, 72.0], [-170.0, 64.5], [139.64999999999998, 35.45]]}}]}

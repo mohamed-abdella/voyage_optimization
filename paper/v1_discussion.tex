@@ -1,0 +1,43 @@
+\subsection{Impact of Routing Methodology}
+The results demonstrate that routing methodology alone can invert conclusions about Arctic efficiency. Under \ac{gc} routing, the \ac{nsr} appeared $\sim$40--50\% shorter than the \ac{suez} route, consistent with the optimistic narrative in earlier assessments \citep{LiuKronbak2010,SchoyenBrathen2011,Yumashev2017}. However, when land was excluded using sea-only graph routing, the \ac{nsr} became $\sim$15\% longer in terms of distance, transit time, and consequently fuel consumption. This methodological contrast illustrates how assumptions can drive fundamentally different strategic conclusions, underscoring the need for transparency in route modeling.
+
+\subsection{Implications for Fuel and Emissions}
+Fuel consumption and emissions scale directly with voyage time and distance, reinforcing that methodological bias propagates into sustainability assessments. For the case study vessel, the Arctic route consumed $\sim$120 tonnes more fuel and emitted $\sim$370 tonnes more \ac{co2} than the Suez route under sea-only assumptions. These differences are material in the context of global decarbonization targets, particularly as international shipping pursues \ac{imo} greenhouse gas reduction strategies \citep{IMO2009,Bazari2013}. Misrepresenting Arctic efficiency could therefore distort policy discussions around decarbonization and fleet deployment.
+
+\subsection{Role of Auxiliary Loads}
+Although smaller in magnitude, auxiliary consumption contributed an additional 140--160 tonnes of fuel per voyage. Because auxiliary demand scales linearly with time, longer routes accrue proportionally greater overhead. This effect reinforces the penalties of longer Arctic voyages under realistic routing and highlights that auxiliary systems, often overlooked, should be included in comparative assessments.
+
+\subsection{Operational Sensitivity}
+Sensitivity analysis showed that service speed dominates fuel and emissions through its cubic relationship with power demand. At higher speeds, the fuel penalty of the Arctic route compounds further. Vessel size (\ac{dwt}) had a more linear influence, shifting absolute values but not altering the relative ranking of Arctic vs.\ Suez. These results underline that operational decisions cannot be separated from methodological assumptions, echoing the findings of voyage optimization studies that emphasize the speed–fuel tradeoff as central to cost and emissions outcomes \citep{Kontovas2014,Psaraftis2019}.
+
+\subsection{Regulatory and Safety Implications}
+Routing methodology also intersects with regulatory and safety considerations. The \acp{tss} in congested waters, such as the Suez Canal or Singapore Strait, impose mandatory routing, while in the Arctic, regulatory oversight is fragmented across Russia, Canada, and international waters \citep{Moe2014,Suer2021}. Furthermore, infrastructure limitations---including search and rescue (SAR), ice-breaker availability, and port facilities---introduce risks and costs that are not captured in purely geometric routing \citep{Lasserre2014,IAPH2013}. These non-geometric factors compound the methodological finding that Arctic efficiency is less robust than often portrayed.
+
+\subsection{Economic Trade-offs}
+From an economic perspective, routing methodology has direct implications for cost modeling. Distance-driven reductions reported in GC-based studies have been tied to lower charter costs, fuel bills, and potentially lower freight rates \citep{Bekkers2018,Ho2019}. Our results suggest that when navigational constraints are respected, such benefits diminish or reverse. In fact, longer Arctic voyages under sea-only routing may increase not only fuel cost but also insurance premiums, regulatory fees, and capital costs due to extended voyage durations \citep{Suer2021}. This aligns with more cautious economic appraisals that question the competitiveness of the \ac{nsr} under realistic operational conditions \citep{Lasserre2014,Moe2014}.
+
+\subsection{Comparison with Previous Literature}
+Earlier studies that projected large Arctic savings were based on \ac{gc} estimates without land masking \citep{LiuKronbak2010,Yumashev2017,Sur2020}. Our findings suggest that when navigational constraints are respected, these savings vanish or reverse. Constraint-aware studies have emphasized ice, weather, and regulation \citep{Melia2016,Aksenov2017,Nguyen2020,Li2021}, but have not isolated methodology as a variable. By disentangling routing assumptions from environmental overlays, this study clarifies the methodological contribution to Arctic assessments and provides a reproducible baseline.
+
+\subsection{Limitations and Future Work}
+The present analysis excludes dynamic factors such as sea ice, weather, traffic separation schemes, and \acp{mpa}. These will be addressed in subsequent work (Paper~3 onward), where routing will be dynamically constrained by sea ice concentration and environmental fields. Another limitation is the reliance on regression-based power estimation; higher-fidelity resistance and engine models could refine the fuel estimates \citep{Psaraftis2019}. Nevertheless, by isolating routing methodology, this paper provides a controlled baseline against which such future extensions can be compared.
+
+
+\begin{table}[t]
+\centering
+\caption{Contrasting the prevailing NSR narrative with this study's findings (Rotterdam--Yokohama case).}
+\label{tab:nsr_contrast}
+\begin{tabular}{p{0.45\textwidth} p{0.45\textwidth}}
+\toprule
+\textbf{Optimistic NSR Narrative (Literature)} & \textbf{This Study (Sea-only Routing)} \\
+\midrule
+NSR reduces distance by 30--40\% vs.\ Suez Canal \citep{LiuKronbak2010,SchoyenBrathen2011,Yumashev2017}. & NSR is $\sim$15\% \emph{longer} when constrained to sea-only routes, due to land masking. \\
+\\
+Shorter transit time lowers fuel, emissions, and costs. & Longer voyage time increases propulsion and auxiliary consumption, raising both fuel use and \ac{co2} emissions. \\
+\\
+Arctic efficiency framed as a near-inevitable competitive advantage as ice recedes. & Efficiency is highly sensitive to routing methodology and operational assumptions; Arctic advantage is not guaranteed. \\
+\\
+Policy discussions often assume geometric savings as a given baseline. & Findings show that methodological bias can invert results, emphasizing the need for transparent routing assumptions in sustainability assessments. \\
+\bottomrule
+\end{tabular}
+\end{table}

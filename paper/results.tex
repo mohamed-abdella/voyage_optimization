@@ -1,52 +1,278 @@
-\section{Results}\label{sec:results}
+\section{Results and discussion}\label{sec:results}
 
-The comparative analysis revealed that \ac{rpm} outperformed \ac{sog} 
-as a predictor of fuel consumption in the baseline model. 
-This finding is supported both empirically (as shown by higher R² values and lower prediction errors) 
-and theoretically by the fundamental mechanics of marine propulsion systems.
-Specifically, \ac{rpm} is directly linked to the engine's rotational workload and thus 
-to power output and fuel consumption, which often follows a cubic or higher-order nonlinear relationship 
-with shaft speed \cite{alireza2018fuelengine}. 
-In contrast, \ac{sog} is a kinematic parameter influenced by environmental forces such as wind, currents, 
-and tides, which decouple it from the actual engine load and energy usage.
 
-Linear and simpler models tend to outperform complex and non-linear ones. This is demonstrated in \cref{tab:baseline_model_cross_validation}. The table presents the baseline performance metrics of four regression models—Ridge Regression, Support Vector Regression (SVR), Random Forest, and XGBoost—evaluated using five-fold cross-validation. The comparison includes the mean and standard deviation of R², adjusted R², RMSE (Root Mean Squared Error), and MAE (Mean Absolute Error), offering a robust assessment of both model accuracy and consistency. Among the evaluated models, Ridge Regression outperforms the others, achieving the highest mean R² (0.7606) and adjusted R² (0.7597) values, indicating a stronger explanatory power with minimal overfitting. It also attains the lowest average RMSE (5.9762) and MAE (3.1582), suggesting superior predictive accuracy and lower average error in fuel consumption estimation. SVR ranks second across most metrics, with a slightly lower R² (0.7261) and adjusted R² (0.7251), along with a higher RMSE (6.4549) and MAE (3.3779), indicating moderately reduced performance relative to Ridge Regression. Random Forest performs worse than both Ridge and SVR, particularly in terms of error metrics, while XGBoost shows the lowest performance overall, with the smallest R² (0.6062) and highest RMSE (7.6537) and MAE (4.1084), indicating less effective generalization to the data. In terms of variability, all models demonstrate comparable standard deviations across folds, with Ridge Regression maintaining the lowest variance in both RMSE and MAE, underscoring its reliability and stability.
+\subsection{Case 1: Distance baselines and routing-method effects}\label{sec:case01_dist}
 
-Feature analysis revealed that adding environment variables proved beneficial in predicting FC compared to baseline as shown in \cref{tab:advanced_model_cross_validation}. Among the evaluated models, Random Forest yields the best overall performance, achieving the highest mean R² (0.9021) and adjusted R² (0.9006), indicating superior explanatory power. It also records the lowest RMSE (3.5385) and MAE (2.1864), underscoring its high predictive accuracy and minimal average deviation between predicted and actual fuel consumption values. Additionally, the relatively low standard deviations across folds highlight the model’s consistency. Ridge Regression, XGBoost, and SVR exhibit comparable predictive performance, with R² values ranging from 0.8906 to 0.8941 and similar RMSE values (~3.71 for Ridge and XGBoost; 3.64 for SVR). However, SVR attains a slightly higher adjusted R² (0.8925) than Ridge and XGBoost and shows a lower MAE than both, suggesting that SVR may yield marginally better performance in minimizing absolute prediction errors with slightly greater variability across folds (MAE std: 0.4149). Overall, the results underscore that ensemble-based methods like Random Forest are particularly effective in modeling fuel consumption when more advanced modeling strategies are employed. The transition from baseline to advanced models led to a significant improvement in predictive performance across all metrics. In the baseline setup, Ridge Regression performed best, but in the advanced configuration, Random Forest emerged as the top performer with a notable increase in R² (from 0.76 to 0.90) and substantial reductions in RMSE and MAE. These improvements reflect enhanced model accuracy, better generalization, and increased stability.
+Enforcing sea-only feasibility preserves the qualitative distance ranking
+\textbf{Northern Sea Route $<$ Suez $<$ Cape of Good Hope} across all waypoint
+variants as shwon in Figure~\ref{fig:gc_bars} and Figure~\ref{fig:sea_dist} with per variant metrics in (Table~\ref{tab:baseline_all}) and corridor-level medians in (Table~\ref{tab:baseline_medians})
+For Suez and Cape, GC-chain and sea-only distances remain close,
+reflecting mostly open-ocean legs. For the Northern Sea Route, the sea-only
+constraint introduces a larger adjustment because routing must respect Arctic
+coastlines, straits, and the Bering gateway.
 
-Most influencial parameters that contributed significantly to the overall accuracy and were used in building the advanced model in the order of importance are Engine RPM, Temperature in surface snow, seawater salinity, and Propeller slip. All other features contributed somewhat but needed to be more significant to justify their usage in the final model, and therefore, they were not used. These findings are depicted in \cref{fig:random_forest_tree,fig:features_importance}. The bar plot presents the feature importance scores derived from a tree-based model Random Forest, used for predicting fuel consumption. The feature importance metric reflects the contribution of each input variable to reducing the prediction error, and hence to the overall model performance. In order to not skew the figure the Engine RPM have been filtered out from the view. The most influential features are "tsn", "tsr", and "spd", each exhibiting the highest importance scores and their dominant contribution emphasizes the critical role of environment-related metrics in determining fuel consumption. Following these are meteorological and geospatial variables such as "mssl", "mstp", and "longitude", along with temporal features like "day" and "wo" (week of observation). This indicates that, beyond machinery metrics, environmental conditions and voyage context also play a non-negligible role in shaping fuel use dynamics. Several oceanographic and weather-related parameters (e.g., "p140208", "ppbd", "mwd", "mwsh") fall into a mid-importance range, suggesting their secondary influence on consumption, potentially through effects on vessel resistance or route adjustments. Conversely, the features toward the right end of the plot (e.g., "sicom", "sige", "ssmtbkc") exhibit minimal importance, implying limited predictive value in the current modeling setup.
+GC-chain to sea-only deltas are modest for Suez
+(\(\sim\)6.4--8.4\%) and Cape (\(\sim\)6.2--13.2\%), but substantially larger
+for the Northern Sea Route (\(\sim\)17.4--18.2\%) (Figure~\ref{fig:delta_heatmap}).
+These deltas confirm that geometry-only baselines materially underestimate
+navigable Northern Sea Route length, while having a smaller influence on the
+lower-latitude corridors.
 
-\begin{figure}[htbp]
-    \centering
-        \includegraphics[width=1\textwidth]{sog_vs_engine_rpm_using_ridge.pdf}
-        \caption[Baseline Ridge to Compare Fit]{SOG vs Engine RPM}
-        \label{fig:baseline_ridge_to_compare_fit_using_sog_vs_engine_rpm}
+Sea-only distances (Figure~\ref{fig:sea_dist}) and their medians
+(Table~\ref{tab:baseline_medians}) confirm that the Northern Sea Route remains
+shortest by nautical miles. However, for this Rotterdam--Yokohama pair the
+headline geometric advantage quoted in the literature (often \(\sim\)30--40\%
+from pure geometry) \emph{shrinks materially} once sea-only feasibility and
+realistic corridor geometries are enforced, yielding an effective advantage of
+roughly \(\sim\)25--30\% versus Suez depending on variant.
+
+Within-corridor spread across the three waypoint philosophies is small
+(Figures~\ref{fig:gc_bars} and \ref{fig:sea_dist}); the distance coefficient of
+variation is only a few percent (median CV around 2--3\%), indicating that the
+main findings are not an artefact of a single waypoint choice.
+
+\begin{figure}[t]
+  \centering
+  \includegraphics[width=.72\linewidth]{case01_distance_bars_gc.png}
+  \caption{Geometric GC-chain corridor distances by corridor and waypoint
+  variant for Rotterdam--Yokohama.\label{fig:gc_bars}}
 \end{figure}
 
-\begin{figure}[htbp]
-    \centering
-    \includegraphics[width=\linewidth]{random_forest_tree.pdf}
-    \caption{Random Forest Tree}
-    \label{fig:random_forest_tree}
+\begin{figure}[t]
+  \centering
+  \includegraphics[width=\linewidth]{BASELINE_distance.png}
+  \caption{Sea-only (A*) distance by corridor and waypoint variant. The
+  Northern Sea Route remains shortest, followed by Suez and Cape.\label{fig:sea_dist}}
 \end{figure}
 
-\begin{figure}[htbp]
-    \centering
-        \includegraphics[width=1\textwidth]{features_importance.pdf}
-        \caption[Features Importance]{Excluding Engine RPM}
-        \label{fig:features_importance}
+\begin{figure}[t]
+  \centering
+  \includegraphics[width=\linewidth]{BASELINE_gc_vs_sea_dumbbell.png}
+  \caption{Routing-method effect on distance: GC-chain vs sea-only per
+  corridor/variant.\label{fig:gc_vs_sea}}
 \end{figure}
 
-
-\input{baseline_model_cross_validation}
-\input{advanced_model_cross_validation}
-
-\begin{figure}
-    \lstinputlisting[
-        language=Python,
-        firstline=13,
-        lastline=19,
-        caption={Grid Seach Hyperparameters Space},
-        label={src:grid_search_hyperparameters_space}
-    ]{grid_search_final_model.py}
+\begin{figure}[t]
+  \centering
+  \includegraphics[width=0.9\linewidth]{BASELINE_delta_heatmap_pct.png}
+  \caption{GC-chain to sea-only distance delta (\%) by corridor and waypoint
+  philosophy.\label{fig:delta_heatmap}}
 \end{figure}
+
+\begin{table}[t]
+  \centering
+  \caption{Baseline metrics per variant: GC-chain vs sea-only distance, and
+  derived indicative time and fuel/CO\textsubscript{2}.}
+  \label{tab:baseline_all}
+    \resizebox{\linewidth}{!}{%
+    \input{BASELINE_all.tex}
+  }
+\end{table}
+
+
+\begin{table}[t]
+  \centering
+  \caption{Sea-only distance medians by corridor across all waypoint variants
+  (Rotterdam--Yokohama).}
+  \label{tab:baseline_medians}
+  \input{BASELINE_corridor_medians.tex}
+\end{table}
+
+
+\subsection{Case 2: Downstream propagation to time, fuel, and CO$_2$ under corridor-typical speeds}
+\label{sec:case2}
+
+Case~1 showed that enforcing sea-only feasibility preserves the distance ordering
+(NSR $<$ SUEZ $<$ CAPE), while revealing non-trivial GC$\rightarrow$sea-only
+corrections. Case~2 addresses the paper’s secondary objective by tracing how
+these sea-only distance baselines propagate into indicative voyage time and the
+resulting fuel and CO$_2$ estimates under corridor-typical operating speeds.
+
+Sea-only distances are converted to days at sea using representative
+corridor speeds (NSR $\approx 12.5$~kn; SUEZ $\approx 14.5$~kn; CAPE
+$\approx 14$~kn; Table~\ref{tab:params}). Figure~\ref{fig:sea_days} shows that
+distance does not translate linearly into schedule outcomes once realistic
+speed policies are applied. Although NSR remains shortest by nautical miles,
+its lower corridor-typical speed compresses the schedule advantage relative to
+SUEZ. Across variants, indicative durations cluster around
+$\sim$29~days for NSR, $\sim$33--35~days for SUEZ, and $\sim$47--48~days for CAPE,
+with only modest within-corridor spread.
+Thus, a nominal 25–30\% NSR distance advantage corresponds to only a 15\% time advantage in this fair-weather baseline.
+
+\begin{figure}[t]
+  \centering
+  \includegraphics[width=\linewidth]{BASELINE_days.png}
+  \caption{Voyage duration by corridor and variant for sea-only
+  routes under corridor-typical service speeds. NSR remains shortest by
+  distance, but its time advantage over SUEZ compresses under the lower NSR
+  speed.}
+  \label{fig:sea_days}
+\end{figure}
+
+The compression is made explicit in Figure~\ref{fig:dist_time_compression},
+which compares corridor medians normalised by SUEZ. NSR’s median sea-only
+distance is about $0.74\times$ SUEZ, but the corresponding time is only
+$0.85\times$ SUEZ. Conversely, CAPE is about $1.37\times$ SUEZ in distance and
+$1.42\times$ in time. This directly supports the core message of the paper:
+\emph{shorter distance is an optimistic proxy for operational advantage unless
+speed policy is stated explicitly}.
+
+\begin{figure}[t]
+  \centering
+  \includegraphics[width=.85\linewidth]{BASELINE_dist_time_rel_dumbbell.png}
+  \caption{Compression from distance to time under corridor-typical speeds.
+  Points show corridor medians across variants, normalised by SUEZ.
+  NSR’s distance advantage translates into a smaller time advantage once
+  realistic speeds are applied.}
+  \label{fig:dist_time_compression}
+\end{figure}
+
+Figure~\ref{fig:dist_vs_days} provides a complementary view: if all corridors
+sailed at SUEZ speed (dashed reference line), NSR points would fall on the same
+distance–time trend, but under NSR’s lower speed they sit above that line. This
+visualises the non-linear distance–time mapping that motivates the remainder of
+the analysis.
+
+\begin{figure}[t]
+  \centering
+  \includegraphics[width=.9\linewidth]{BASELINE_dist_vs_days_scatter_upgraded.png}
+  \caption{Sea-only distance vs.\ indicative voyage duration under corridor
+  speeds. The dashed line shows the duration each route would have at SUEZ
+  speed. NSR points lie above this line because NSR speed is lower.}
+  \label{fig:dist_vs_days}
+\end{figure}
+
+To quantify the speed threshold behind this compression, the break-even
+analysis in Figure~\ref{fig:nsr_breakeven} shows the NSR service speed required
+to match SUEZ duration for each paired variant. The required NSR speed is
+$\sim$10.4--10.9~kn (median $\sim$10.7~kn). Thus, for Rotterdam--Yokohama the NSR
+remains schedule-advantaged at the assumed 12.5~kn, but \emph{only modestly};
+a reduction of NSR average speed below the break-even band would remove the time
+advantage entirely.
+
+\begin{figure}[t]
+  \centering
+  \includegraphics[width=.85\linewidth]{BASELINE_nsr_breakeven_speed.png}
+  \caption{NSR break-even speed required to match SUEZ voyage time for paired
+  variants. If NSR average speed drops below this band, its schedule advantage
+  disappears.}
+  \label{fig:nsr_breakeven}
+\end{figure}
+
+Fuel and emissions are computed from voyage hours using the transparent
+main- plus auxiliary-engine accounting in Section~\ref{sec:energy_model}.
+Figure~\ref{fig:sea_fuel} shows that total fuel (and thus CO$_2$) follows time
+rather than distance alone. Absolute totals preserve the ordering
+NSR $<$ SUEZ $<$ CAPE, but the NSR margin over SUEZ is smaller than the
+distance gap because corridor-typical speeds reduce the hours-at-sea advantage.
+Indicative totals are approximately $\sim$0.92~kt for NSR,
+$\sim$1.9~kt for SUEZ, and $\sim$2.4~kt for CAPE, implying roughly
+$\sim$2.9, 5.9, and 7.5~kt CO$_2$ using the standard factor.
+Within-corridor variation across waypoint philosophies remains small, showing
+that the downstream conclusions are robust to plausible corridor realisations.
+
+\begin{figure}[t]
+  \centering
+  \includegraphics[width=\linewidth]{BASELINE_fuel.png}
+  \caption{Estimated total fuel consumption by corridor and variant for
+  sea-only routes (main + auxiliary). CO$_2$ follows the same pattern because
+  it scales with total fuel.}
+  \label{fig:sea_fuel}
+\end{figure}
+
+Overall, Case~2 demonstrates the downstream consequence of routing-method
+choice: geometric distance advantages provide useful lower bounds, but once
+converted to operational metrics under corridor-typical speeds,
+the NSR advantage for this Europe--Asia origin–destination pair compresses
+substantially. This completes the study objective by showing how routing
+representation and operating policy jointly determine corridor competitiveness
+in time, fuel, and emissions.
+
+
+
+\subsection{Case 3: Sensitivity and robustness}\label{sec:case4}
+
+Case~3 tests whether the distance and downstream conclusions from
+Cases~1--2 remain stable under plausible changes in endpoint location and
+operating-speed policy.
+
+Figure~\ref{fig:endpoint_sensitivity} compares sea-only distances when the
+East Asia endpoint shifts from Yokohama to Busan. The shift lengthens all
+corridors by a similar absolute amount of about $0.64$~k~nm, reflecting a
+northwestward relocation of the destination. However, the \emph{relative}
+impact differs by corridor: the Northern Sea Route increases by
+$\approx 7.39$--$7.44\%$ across variants, compared with $\approx 5.33$--$5.53\%$
+for Suez and $\approx 3.97$--$4.04\%$ for Cape. This pattern is consistent with
+the corridor geometry: moving to Busan shortens the northwest Pacific approach
+from the Bering Strait, so the NSR retains (and slightly enlarges) its distance
+advantage over Suez for more northerly/westerly East Asian markets.
+Importantly, the qualitative ordering is unchanged (NSR $<$ SUEZ $<$ CAPE),
+showing that the main distance ranking is not an artefact of a single
+destination choice.
+
+\begin{figure}[t]
+  \centering
+  \includegraphics[width=.9\linewidth]{DEST_endpoint_sensitivity_dumbbell.png}
+  \caption{Endpoint sensitivity for sea-only distances: Yokohama versus Busan
+  by corridor and waypoint variant. All corridors lengthen by $\approx 0.64$~k~nm,
+  with the largest relative increase for NSR.}
+  \label{fig:endpoint_sensitivity}
+\end{figure}
+
+To isolate pure geometry from operating policy, we recomputed indicative voyage
+times using a common service speed across corridors. As shown in
+Figure~\ref{fig:equal_speed_days}, equal-speed assumptions restore an almost
+linear distance-to-time mapping and recover the geometric ordering from Case~1.
+The comparison makes explicit that the compression of NSR’s schedule and fuel
+advantages in Case~2 is driven by corridor-typical speed differences rather
+than by instability in the routing baselines.
+
+\begin{figure}[t]
+  \centering
+  \includegraphics[width=.9\linewidth]{BASELINE_equal_speed_days_bars.png}
+  \caption{Equal-speed sensitivity for sea-only routes. Median durations under
+  corridor-typical speeds are compared to an equal-speed scenario, isolating
+  operating-policy effects from geometry.}
+  \label{fig:equal_speed_days}
+\end{figure} 
+
+Overall, Case~3 confirms that the corridor rankings and the key downstream
+interpretations are robust to reasonable endpoint relocation and to the choice
+between corridor-typical and equal-speed operating assumptions, directly
+supporting the paper’s contribution of isolating routing-method effects
+from operational and geographic confounders.
+
+Additional tests with perturbed corridor widths and macro-waypoint locations (not shown) changed absolute sea-only distances by at most a few percent and did not affect the NSR < SUEZ < CAPE ranking or the main time–fuel–CO$_2$ patterns.
+
+\subsection{Implications and limitations}\label{sec:implications}
+
+For corridor selection and fleet planning, three points stand out:
+(i) \emph{Corridor choice and speed policy} matter as much as raw distance; 
+distance-based comparisons alone can materially overstate the NSR’s practical 
+schedule and fuel advantage over SUEZ for the Rotterdam--Yokohama trade. 
+(ii) Equal-speed comparisons are useful for isolating geometry, but 
+\emph{corridor-typical speeds} determine realised schedules, fuel use, and 
+auxiliary exposure. 
+(iii) The CAPE corridor, although longest, remains a robust year-round fallback 
+that is independent of canals and Arctic seasonality. These implications are 
+stable under plausible endpoint relocation (Busan vs.\ Yokohama) and under 
+equal-speed sensitivity tests (Case~3).
+
+By construction, the present analysis \emph{excludes} dynamic environmental and 
+regulatory constraints (sea ice, winds, waves, currents, emission-control areas, 
+canal queues, ice-pilotage and escort requirements). These are essential for 
+operational decision-making but are deliberately omitted here to isolate 
+routing-method effects. The fuel and CO$_2$ model is transparent but not 
+ship-specific: it does not include detailed resistance models, 
+speed--power--SFOC coupling, or weather-dependent added resistance. Finally, the 
+results are computed for a single origin--destination pair with curated 
+waypoints; the framework is general, but quantitative deltas will vary for 
+other trades and waypoint sets.
+
+Overall, the results show that routing representation is a first-order driver 
+of corridor conclusions. Geometry-only reasoning reproduces the familiar 
+``Arctic shortcut'' narrative, whereas conservative sea-only routing combined 
+with corridor-typical speeds reveals a much more compressed and corridor- 
+dependent picture of time, fuel, and emissions.
+
+These fair-weather baselines provide the routing layer for subsequent work in which sea ice, metocean forcing, and regulatory overlays are introduced on top of the sea-only A* framework.

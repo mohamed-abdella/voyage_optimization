@@ -1,0 +1,49 @@
+This is BibTeX, Version 0.99d (TeX Live 2024)
+Capacity: max_strings=200000, hash_size=200000, hash_prime=170003
+The top-level auxiliary file: main.aux
+The style file: elsarticle-harv.bst
+Database file #1: main.bib
+Warning--I didn't find a database entry for "Notteboom2024MEL"
+Reallocated singl_function (elt_size=4) to 100 items from 50.
+You've used 26 entries,
+            2990 wiz_defined-function locations,
+            814 strings with 11259 characters,
+and the built_in function-call counts, 17263 in all, are:
+= -- 1334
+> -- 668
+< -- 14
++ -- 267
+- -- 231
+* -- 1926
+:= -- 2513
+add.period$ -- 101
+call.type$ -- 26
+change.case$ -- 212
+chr.to.int$ -- 26
+cite$ -- 26
+duplicate$ -- 1304
+empty$ -- 1223
+format.name$ -- 314
+if$ -- 3166
+int.to.chr$ -- 1
+int.to.str$ -- 1
+missing$ -- 256
+newline$ -- 168
+num.names$ -- 104
+pop$ -- 424
+preamble$ -- 1
+purify$ -- 179
+quote$ -- 0
+skip$ -- 365
+stack$ -- 0
+substring$ -- 682
+swap$ -- 960
+text.length$ -- 1
+text.prefix$ -- 0
+top$ -- 0
+type$ -- 234
+warning$ -- 0
+while$ -- 105
+width$ -- 0
+write$ -- 431
+(There was 1 warning)

@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html>
+<head>
+    
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+    <script src="https://cdn.jsdelivr.net/npm/leaflet@1.9.3/dist/leaflet.js"></script>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet@1.9.3/dist/leaflet.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap-glyphicons.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.2.0/css/all.min.css"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/python-visualization/folium/folium/templates/leaflet.awesome.rotate.min.css"/>
+    
+            <meta name="viewport" content="width=device-width,
+                initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+            <style>
+                #map_bf492e052fa502fe1ea0ee9ae6bc3d0c {
+                    position: relative;
+                    width: 100.0%;
+                    height: 100.0%;
+                    left: 0.0%;
+                    top: 0.0%;
+                }
+                .leaflet-container { font-size: 1rem; }
+            </style>
+
+            <style>html, body {
+                width: 100%;
+                height: 100%;
+                margin: 0;
+                padding: 0;
+            }
+            </style>
+
+            <style>#map {
+                position:absolute;
+                top:0;
+                bottom:0;
+                right:0;
+                left:0;
+                }
+            </style>
+
+            <script>
+                L_NO_TOUCH = false;
+                L_DISABLE_3D = false;
+            </script>
+
+        
+</head>
+<body>
+    
+    
+    <div style="position: fixed; top: 20px; left: 20px; z-index: 9999;
+                background: white; padding: 8px 10px; border:1px solid #ccc; border-radius: 8px;
+                font-size: 13px;">
+        <b>SUEZ_VAR3</b><br>
+        Ocean-only distance: 12,075 nm
+    </div>
+    
+    
+            <div class="folium-map" id="map_bf492e052fa502fe1ea0ee9ae6bc3d0c" ></div>
+        
+</body>
+<script>
+    
+    
+            var map_bf492e052fa502fe1ea0ee9ae6bc3d0c = L.map(
+                "map_bf492e052fa502fe1ea0ee9ae6bc3d0c",
+                {
+                    center: [43.7, 71.895],
+                    crs: L.CRS.EPSG3857,
+                    ...{
+  "zoom": 3,
+  "zoomControl": true,
+  "preferCanvas": false,
+}
+
+                }
+            );
+
+            
+
+        
+    
+            var tile_layer_8a4d53f987a93fb9a90f855b80df2136 = L.tileLayer(
+                "https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png",
+                {
+  "minZoom": 0,
+  "maxZoom": 20,
+  "maxNativeZoom": 20,
+  "noWrap": false,
+  "attribution": "\u0026copy; \u003ca href=\"https://www.openstreetmap.org/copyright\"\u003eOpenStreetMap\u003c/a\u003e contributors \u0026copy; \u003ca href=\"https://carto.com/attributions\"\u003eCARTO\u003c/a\u003e",
+  "subdomains": "abcd",
+  "detectRetina": false,
+  "tms": false,
+  "opacity": 1,
+}
+
+            );
+        
+    
+            tile_layer_8a4d53f987a93fb9a90f855b80df2136.addTo(map_bf492e052fa502fe1ea0ee9ae6bc3d0c);
+        
+    
+            var circle_marker_707b19b5ba04cd1df6b2252b0922ea86 = L.circleMarker(
+                [51.95, 4.14],
+                {"bubblingMouseEvents": true, "color": "#17becf", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#17becf", "fillOpacity": 0.95, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 4, "stroke": true, "weight": 3}
+            ).addTo(map_bf492e052fa502fe1ea0ee9ae6bc3d0c);
+        
+    
+            circle_marker_707b19b5ba04cd1df6b2252b0922ea86.bindTooltip(
+                `<div>
+                     SUEZ_VAR3: Rotterdam
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_0547554ef3311b150ab8556d07968163 = L.circleMarker(
+                [36.14, -5.35],
+                {"bubblingMouseEvents": true, "color": "#17becf", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#17becf", "fillOpacity": 0.95, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 4, "stroke": true, "weight": 3}
+            ).addTo(map_bf492e052fa502fe1ea0ee9ae6bc3d0c);
+        
+    
+            circle_marker_0547554ef3311b150ab8556d07968163.bindTooltip(
+                `<div>
+                     SUEZ_VAR3: Gibraltar
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_fae6d4600589fbd1f3b08d835bdd65fe = L.circleMarker(
+                [31.26, 32.3],
+                {"bubblingMouseEvents": true, "color": "#17becf", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#17becf", "fillOpacity": 0.95, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 4, "stroke": true, "weight": 3}
+            ).addTo(map_bf492e052fa502fe1ea0ee9ae6bc3d0c);
+        
+    
+            circle_marker_fae6d4600589fbd1f3b08d835bdd65fe.bindTooltip(
+                `<div>
+                     SUEZ_VAR3: Port Said
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_2f58df35719615e680a382e38e3736ec = L.circleMarker(
+                [17.02, 54.1],
+                {"bubblingMouseEvents": true, "color": "#17becf", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#17becf", "fillOpacity": 0.95, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 4, "stroke": true, "weight": 3}
+            ).addTo(map_bf492e052fa502fe1ea0ee9ae6bc3d0c);
+        
+    
+            circle_marker_2f58df35719615e680a382e38e3736ec.bindTooltip(
+                `<div>
+                     SUEZ_VAR3: Salalah
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_5883808874b5b5e1d3cfcbf3634b07ac = L.circleMarker(
+                [6.93, 79.85],
+                {"bubblingMouseEvents": true, "color": "#17becf", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#17becf", "fillOpacity": 0.95, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 4, "stroke": true, "weight": 3}
+            ).addTo(map_bf492e052fa502fe1ea0ee9ae6bc3d0c);
+        
+    
+            circle_marker_5883808874b5b5e1d3cfcbf3634b07ac.bindTooltip(
+                `<div>
+                     SUEZ_VAR3: Colombo
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_2ff91f1d62039ba61aa0b1bf2a9e20d2 = L.circleMarker(
+                [1.29, 103.85],
+                {"bubblingMouseEvents": true, "color": "#17becf", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#17becf", "fillOpacity": 0.95, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 4, "stroke": true, "weight": 3}
+            ).addTo(map_bf492e052fa502fe1ea0ee9ae6bc3d0c);
+        
+    
+            circle_marker_2ff91f1d62039ba61aa0b1bf2a9e20d2.bindTooltip(
+                `<div>
+                     SUEZ_VAR3: Singapore
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_6741b1db34ff1e431adc20477e0a7385 = L.circleMarker(
+                [35.45, 139.65],
+                {"bubblingMouseEvents": true, "color": "#17becf", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#17becf", "fillOpacity": 0.95, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 4, "stroke": true, "weight": 3}
+            ).addTo(map_bf492e052fa502fe1ea0ee9ae6bc3d0c);
+        
+    
+            circle_marker_6741b1db34ff1e431adc20477e0a7385.bindTooltip(
+                `<div>
+                     SUEZ_VAR3: Yokohama
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var poly_line_9bf4a82808523326a3c18efde218cc48 = L.polyline(
+                [[51.814358, 4.135656], [51.835844, 4.047588], [51.85732, 3.996602], [52.0, 3.9], [51.659619, 3.559619], [51.5, 3.4], [51.178984, 2.356699], [51.1, 2.1], [50.988387, 1.813195], [50.892845, 1.567687], [50.849032, 1.441366], [50.8, 1.3], [50.765311, 1.193894], [50.503441, 0.39288], [50.262748, -0.343359], [50.255871, -0.364394], [50.196513, -0.545959], [50.155459, -0.671539], [49.95, -1.3], [49.895072, -1.47977], [49.838248, -1.665743], [49.75639, -1.93365], [49.738559, -1.992006], [49.616376, -2.39189], [49.370363, -3.197043], [49.129249, -3.986163], [49.115729, -4.030414], [49.042365, -4.270518], [48.799916, -5.06401], [48.6667, -5.5], [47.340067, -6.698867], [45.668797, -7.954994], [44.934776, -8.49576], [43.924891, -9.019938], [43.689329, -9.142206], [43.688493, -9.14264], [43.687223, -9.143299], [43.0, -9.5], [40.7798, -9.9844], [38.5, -9.6], [37.781589, -9.452092], [36.8, -9.25], [36.549727, -8.219465], [36.31906, -7.26966], [35.95, -5.75], [35.968819, -5.354867], [35.97289, -5.269383], [36.110975, -5.343132], [35.97289, -5.269383], [36.0, -4.7], [36.156455, -3.683043], [36.158352, -3.670714], [36.220888, -3.264225], [36.324512, -2.590675], [36.377724, -2.244793], [36.473171, -1.62439], [36.666667, -0.366667], [37.2, 3.1], [37.4, 7.5], [37.4851, 10.1431], [37.489085, 10.372293], [37.5, 11.0], [37.454891, 11.172235], [37.283186, 11.827836], [37.215493, 12.086301], [37.212689, 12.097004], [37.209117, 12.110644], [36.907095, 13.263819], [36.4, 15.2], [36.086854, 16.726588], [35.845726, 17.902084], [35.126694, 21.407365], [34.8, 23.0], [34.187436, 24.926664], [34.011915, 25.478721], [33.748752, 26.306431], [33.328, 27.6298], [33.219565, 27.927542], [33.115811, 28.212434], [32.863395, 28.905525], [32.316071, 30.408377], [31.7, 32.1], [31.298117, 32.387159], [30.945814, 32.306671], [30.318359, 32.382202], [30.213982, 32.557983], [29.7, 32.6], [27.9, 33.75], [27.0, 34.5], [23.6, 37.0], [20.75, 38.9], [16.3, 41.2], [15.0, 42.0], [14.1826, 42.4719], [12.7, 43.3], [12.40439, 43.746586], [12.0, 45.0], [14.1436, 49.5581], [16.2, 54.2], [20.0, 59.0], [17.284, 61.6475], [16.551398, 62.6071], [15.0326, 64.5965], [12.660039, 67.182637], [12.5298, 67.3246], [10.0, 70.0], [9.7, 75.3], [8.0, 77.0], [7.229672, 79.646485], [8.0, 77.0], [5.8, 80.1], [5.9, 81.9], [6.1983, 85.9479], [6.4664, 90.0], [6.7, 94.0], [7.0, 97.0], [3.2, 100.6], [2.0, 102.0], [1.1, 103.6], [1.341312, 104.482294], [7.545272, 109.934071], [9.797721, 111.913427], [13.360816, 115.044525], [16.908251, 118.161859], [19.0, 120.0], [19.0, 123.0], [21.041861, 124.413699], [21.217826, 124.53553], [22.52, 125.4371], [26.0, 128.0], [31.0, 130.9], [32.4, 132.4], [33.2, 135.1], [33.846445, 136.598133], [34.325292, 137.197266], [34.385927, 137.857074], [34.436354, 138.139109], [34.486752, 138.421143], [34.44684, 138.60434], [34.40691, 138.787537], [34.655804, 139.191284], [35.0, 139.3]],
+                {"bubblingMouseEvents": true, "color": "#17becf", "dashArray": null, "dashOffset": null, "fill": false, "fillColor": "#17becf", "fillOpacity": 0.2, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "noClip": false, "opacity": 1.0, "smoothFactor": 1.0, "stroke": true, "weight": 4}
+            ).addTo(map_bf492e052fa502fe1ea0ee9ae6bc3d0c);
+        
+    
+            poly_line_9bf4a82808523326a3c18efde218cc48.bindTooltip(
+                `<div>
+                     SUEZ_VAR3 – ocean-only (searoute)
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            map_bf492e052fa502fe1ea0ee9ae6bc3d0c.fitBounds(
+                [[1.1, -9.9844], [52, 139.3]],
+                {}
+            );
+        
+</script>
+</html>
