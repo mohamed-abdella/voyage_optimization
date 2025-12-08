@@ -1,0 +1,344 @@
+\section{Data and methods}\label{sec:methods}
+
+\subsection{Study domain and routing grid}
+\label{sec:domain_grid}
+
+The analysis focuses on a pan-Arctic corridor that is sufficiently wide
+to encompass candidate trans-Arctic connections between northern Europe
+and the North Pacific, while remaining compact enough for systematic
+grid-based diagnostics. We define a latitude band from
+$40^{\circ}\,\mathrm{N}$ to $85^{\circ}\,\mathrm{N}$ and a longitude range
+from $20^{\circ}\,\mathrm{W}$ to $180^{\circ}\,\mathrm{E}$ (hereafter
+referred to as the \emph{routing domain}). This choice captures the
+Norwegian and Barents Seas, the Arctic Ocean, and the Bering and
+Okhotsk Seas, together with the adjacent shelves and marginal seas that
+are relevant for Europe--Asia traffic, but excludes lower-latitude
+subtropical waters that are not part of realistic Arctic diversions.
+
+Within this domain we construct a regular latitude--longitude routing
+grid with a resolution of $\Delta\varphi=\Delta\lambda=0.5^{\circ}$,
+corresponding to a nominal horizontal spacing of approximately 55 km at Arctic mid-latitudes. Grid-cell centres
+are defined on
+\begin{align*}
+  \varphi_i &= 40.5^{\circ}\,\mathrm{N},\, 41.0^{\circ}\,\mathrm{N},\,\dots,\,84.5^{\circ}\,\mathrm{N}, \\
+  \lambda_j &= 19.5^{\circ}\,\mathrm{W},\, 19.0^{\circ}\,\mathrm{W},\,\dots,\,179.5^{\circ}\,\mathrm{E},
+\end{align*}
+yielding $89 \times 399$ grid points. This resolution is a compromise:
+it is coarse enough to allow efficient A* routing and seasonal
+sensitivity experiments over the full pan-Arctic corridor, yet fine
+enough to resolve the major shelf breaks, islands and basin-scale
+geometrical constraints that modulate trans-Arctic connectivity.
+
+All routing computations operate on this coarse grid. High-resolution
+datasets (bathymetry and sea-ice concentration) are first subsetted to
+the routing domain and then mapped onto the $0.5^{\circ}$ grid via
+bilinear interpolation in latitude--longitude space
+(Sections~\ref{sec:bathy_data} and \ref{sec:ice_data}). The resulting
+fields provide, for each routing cell, (i) a static ocean depth,
+(ii) a static land/sea mask derived from bathymetry, and (iii) a
+time-dependent sea-ice concentration. These fields are then combined
+into binary feasibility masks that encode which grid cells may be used
+by the pathfinding algorithm under different safety assumptions
+(Sections~\ref{sec:constraints}--\ref{sec:routing_method}).
+
+\subsection{Bathymetry dataset and land/sea mask}
+\label{sec:bathy_data}
+
+Static seafloor topography is taken from the GEBCO~2024 global grid
+\citep{GEBCO2024}, subsetted to the routing domain
+($40$--$85^{\circ}\,\mathrm{N}$, $20^{\circ}\,\mathrm{W}$--$180^{\circ}\,\mathrm{E}$).
+The native product has a nominal resolution of $15$~arcsec; within the
+subset, depth values (variable \texttt{elevation}) span from
+approximately $-8700$~m (deep ocean) to $+5500$~m (continental terrain
+and ice sheets).
+
+For routing purposes we regrid GEBCO onto the $0.5^{\circ}$ routing
+grid. For each routing cell centre $(\varphi_i,\lambda_j)$, depth is
+obtained by bilinear interpolation in latitude and longitude, yielding a
+depth field $h_{ij}$ with shape $89 \times 399$. We adopt the GEBCO
+sign convention (negative values over the ocean, positive over land and
+ice). A binary land/sea mask is then defined as
+\begin{equation}
+  M^{\mathrm{sea}}_{ij} =
+    \begin{cases}
+      1, & h_{ij} < 0~\mathrm{m},\\[3pt]
+      0, & h_{ij} \ge 0~\mathrm{m},
+    \end{cases}
+\end{equation}
+so that $M^{\mathrm{sea}}=1$ denotes ocean and $M^{\mathrm{sea}}=0$
+denotes land or grounded ice. This mask defines the maximum set of
+cells that can ever be used by a route; all subsequent depth and sea-ice
+constraints operate within $M^{\mathrm{sea}}=1$.
+
+To represent under-keel clearance requirements we further define
+depth-thresholded sea masks. Given a minimum acceptable water depth
+$h_{\min}$, we consider
+\begin{equation}
+  M^{\mathrm{depth}}_{ij}(h_{\min}) =
+    \begin{cases}
+      1, & M^{\mathrm{sea}}_{ij}=1 \ \text{and}\ h_{ij} \le -h_{\min},\\[3pt]
+      0, & \text{otherwise},
+    \end{cases}
+\label{eq:mdepth}
+\end{equation}
+such that only cells deeper than $h_{\min}$ (in absolute value) remain
+available. In this paper we mainly use $h_{\min}=20$~m as a conservative
+yet permissive value for large commercial vessels, and treat stricter
+depth constraints as a diagnostic in the Results.
+
+\subsection{Sea-ice dataset and regridding}
+\label{sec:ice_data}
+
+Sea-ice concentration is taken from the CMEMS Arctic sea-ice
+reanalysis \citep{CMEMS_SeaIce_Reanalysis}, which provides daily fields of
+sea-ice concentration (SIC) and thickness on a polar stereographic grid
+for the Arctic Ocean and surrounding seas. We focus on the June--September 2018 season as a recent summer with complete CMEMS coverage and typical low Arctic sea-ice extent, rather than an extreme minimum year, so that the diagnostics reflect present-day conditions without being tied to an exceptional season.
+
+
+The SIC variable (\texttt{siconc}) is expressed as fractional sea-ice
+concentration in $[0,1]$. For each daily time step $t_k$ we first
+subset the CMEMS product to a geographic box slightly larger than the
+routing domain and then regrid SIC onto the $0.5^{\circ}$ routing grid
+via bilinear interpolation, yielding a time-dependent field
+$s_{ijk} \in [0,1]$ on the same $89 \times 399$ grid as the bathymetry.
+Grid points south of the CMEMS ice domain (for which \texttt{siconc} is
+undefined) are assigned $s_{ijk}=0$, consistent with the product being
+an Arctic sea-ice reanalysis.
+
+The primary sea-ice control used in this study is a concentration
+threshold $C_{\mathrm{thr}}$ expressed as a fraction of ice cover
+(e.g.\ $C_{\mathrm{thr}} = 0.15$ for $15\%$ SIC). For a given date
+$t_k$, we define an ice-feasibility mask
+\begin{equation}
+  M^{\mathrm{ice}}_{ij}(C_{\mathrm{thr}}, t_k) =
+    \begin{cases}
+      1, & M^{\mathrm{sea}}_{ij}=1 \ \text{and}\ s_{ijk} < C_{\mathrm{thr}},\\[3pt]
+      0, & \text{otherwise},
+    \end{cases}
+\end{equation}
+such that $M^{\mathrm{ice}}=1$ denotes ice-safe ocean at that date and
+threshold. The reference threshold used throughout is
+$C_{\mathrm{thr}} = 0.15$ (15\,\% SIC), using a concentration threshold close to the WMO ‘open water’ category (total sea-ice concentration < 1/10; \citet{WMO259}); additional thresholds between 5\,\% and
+50\,\% are used for sensitivity experiments.
+
+
+
+\subsection{Feasibility constraints: depth, ice and joint masks}
+\label{sec:constraints}
+
+All routing experiments are performed on binary feasibility masks that
+encode which cells are available to the pathfinding algorithm. We
+distinguish three types of masks:
+
+\begin{enumerate}
+  \item \textbf{Sea-only mask} $M^{\mathrm{sea}}$:
+    this mask encodes pure geometric accessibility based on GEBCO
+    bathymetry, with no additional safety constraints. It is used to
+    construct a baseline ``sea-only'' route that avoids land but ignores
+    both depth and sea-ice.
+
+  \item \textbf{Depth-constrained masks}
+    $M^{\mathrm{depth}}(h_{\min})$:
+    these masks enforce under-keel clearance by excluding cells shallower
+    than $h_{\min}$, as defined in Eq.~(2). In practice we
+    consider $h_{\min}=20$~m as a realistic value for a deep-draught
+    commercial vessel, and briefly explore stricter values
+    ($h_{\min}=50$ and $200$~m) to assess how quickly trans-Arctic
+    connectivity fragments at this resolution. To avoid artificially
+    blocking port access, depth constraints may be relaxed in the
+    immediate origin and destination cells while being enforced along
+    the rest of the route.
+
+  \item \textbf{Ice-constrained masks}
+    $M^{\mathrm{ice}}(C_{\mathrm{thr}}, t_k)$:
+    these masks encode the subset of ocean cells that are both
+    geometric sea and have SIC below a chosen threshold on date $t_k$,
+    as defined in Eq.~(3). They are used for seasonal and threshold
+    sensitivity experiments in which only sea-ice is varied while
+    bathymetry remains fixed.
+\end{enumerate}
+
+For completeness we also define a \emph{joint} depth-plus-ice mask
+\begin{equation}
+  M^{\mathrm{joint}}_{ij}(h_{\min}, C_{\mathrm{thr}}, t_k)
+  = M^{\mathrm{depth}}_{ij}(h_{\min}) \,
+    M^{\mathrm{ice}}_{ij}(C_{\mathrm{thr}}, t_k),
+\end{equation}
+representing the intersection of depth and ice constraints. At the
+$0.5^{\circ}$ resolution used here a continuous joint-safe corridor does
+not exist for $h_{\min}=20$~m and $C_{\mathrm{thr}}=15$\,\% in
+September~2018; this lack of connectivity is itself one of the
+diagnostics discussed in Section~\ref{sec:results_joint} and motivates
+the decision to treat bathymetry and sea-ice constraints separately in
+the main route analysis.
+
+\subsection{Graph construction and routing algorithm}
+\label{sec:routing_method}
+
+Routing is performed on a regular-grid graph derived from the routing
+grid. Each ocean cell $(i,j)$ with mask value $M_{ij}=1$ (for the mask
+under consideration) is treated as a node. Undirected edges are added
+between each node and its von Neumann and diagonal neighbours
+(8-connectivity), provided that both endpoints are feasible
+($M_{ij}=M_{i'j'}=1$). The edge cost $c_{(i,j)\to(i',j')}$ is taken as
+the great-circle distance between the two cell centres, computed using
+a spherical Earth approximation with radius $R=6371~\mathrm{km}$; this
+ensures that the discrete cost field is consistent with physical
+distance.
+
+Routes between a chosen origin and destination are computed using the
+A* algorithm. The heuristic $h(\cdot)$ is the great-circle distance from
+the current node to the destination, divided by a constant reference
+speed to preserve units; this heuristic is admissible and guarantees
+that A* returns a globally distance-minimising path on the graph. For
+masks that are purely geometric (sea-only) or purely ice-based, A* is
+therefore equivalent to finding the shortest feasible sea-only route in
+terms of travelled distance.
+
+Throughout this paper we consider a canonical origin--destination (OD)
+pair chosen to span the pan-Arctic basin without tying the analysis to a
+specific port. The origin lies in the eastern North Atlantic at
+$(40.5^{\circ}\,\mathrm{N},\,19.5^{\circ}\,\mathrm{W})$, while the
+destination lies in the North Pacific at
+$(69.5^{\circ}\,\mathrm{N},\,179.5^{\circ}\,\mathrm{E})$. Both
+coordinates coincide with routing-grid cell centres and are located in
+the largest contiguous sea component under the pure bathymetric mask,
+so that a reference sea-only route exists. The great-circle distance
+between these points is approximately $4149$~NM and serves as a lower
+bound against which gridded sea-only and constrained routes are
+compared.
+
+\subsection{Diagnostic metrics and experiment design}
+\label{sec:diagnostics}
+
+For each feasibility mask and OD pair we extract the A*-derived path as
+an ordered sequence of grid cells
+$\{(i_n,j_n)\}_{n=0}^{N-1}$, together with their geographic
+coordinates $(\varphi_{i_n}, \lambda_{j_n})$. From this discrete path we
+compute the following diagnostics:
+
+\begin{itemize}
+  \item \textbf{Route distance} $D_{\mathrm{route}}$:
+    the sum of great-circle distances along each edge of the path,
+    reported in nautical miles (NM).
+
+  \item \textbf{Great-circle distance} $D_{\mathrm{GC}}$:
+    the great-circle distance between origin and destination, also in
+    NM, representing the theoretical lower bound in the absence of
+    land and safety constraints.
+
+  \item \textbf{Route inflation} $\rho$:
+    the ratio $D_{\mathrm{route}}/D_{\mathrm{GC}}$, which measures by how
+    much the constrained route is elongated relative to the direct
+    great-circle.
+
+  \item \textbf{Depth statistics along the route}:
+    for experiments that include bathymetric information we sample
+    $h_{ij}$ along the route and report the minimum, mean and maximum
+    depths. In addition, one-dimensional profiles and histograms are
+    used to compare the depth distribution along the route with that of
+    all sea cells in the corridor.
+
+  \item \textbf{Sea-ice statistics and connectivity}:
+    for ice-constrained experiments we compute (i) the fraction of sea
+    cells that are ice-safe ($M^{\mathrm{ice}}=1$), (ii) the number of
+    connected components of the ice-safe sea, and (iii) whether the
+    origin and destination lie in the same ice-safe component. These
+    diagnostics are computed both for single dates and for seasonal
+    sequences.
+\end{itemize}
+
+Two families of experiments are performed:
+
+\begin{enumerate}
+  \item \textbf{Seasonal experiments}:
+    for a fixed SIC threshold $C_{\mathrm{thr}}=0.15$ we evaluate
+    ice-only routing on four representative summer dates
+    (15~June, 15~July, 15~August and 15~September~2018). For each date
+    we compute the fraction of ice-safe sea, the number of ice-safe
+    components, and (if a route exists) the corresponding
+    $D_{\mathrm{route}}$ and $\rho$.
+
+  \item \textbf{Threshold-sensitivity experiments}:
+    for a late-summer date we vary the SIC
+    threshold over $\{5, 10, 15, 30, 50\}\,\%$ and repeat the
+    diagnostics. A second experiment combines multiple dates
+    (mid-June to end-September) and thresholds into a date--threshold
+    matrix, from which we construct a heatmap of route availability and
+    route inflation. Entries where no continuous ice-safe corridor
+    exists are marked as missing, emphasising the discrete ``opening''
+    of the trans-Arctic connection in late summer.
+\end{enumerate}
+
+Joint depth-plus-ice masks are analysed in a more qualitative way: for
+selected combinations of $h_{\min}$ and $C_{\mathrm{thr}}$ we visualise
+the joint-safe sea fraction and its connected components, and record
+whether a continuous trans-Arctic corridor exists. At the
+$0.5^{\circ}$ resolution considered here, no joint-safe path is found
+for $h_{\min}=20$~m and $C_{\mathrm{thr}}=15$\,\% in September~2018,
+highlighting the strong fragmentation induced by combining depth and
+ice constraints and motivating the separation of bathymetric and
+sea-ice effects in the present paper.
+
+\subsection*{Notation for masks and thresholds}
+
+For convenience, Table~\ref{tab:notation_masks} summarises the main
+symbols used for feasibility masks and thresholds in this paper.
+
+\begin{table}[htbp]
+  \centering
+  \caption{Notation for masks, fields and thresholds used in the routing framework.}
+  \label{tab:notation_masks}
+  \begin{tabular}{llp{7cm}}
+    \hline
+    Symbol & Type & Meaning \\
+    \hline
+    $h_{ij}$ &
+    scalar field &
+    Water depth at routing-grid cell $(i,j)$ from GEBCO~2024; negative over ocean, positive over land/ice. \\[3pt]
+
+    $M^{\mathrm{sea}}_{ij}$ &
+    binary mask &
+    Static land/sea mask; $M^{\mathrm{sea}}_{ij}=1$ for ocean cells ($h_{ij}<0$), $0$ otherwise. \\[3pt]
+
+    $h_{\min}$ &
+    parameter &
+    Minimum acceptable water depth (under-keel clearance), e.g.\ $20$~m, $50$~m or $200$~m. \\[3pt]
+
+    $M^{\mathrm{depth}}_{ij}(h_{\min})$ &
+    binary mask &
+    Depth-safe sea mask; $M^{\mathrm{depth}}_{ij}=1$ if $M^{\mathrm{sea}}_{ij}=1$ and $h_{ij}\le -h_{\min}$. \\[3pt]
+
+    $s_{ijk}$ &
+    scalar field &
+    Sea-ice concentration (SIC) at cell $(i,j)$ and time index $k$ regridded from CMEMS, in $[0,1]$. \\[3pt]
+
+    $C_{\mathrm{thr}}$ &
+    parameter &
+    SIC threshold for ice safety, expressed as fraction (e.g.\ $0.15$ for $15\%$). \\[3pt]
+
+    $M^{\mathrm{ice}}_{ij}(C_{\mathrm{thr}}, t_k)$ &
+    binary mask &
+    Ice-safe sea mask at date $t_k$; $M^{\mathrm{ice}}_{ij}=1$ if $M^{\mathrm{sea}}_{ij}=1$ and $s_{ijk}<C_{\mathrm{thr}}$. \\[3pt]
+
+    $M^{\mathrm{joint}}_{ij}(h_{\min}, C_{\mathrm{thr}}, t_k)$ &
+    binary mask &
+    Joint depth-plus-ice mask; product of $M^{\mathrm{depth}}_{ij}(h_{\min})$ and $M^{\mathrm{ice}}_{ij}(C_{\mathrm{thr}}, t_k)$. \\[3pt]
+
+    $D_{\mathrm{GC}}$ &
+    scalar &
+    Great-circle distance between origin and destination (NM). \\[3pt]
+
+    $D_{\mathrm{route}}$ &
+    scalar &
+    Distance of the A*-derived route on the grid (NM). \\[3pt]
+
+    $\rho$ &
+    scalar &
+    Route inflation factor, $\rho = D_{\mathrm{route}} / D_{\mathrm{GC}}$. \\
+    \hline
+  \end{tabular}
+\end{table}
+
+\newpage
+%% 2nd version 

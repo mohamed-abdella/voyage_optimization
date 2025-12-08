@@ -1,4 +1,4 @@
-\begin{thebibliography}{48}
+\begin{thebibliography}{15}
 \expandafter\ifx\csname natexlab\endcsname\relax\def\natexlab#1{#1}\fi
 \providecommand{\url}[1]{\texttt{#1}}
 \providecommand{\href}[2]{#2}
@@ -12,249 +12,93 @@
 \providecommand{\bibinfo}[2]{#2}
 \ifx\xfnm\relax \def\xfnm[#1]{\unskip,\space#1}\fi
 %Type = Article
-\bibitem[{Agand et~al.(2023)Agand, Kennedy, Harris, Bae, Chen and Park}]{agandFuelConsumptionPrediction2023}
-\bibinfo{author}{Agand, P.}, \bibinfo{author}{Kennedy, A.}, \bibinfo{author}{Harris, T.}, \bibinfo{author}{Bae, C.}, \bibinfo{author}{Chen, M.}, \bibinfo{author}{Park, E.J.}, \bibinfo{year}{2023}.
-\newblock \bibinfo{title}{Fuel {{Consumption Prediction}} for a {{Passenger Ferry}} using {{Machine Learning}} and {{In-service Data}}: {{A Comparative Study}}} \bibinfo{volume}{284}, \bibinfo{pages}{115271}.
-\newblock \URLprefix \url{http://arxiv.org/abs/2310.13123}, \DOIprefix\doi{10.1016/j.oceaneng.2023.115271}, \href{http://arxiv.org/abs/2310.13123}{{\tt arXiv:2310.13123}}.
+\bibitem[{Aksenov et~al.(2017)Aksenov, Popova, Yool, Nurser, Williams, Bertino and Bergh}]{Aksenov2017}
+\bibinfo{author}{Aksenov, Y.}, \bibinfo{author}{Popova, E.E.}, \bibinfo{author}{Yool, A.}, \bibinfo{author}{Nurser, A.J.G.}, \bibinfo{author}{Williams, T.D.}, \bibinfo{author}{Bertino, L.}, \bibinfo{author}{Bergh, J.}, \bibinfo{year}{2017}.
+\newblock \bibinfo{title}{On the future navigability of arctic sea routes: High-resolution projections of the arctic ocean and sea ice}.
+\newblock \bibinfo{journal}{Marine Policy} \bibinfo{volume}{75}, \bibinfo{pages}{300--317}.
+\newblock \DOIprefix\doi{10.1016/j.marpol.2015.12.027}.
 %Type = Article
-\bibitem[{Breiman(2001)}]{breiman2001random}
-\bibinfo{author}{Breiman, L.}, \bibinfo{year}{2001}.
-\newblock \bibinfo{title}{Random forests}.
-\newblock \bibinfo{journal}{Machine Learning} \bibinfo{volume}{45}, \bibinfo{pages}{5--32}.
-\newblock \DOIprefix\doi{10.1023/A:1010933404324}.
-%Type = Inproceedings
-\bibitem[{Chen and Guestrin(2016)}]{chen2016xgboost}
-\bibinfo{author}{Chen, T.}, \bibinfo{author}{Guestrin, C.}, \bibinfo{year}{2016}.
-\newblock \bibinfo{title}{Xgboost: A scalable tree boosting system}, in: \bibinfo{booktitle}{Proceedings of the 22nd ACM SIGKDD International Conference on Knowledge Discovery and Data Mining}, \bibinfo{publisher}{ACM}, \bibinfo{address}{San Francisco, CA, USA}. pp. \bibinfo{pages}{785--794}.
-\newblock \URLprefix \url{https://doi.org/10.1145/2939672.2939785}, \DOIprefix\doi{10.1145/2939672.2939785}.
-%Type = Article
-\bibitem[{Chen et~al.(2023)Chen, Lam and Xiao}]{chenetal2023}
-\bibinfo{author}{Chen, Z.S.}, \bibinfo{author}{Lam, J.S.L.}, \bibinfo{author}{Xiao, Z.}, \bibinfo{year}{2023}.
-\newblock \bibinfo{title}{Prediction of harbour vessel fuel consumption based on machine learning approach}.
-\newblock \bibinfo{journal}{Ocean Engineering} \bibinfo{volume}{278}, \bibinfo{pages}{114483}.
-\newblock \DOIprefix\doi{10.1016/j.oceaneng.2023.114483}.
+\bibitem[{Chen et~al.(2021)Chen, Shu, Feng and Lin}]{Chen2021TC}
+\bibinfo{author}{Chen, X.}, \bibinfo{author}{Shu, Y.}, \bibinfo{author}{Feng, H.}, \bibinfo{author}{Lin, Q.}, \bibinfo{year}{2021}.
+\newblock \bibinfo{title}{Climate policy and the future of arctic shipping: Economic and environmental trade-offs between the northern sea route and the suez canal under new emission regulations}.
+\newblock \bibinfo{journal}{Regional Studies in Marine Science} \bibinfo{volume}{97}, \bibinfo{pages}{102911}.
+\newblock \DOIprefix\doi{10.1016/j.rsma.2025.104597}.
 %Type = Misc
-\bibitem[{Clearseas(2020)}]{clearseasMarineFuelsWhat2020}
-\bibinfo{author}{Clearseas}, \bibinfo{year}{2020}.
-\newblock \bibinfo{title}{Marine {{Fuels}}: {{What}} is {{Heavy Fuel Oil}}?}
-\newblock \URLprefix \url{https://clearseas.org/en/blog/marine-fuels-what-is-heavy-fuel-oil/}.
+\bibitem[{{Copernicus Marine Environment Monitoring Service}(2023)}]{CMEMS_SeaIce_Reanalysis}
+\bibinfo{author}{{Copernicus Marine Environment Monitoring Service}}, \bibinfo{year}{2023}.
+\newblock \bibinfo{title}{Arctic ocean sea ice reanalysis}.
+\newblock \bibinfo{howpublished}{Copernicus Marine Service Marine Data Store}.
+\newblock \URLprefix \url{https://doi.org/10.48670/mds-00336}, \DOIprefix\doi{10.48670/mds-00336}. \bibinfo{note}{accessed via doi:10.48670/mds-00336}.
 %Type = Misc
-\bibitem[{CopernicusMarine(2014)}]{copernicusmarineservice}
-\bibinfo{author}{CopernicusMarine}, \bibinfo{year}{2014}.
-\newblock \bibinfo{title}{Copernicus marine service: Ocean monitoring and forecasting}.
-\newblock \bibinfo{howpublished}{\url{https://marine.copernicus.eu}}.
-\newblock \URLprefix \url{https://marine.copernicus.eu/about}. \bibinfo{note}{accessed: 2024-11-20}.
-%Type = Inproceedings
-\bibitem[{Drucker et~al.(1997)Drucker, Burges, Kaufman, Smola and Vapnik}]{drucker1997svr}
-\bibinfo{author}{Drucker, H.}, \bibinfo{author}{Burges, C.J.C.}, \bibinfo{author}{Kaufman, L.}, \bibinfo{author}{Smola, A.}, \bibinfo{author}{Vapnik, V.}, \bibinfo{year}{1997}.
-\newblock \bibinfo{title}{Support vector regression machines}, in: \bibinfo{booktitle}{Advances in Neural Information Processing Systems (NIPS)}, \bibinfo{publisher}{MIT Press}, \bibinfo{address}{Denver, CO, USA}. pp. \bibinfo{pages}{155--161}.
+\bibitem[{{GEBCO Bathymetric Compilation Group}(2024)}]{GEBCO2024}
+\bibinfo{author}{{GEBCO Bathymetric Compilation Group}}, \bibinfo{year}{2024}.
+\newblock \bibinfo{title}{The gebco\_2024 grid -- a continuous terrain model of the global oceans and land}.
+\newblock \URLprefix \url{https://www.gebco.net/data-products/gridded-bathymetry-data/gebco2024-grid}, \DOIprefix\doi{10.5285/1c44ce99-0a0d-5f4f-e063-7086abc0ea0f}. \bibinfo{note}{accessed 2025-11-16}.
 %Type = Article
-\bibitem[{Du et~al.(2022)Du, Chen, Li, Schönborn and Sun}]{duDataFusionMachine2022a}
-\bibinfo{author}{Du, Y.}, \bibinfo{author}{Chen, Y.}, \bibinfo{author}{Li, X.}, \bibinfo{author}{Schönborn, A.}, \bibinfo{author}{Sun, Z.}, \bibinfo{year}{2022}.
-\newblock \bibinfo{title}{Data fusion and machine learning for ship fuel efficiency modeling: {{Part III}} – {{Sensor}} data and meteorological data} \bibinfo{volume}{2}, \bibinfo{pages}{100072}.
-\newblock \URLprefix \url{https://linkinghub.elsevier.com/retrieve/pii/S2772424722000221}, \DOIprefix\doi{10.1016/j.commtr.2022.100072}.
+\bibitem[{Kuuliala et~al.(2017)Kuuliala, Kujala, Suominen and Montewka}]{Kuuliala2017}
+\bibinfo{author}{Kuuliala, L.}, \bibinfo{author}{Kujala, P.}, \bibinfo{author}{Suominen, M.}, \bibinfo{author}{Montewka, J.}, \bibinfo{year}{2017}.
+\newblock \bibinfo{title}{Estimating operability of ships in ridged ice fields}.
+\newblock \bibinfo{journal}{Cold Regions Science and Technology} \bibinfo{volume}{135}, \bibinfo{pages}{51--61}.
+\newblock \DOIprefix\doi{10.1016/j.coldregions.2016.12.003}.
 %Type = Article
-\bibitem[{Fan et~al.(2021)Fan, Wang, He, Perčić, Vladimir and Yang}]{FAN2021120266}
-\bibinfo{author}{Fan, A.}, \bibinfo{author}{Wang, J.}, \bibinfo{author}{He, Y.}, \bibinfo{author}{Perčić, M.}, \bibinfo{author}{Vladimir, N.}, \bibinfo{author}{Yang, L.}, \bibinfo{year}{2021}.
-\newblock \bibinfo{title}{Decarbonising inland ship power system: Alternative solution and assessment method}.
-\newblock \bibinfo{journal}{Energy} \bibinfo{volume}{226}, \bibinfo{pages}{120266}.
-\newblock \URLprefix \url{https://www.sciencedirect.com/science/article/pii/S0360544221005156}, \DOIprefix\doi{https://doi.org/10.1016/j.energy.2021.120266}.
+\bibitem[{Liu et~al.(2023)Liu, Wang, Zhang, Yan, Xu and Guo}]{Liu2023}
+\bibinfo{author}{Liu, Q.}, \bibinfo{author}{Wang, Y.}, \bibinfo{author}{Zhang, R.}, \bibinfo{author}{Yan, H.}, \bibinfo{author}{Xu, J.}, \bibinfo{author}{Guo, Y.}, \bibinfo{year}{2023}.
+\newblock \bibinfo{title}{Arctic weather routing: A review of ship performance models and ice routing algorithms}.
+\newblock \bibinfo{journal}{Frontiers in Marine Science} \bibinfo{volume}{10}, \bibinfo{pages}{1190164}.
+\newblock \DOIprefix\doi{10.3389/fmars.2023.1190164}.
 %Type = Article
-\bibitem[{Fan et~al.(2022)Fan, Yang, Yang, Wu and Vladimir}]{fanReviewShipFuel}
-\bibinfo{author}{Fan, A.}, \bibinfo{author}{Yang, J.}, \bibinfo{author}{Yang, L.}, \bibinfo{author}{Wu, D.}, \bibinfo{author}{Vladimir, N.}, \bibinfo{year}{2022}.
-\newblock \bibinfo{title}{A review of ship fuel consumption models} \bibinfo{volume}{264}, \bibinfo{pages}{112405}.
-\newblock \URLprefix \url{https://linkinghub.elsevier.com/retrieve/pii/S0029801822016936}, \DOIprefix\doi{10.1016/j.oceaneng.2022.112405}.
-%Type = Book
-\bibitem[{Galton(1886)}]{galton1886regression}
-\bibinfo{author}{Galton, F.}, \bibinfo{year}{1886}.
-\newblock \bibinfo{title}{Regression Towards Mediocrity in Hereditary Stature}. volume~\bibinfo{volume}{15}.
-\newblock \bibinfo{publisher}{Anthropological Institute of Great Britain and Ireland}.
-%Type = Misc
-\bibitem[{{Global Ocean Physics Analysis and Forecast}(2024)}]{cmems2024global}
-\bibinfo{author}{{Global Ocean Physics Analysis and Forecast}}, \bibinfo{year}{2024}.
-\newblock \bibinfo{title}{{E.U. Copernicus Marine Service Information (CMEMS)}. \ac{mds}}.
-\newblock \DOIprefix\doi{10.48670/moi-00016}. \bibinfo{note}{accessed on 12-07-2024}.
+\bibitem[{Lu et~al.(2021)Lu, Kujala and Goerlandt}]{Lu2021}
+\bibinfo{author}{Lu, L.}, \bibinfo{author}{Kujala, P.}, \bibinfo{author}{Goerlandt, F.}, \bibinfo{year}{2021}.
+\newblock \bibinfo{title}{A method for assessing ship operability in dynamic ice for independent navigation and escort operations}.
+\newblock \bibinfo{journal}{Ocean Engineering} \bibinfo{volume}{225}, \bibinfo{pages}{108830}.
+\newblock \DOIprefix\doi{10.1016/j.oceaneng.2021.108830}.
 %Type = Article
-\bibitem[{Haranen et~al.(2016)Haranen, Pakkanen, Kariranta and Salo}]{haranenWhiteGreyBlackBox}
-\bibinfo{author}{Haranen, M.}, \bibinfo{author}{Pakkanen, P.}, \bibinfo{author}{Kariranta, R.}, \bibinfo{author}{Salo, J.}, \bibinfo{year}{2016}.
-\newblock \bibinfo{title}{White, {{Grey}} and {{Black-Box Modelling}} in {{Ship Performance Evaluation}}} .
+\bibitem[{Melia et~al.(2016)Melia, Haines and Hawkins}]{Melia2016}
+\bibinfo{author}{Melia, N.}, \bibinfo{author}{Haines, K.}, \bibinfo{author}{Hawkins, E.}, \bibinfo{year}{2016}.
+\newblock \bibinfo{title}{Sea ice decline and 21st century trans-arctic shipping routes}.
+\newblock \bibinfo{journal}{Geophysical Research Letters} \bibinfo{volume}{6}, \bibinfo{pages}{541--546}.
+\newblock \DOIprefix\doi{10.1002/2016GL069315}.
 %Type = Article
-\bibitem[{He et~al.(2021)He, Fan, Wang, Liu and Mao}]{HE2021109733}
-\bibinfo{author}{He, Y.}, \bibinfo{author}{Fan, A.}, \bibinfo{author}{Wang, Z.}, \bibinfo{author}{Liu, Y.}, \bibinfo{author}{Mao, W.}, \bibinfo{year}{2021}.
-\newblock \bibinfo{title}{Two-phase energy efficiency optimisation for ships using parallel hybrid electric propulsion system}.
-\newblock \bibinfo{journal}{Ocean Engineering} \bibinfo{volume}{238}, \bibinfo{pages}{109733}.
-\newblock \URLprefix \url{https://www.sciencedirect.com/science/article/pii/S0029801821011021}, \DOIprefix\doi{https://doi.org/10.1016/j.oceaneng.2021.109733}.
-%Type = Misc
-\bibitem[{Hersbach et~al.(2024)Hersbach, Bell, Berrisford, Biavati, Horányi, Muñoz~Sabater, Nicolas, Peubey, Radu, Rozum, Schepers, Simmons, Soci, Dee and Thépaut}]{hersbach2023era5}
-\bibinfo{author}{Hersbach, H.}, \bibinfo{author}{Bell, B.}, \bibinfo{author}{Berrisford, P.}, \bibinfo{author}{Biavati, G.}, \bibinfo{author}{Horányi, A.}, \bibinfo{author}{Muñoz~Sabater, J.}, \bibinfo{author}{Nicolas, J.}, \bibinfo{author}{Peubey, C.}, \bibinfo{author}{Radu, R.}, \bibinfo{author}{Rozum, I.}, \bibinfo{author}{Schepers, D.}, \bibinfo{author}{Simmons, A.}, \bibinfo{author}{Soci, C.}, \bibinfo{author}{Dee, D.}, \bibinfo{author}{Thépaut, J.N.}, \bibinfo{year}{2024}.
-\newblock \bibinfo{title}{Era5 hourly data on single levels from 1940 to present}.
-\newblock \DOIprefix\doi{10.24381/cds.adbb2d47}. \bibinfo{note}{accessed on 25-06-2024}.
+\bibitem[{Notz and Stroeve(2016)}]{Notz2016}
+\bibinfo{author}{Notz, D.}, \bibinfo{author}{Stroeve, J.}, \bibinfo{year}{2016}.
+\newblock \bibinfo{title}{Observed arctic sea-ice loss directly follows anthropogenic co\(_2\) emissions}.
+\newblock \bibinfo{journal}{Science} \bibinfo{volume}{354}, \bibinfo{pages}{747--750}.
+\newblock \DOIprefix\doi{10.1126/science.aag2345}.
 %Type = Article
-\bibitem[{Hoerl and Kennard(1970)}]{hoerl1970ridge}
-\bibinfo{author}{Hoerl, A.E.}, \bibinfo{author}{Kennard, R.W.}, \bibinfo{year}{1970}.
-\newblock \bibinfo{title}{Ridge regression: Biased estimation for nonorthogonal problems}.
-\newblock \bibinfo{journal}{Technometrics} \bibinfo{volume}{12}, \bibinfo{pages}{55--67}.
-\newblock \DOIprefix\doi{10.1080/00401706.1970.10488634}.
+\bibitem[{Pruyn and van Hassel(2022)}]{Pruyn2022}
+\bibinfo{author}{Pruyn, J.F.J.}, \bibinfo{author}{van Hassel, E.}, \bibinfo{year}{2022}.
+\newblock \bibinfo{title}{The impact of adding the northern sea route to the belt and road initiative for europe: A chain cost approach}.
+\newblock \bibinfo{journal}{Transportation Research Interdisciplinary Perspectives} \bibinfo{volume}{15}, \bibinfo{pages}{100659}.
+\newblock \DOIprefix\doi{10.1016/j.trip.2022.100659}.
 %Type = Article
-\bibitem[{Huang(2022)}]{huangMachineLearningSustainable2022}
-\bibinfo{author}{Huang, L.}, \bibinfo{year}{2022}.
-\newblock \bibinfo{title}{Machine learning in sustainable ship design and operation: {{A}} review} .
+\bibitem[{Stephenson et~al.(2013)Stephenson, Smith, Brigham and Agnew}]{Stephenson2013}
+\bibinfo{author}{Stephenson, S.R.}, \bibinfo{author}{Smith, L.C.}, \bibinfo{author}{Brigham, L.W.}, \bibinfo{author}{Agnew, T.}, \bibinfo{year}{2013}.
+\newblock \bibinfo{title}{Projected 21st-century changes to arctic marine access}.
+\newblock \bibinfo{journal}{Climatic Change} \bibinfo{volume}{118}, \bibinfo{pages}{885--899}.
+\newblock \DOIprefix\doi{10.1007/s10584-012-0685-0}.
 %Type = Article
-\bibitem[{Huber(1964)}]{huber1964robust}
-\bibinfo{author}{Huber, P.J.}, \bibinfo{year}{1964}.
-\newblock \bibinfo{title}{Robust estimation of a location parameter}.
-\newblock \bibinfo{journal}{The Annals of Mathematical Statistics} \bibinfo{volume}{35}, \bibinfo{pages}{73--101}.
-\newblock \DOIprefix\doi{10.1214/aoms/1177703732}.
-%Type = Misc
-\bibitem[{IMO(2020)}]{imoFourthIMOGHG2020}
-\bibinfo{author}{IMO}, \bibinfo{year}{2020}.
-\newblock \bibinfo{title}{Fourth {{IMO GHG Study}}}.
-\newblock \URLprefix \url{https://wwwcdn.imo.org/localresources/en/OurWork/Environment/Documents/Fourth%20IMO%20GHG%20Study%202020%20-%20Full%20report%20and%20annexes.pdf}.
-%Type = Misc
-\bibitem[{IMO(2023)}]{imoIMODataCollection2023}
-\bibinfo{author}{IMO}, \bibinfo{year}{2023}.
-\newblock \bibinfo{title}{{{IMO Data Collection System}} ({{DCS}})}.
-\newblock \URLprefix \url{https://www.imo.org/en/ourwork/environment/pages/data-collection-system.aspx}.
+\bibitem[{Stroeve et~al.(2012)Stroeve, Kattsov, Barrett, Serreze, Pavlova, Holland and Meier}]{Stroeve2012}
+\bibinfo{author}{Stroeve, J.}, \bibinfo{author}{Kattsov, V.}, \bibinfo{author}{Barrett, A.}, \bibinfo{author}{Serreze, M.}, \bibinfo{author}{Pavlova, T.}, \bibinfo{author}{Holland, M.}, \bibinfo{author}{Meier, W.}, \bibinfo{year}{2012}.
+\newblock \bibinfo{title}{Trends in arctic sea ice extent from cmip5, cmip3 and observations}.
+\newblock \bibinfo{journal}{Geophysical Research Letters} \bibinfo{volume}{39}, \bibinfo{pages}{L16502}.
+\newblock \DOIprefix\doi{10.1029/2012GL052676}.
+%Type = Techreport
+\bibitem[{{World Meteorological Organization}(2014)}]{WMO259}
+\bibinfo{author}{{World Meteorological Organization}}, \bibinfo{year}{2014}.
+\newblock \bibinfo{title}{WMO Sea-Ice Nomenclature}.
+\newblock \bibinfo{type}{Technical Report} \bibinfo{number}{WMO-No. 259}. World Meteorological Organization. \bibinfo{address}{Geneva, Switzerland}.
+\newblock \URLprefix \url{https://globalcryospherewatch.org/wordpress/wp-content/themes/global-cryosphere-watch/files/resources/WMO_ice_nomenclature_vol2.pdf}. \bibinfo{note}{accessed 7 December 2025}.
 %Type = Article
-\bibitem[{Ji and El-Halwagi(2020)}]{jiDatadrivenStudyIMO2020}
-\bibinfo{author}{Ji, C.}, \bibinfo{author}{El-Halwagi, M.M.}, \bibinfo{year}{2020}.
-\newblock \bibinfo{title}{A data-driven study of {{IMO}} compliant fuel emissions with consideration of black carbon aerosols} \bibinfo{volume}{218}, \bibinfo{pages}{108241}.
-\newblock \URLprefix \url{https://linkinghub.elsevier.com/retrieve/pii/S002980182031163X}, \DOIprefix\doi{10.1016/j.oceaneng.2020.108241}.
-%Type = Book
-\bibitem[{Lang(2023)}]{lang2023data}
-\bibinfo{author}{Lang, X.}, \bibinfo{year}{2023}.
-\newblock \bibinfo{title}{Data-Driven Ship Performance Models--Emphasis on Energy Efficiency and Fatigue Safety}.
-\newblock \bibinfo{publisher}{Chalmers Tekniska Hogskola (Sweden)}.
+\bibitem[{Zhang et~al.(2023)Zhang, Sun, Zha, Wang and Chen}]{Zhang2023JMSE}
+\bibinfo{author}{Zhang, Y.}, \bibinfo{author}{Sun, X.}, \bibinfo{author}{Zha, Y.}, \bibinfo{author}{Wang, K.}, \bibinfo{author}{Chen, C.}, \bibinfo{year}{2023}.
+\newblock \bibinfo{title}{Changing arctic northern sea route and transpolar sea route: A prediction of route changes and navigation potential before mid-21st century}.
+\newblock \bibinfo{journal}{Journal of Marine Science and Engineering} \bibinfo{volume}{11}, \bibinfo{pages}{2340}.
+\newblock \DOIprefix\doi{10.3390/jmse11122340}.
 %Type = Article
-\bibitem[{Li et~al.(2022)Li, Du, Chen, Nguyen, Zhang, Schönborn and Sun}]{liDataFusionMachine2022}
-\bibinfo{author}{Li, X.}, \bibinfo{author}{Du, Y.}, \bibinfo{author}{Chen, Y.}, \bibinfo{author}{Nguyen, S.}, \bibinfo{author}{Zhang, W.}, \bibinfo{author}{Schönborn, A.}, \bibinfo{author}{Sun, Z.}, \bibinfo{year}{2022}.
-\newblock \bibinfo{title}{Data fusion and machine learning for ship fuel efficiency modeling: {{Part I}} – {{Voyage}} report data and meteorological data} \bibinfo{volume}{2}, \bibinfo{pages}{100074}.
-\newblock \URLprefix \url{https://linkinghub.elsevier.com/retrieve/pii/S2772424722000245}, \DOIprefix\doi{10.1016/j.commtr.2022.100074}.
-%Type = Article
-\bibitem[{Liu et~al.(2020)Liu, Liu, Chen, Luo and Zhai}]{LIU2020107246}
-\bibinfo{author}{Liu, Z.}, \bibinfo{author}{Liu, W.}, \bibinfo{author}{Chen, Q.}, \bibinfo{author}{Luo, F.}, \bibinfo{author}{Zhai, S.}, \bibinfo{year}{2020}.
-\newblock \bibinfo{title}{Resistance reduction technology research of high speed ships based on a new type of bow appendage}.
-\newblock \bibinfo{journal}{Ocean Engineering} \bibinfo{volume}{206}, \bibinfo{pages}{107246}.
-\newblock \URLprefix \url{https://www.sciencedirect.com/science/article/pii/S0029801820302961}, \DOIprefix\doi{https://doi.org/10.1016/j.oceaneng.2020.107246}.
-%Type = Inproceedings
-\bibitem[{Lundberg and Lee(2017)}]{lundberg2017unified}
-\bibinfo{author}{Lundberg, S.M.}, \bibinfo{author}{Lee, S.I.}, \bibinfo{year}{2017}.
-\newblock \bibinfo{title}{A unified approach to interpreting model predictions}, in: \bibinfo{booktitle}{Proceedings of the 31st International Conference on Neural Information Processing Systems}, pp. \bibinfo{pages}{4765--4774}.
-\newblock \URLprefix \url{https://arxiv.org/abs/1705.07874}.
-%Type = Misc
-\bibitem[{{marinetraffic}(2025)}]{marinetraffic}
-\bibinfo{author}{{marinetraffic}}, \bibinfo{year}{2025}.
-\newblock \URLprefix \url{https://www.marinetraffic.com/en/ais/details/ships/shipid:3740922/mmsi:338748000/imo:9677923/vessel:HERCULES}.
-%Type = Article
-\bibitem[{McNemar(1978)}]{mcnemar1978statistical}
-\bibinfo{author}{McNemar, G.N.}, \bibinfo{year}{1978}.
-\newblock \bibinfo{title}{The statistical significance of the relationship between observed and expected frequencies in two-way tables}.
-\newblock \bibinfo{journal}{Psychometrika} \bibinfo{volume}{43}, \bibinfo{pages}{537--545}.
-%Type = Article
-\bibitem[{Pavlenko et~al.(2020)Pavlenko, Comer, Zhou, Clark and Rutherford}]{pavlenkoClimateImplicationsUsing}
-\bibinfo{author}{Pavlenko, N.}, \bibinfo{author}{Comer, B.}, \bibinfo{author}{Zhou, Y.}, \bibinfo{author}{Clark, N.}, \bibinfo{author}{Rutherford, D.}, \bibinfo{year}{2020}.
-\newblock \bibinfo{title}{The climate implications of using {{LNG}} as a marine fuel} .
-%Type = Inproceedings
-\bibitem[{Pedregosa et~al.(2011)Pedregosa, Varoquaux, Gramfort, Michel, Thirion, Grisel, Blondel, Prettenhofer, Weiss, Dubourg, Vanderplas, Passos, Cournapeau, Brucher, Perrot and Duchesnay}]{pedregosa2011scikit}
-\bibinfo{author}{Pedregosa, F.}, \bibinfo{author}{Varoquaux, G.}, \bibinfo{author}{Gramfort, A.}, \bibinfo{author}{Michel, V.}, \bibinfo{author}{Thirion, B.}, \bibinfo{author}{Grisel, O.}, \bibinfo{author}{Blondel, M.}, \bibinfo{author}{Prettenhofer, P.}, \bibinfo{author}{Weiss, R.}, \bibinfo{author}{Dubourg, V.}, \bibinfo{author}{Vanderplas, J.}, \bibinfo{author}{Passos, A.}, \bibinfo{author}{Cournapeau, D.}, \bibinfo{author}{Brucher, M.}, \bibinfo{author}{Perrot, M.}, \bibinfo{author}{Duchesnay, {\'E}.}, \bibinfo{year}{2011}.
-\newblock \bibinfo{title}{Scikit-learn: Machine learning in python}, in: \bibinfo{booktitle}{Journal of Machine Learning Research}, \bibinfo{publisher}{JMLR}. pp. \bibinfo{pages}{2825--2830}.
-%Type = Article
-\bibitem[{Pena et~al.(2020)Pena, Huang and Ahlgren}]{penaReviewApplicationsMachine2020}
-\bibinfo{author}{Pena, B.}, \bibinfo{author}{Huang, L.}, \bibinfo{author}{Ahlgren, F.}, \bibinfo{year}{2020}.
-\newblock \bibinfo{title}{A {{Review}} on {{Applications}} of {{Machine Learning}} in {{Shipping Sustainability}}} , \bibinfo{pages}{9}.
-%Type = Article
-\bibitem[{Petersen et~al.(2012)Petersen, Winther and Jacobsen}]{petersen2012machine}
-\bibinfo{author}{Petersen, J.P.}, \bibinfo{author}{Winther, O.}, \bibinfo{author}{Jacobsen, D.J.}, \bibinfo{year}{2012}.
-\newblock \bibinfo{title}{A machine-learning approach to predict main energy consumption under realistic operational conditions}.
-\newblock \bibinfo{journal}{Ship Technology Research} \bibinfo{volume}{59}, \bibinfo{pages}{64--72}.
-%Type = Article
-\bibitem[{Shang et~al.(2023)Shang, Xu, Tian, Cai and Xu}]{shangetal2023}
-\bibinfo{author}{Shang, G.}, \bibinfo{author}{Xu, L.}, \bibinfo{author}{Tian, J.}, \bibinfo{author}{Cai, D.}, \bibinfo{author}{Xu, Z.}, \bibinfo{year}{2023}.
-\newblock \bibinfo{title}{A real-time green construction optimization strategy for engineering vessels considering fuel consumption and productivity: A case study on a cutter suction dredger}.
-\newblock \bibinfo{journal}{Energy} \bibinfo{volume}{274}, \bibinfo{pages}{127326}.
-\newblock \DOIprefix\doi{10.1016/j.energy.2023.127326}.
-%Type = Article
-\bibitem[{Soleymani et~al.(2018)Soleymani, Sharifi, Edalat, Sharifi and Zadeh}]{alireza2018fuelengine}
-\bibinfo{author}{Soleymani, A.}, \bibinfo{author}{Sharifi, S.M.H.}, \bibinfo{author}{Edalat, P.}, \bibinfo{author}{Sharifi, S.M.M.}, \bibinfo{author}{Zadeh, S.K.}, \bibinfo{year}{2018}.
-\newblock \bibinfo{title}{Linear modelling of marine vessels fuel consumption for ration of fuel consumption}.
-\newblock \bibinfo{journal}{International Journal of Maritime Technology} .
-%Type = Article
-\bibitem[{Stolz et~al.(2022)Stolz, Held, Georges and Boulouchos}]{stolzTechnoeconomicAnalysisRenewable2022}
-\bibinfo{author}{Stolz, B.}, \bibinfo{author}{Held, M.}, \bibinfo{author}{Georges, G.}, \bibinfo{author}{Boulouchos, K.}, \bibinfo{year}{2022}.
-\newblock \bibinfo{title}{Techno-economic analysis of renewable fuels for ships carrying bulk cargo in {{Europe}}} \bibinfo{volume}{7}, \bibinfo{pages}{203--212}.
-\newblock \URLprefix \url{https://www.nature.com/articles/s41560-021-00957-9}, \DOIprefix\doi{10.1038/s41560-021-00957-9}.
-%Type = Article
-\bibitem[{Stone(1974)}]{stone1974cross}
-\bibinfo{author}{Stone, M.}, \bibinfo{year}{1974}.
-\newblock \bibinfo{title}{Cross-validatory choice and assessment of statistical predictions}.
-\newblock \bibinfo{journal}{Journal of the Royal Statistical Society. Series B (Methodological)} \bibinfo{volume}{36}, \bibinfo{pages}{111--147}.
-\newblock \DOIprefix\doi{10.1111/j.2517-6161.1974.tb00994.x}.
-%Type = Misc
-\bibitem[{UN(2015)}]{unParisAgreement2015}
-\bibinfo{author}{UN}, \bibinfo{year}{2015}.
-\newblock \bibinfo{title}{7. d {{Paris Agreement}}}.
-\newblock \URLprefix \url{https://treaties.un.org/Pages/ViewDetails.aspx?src=TREATY&mtdsg_no=XXVII-7-d&chapter=27}.
-%Type = Article
-\bibitem[{UNCTAD(2023)}]{Unctad2023}
-\bibinfo{author}{UNCTAD}, \bibinfo{year}{2023}.
-\newblock \bibinfo{title}{Review of {{Maritime Transport}} 2023} .
-%Type = Article
-\bibitem[{Uyanık et~al.(2022)Uyanık, Arslanoğlu and Önder Kalenderli}]{Uyanik2022}
-\bibinfo{author}{Uyanık, T.}, \bibinfo{author}{Arslanoğlu, Y.}, \bibinfo{author}{Önder Kalenderli}, \bibinfo{year}{2022}.
-\newblock \bibinfo{title}{Data-driven approach for estimating power and fuel consumption of ship: A case of container vessel}.
-\newblock \bibinfo{journal}{Mathematics} \bibinfo{volume}{10}, \bibinfo{pages}{4167}.
-\newblock \URLprefix \url{https://www.mdpi.com/2227-7390/10/22/4167}, \DOIprefix\doi{10.3390/math10224167}.
-%Type = Article
-\bibitem[{Vinayak et~al.(2021)Vinayak, Prabu, Vishwanath and Prakash}]{vinayaketal2021}
-\bibinfo{author}{Vinayak, P.}, \bibinfo{author}{Prabu, C.}, \bibinfo{author}{Vishwanath, N.}, \bibinfo{author}{Prakash, S.O.}, \bibinfo{year}{2021}.
-\newblock \bibinfo{title}{{{NUMERICAL SIMULATION OF SHIP NAVIGATION IN ROUGH SEAS BASED ON ECMWF DATA}}} \bibinfo{volume}{72}, \bibinfo{pages}{19--58}.
-\newblock \URLprefix \url{https://hrcak.srce.hr/file/368062}, \DOIprefix\doi{10.21278/brod72102}.
-%Type = Article
-\bibitem[{Wang et~al.(2023)Wang, Yan, Wang and Zhen}]{WANG2023104361}
-\bibinfo{author}{Wang, H.}, \bibinfo{author}{Yan, R.}, \bibinfo{author}{Wang, S.}, \bibinfo{author}{Zhen, L.}, \bibinfo{year}{2023}.
-\newblock \bibinfo{title}{Innovative approaches to addressing the tradeoff between interpretability and accuracy in ship fuel consumption prediction}.
-\newblock \bibinfo{journal}{Transportation Research Part C: Emerging Technologies} \bibinfo{volume}{157}, \bibinfo{pages}{104361}.
-\newblock \URLprefix \url{https://www.sciencedirect.com/science/article/pii/S0968090X23003510}, \DOIprefix\doi{https://doi.org/10.1016/j.trc.2023.104361}.
-%Type = Article
-\bibitem[{Wei et~al.(2021)Wei, Yin, Li, Li, Chan and Zeng}]{WEI2021121036}
-\bibinfo{author}{Wei, N.}, \bibinfo{author}{Yin, L.}, \bibinfo{author}{Li, C.}, \bibinfo{author}{Li, C.}, \bibinfo{author}{Chan, C.}, \bibinfo{author}{Zeng, F.}, \bibinfo{year}{2021}.
-\newblock \bibinfo{title}{Forecasting the daily natural gas consumption with an accurate white-box model}.
-\newblock \bibinfo{journal}{Energy} \bibinfo{volume}{232}, \bibinfo{pages}{121036}.
-\newblock \URLprefix \url{https://www.sciencedirect.com/science/article/pii/S0360544221012846}, \DOIprefix\doi{https://doi.org/10.1016/j.energy.2021.121036}.
-%Type = Article
-\bibitem[{Willmott et~al.(1985)}]{willmott1985rmse}
-\bibinfo{author}{Willmott, C.J.}, et~al., \bibinfo{year}{1985}.
-\newblock \bibinfo{title}{On the evaluation of model performance in physical geography}.
-\newblock \bibinfo{journal}{Physical Geography} \bibinfo{volume}{2}, \bibinfo{pages}{184--194}.
-%Type = Misc
-\bibitem[{{windy}(2025)}]{windy}
-\bibinfo{author}{{windy}}, \bibinfo{year}{2025}.
-\newblock \URLprefix \url{https://www.windy.com/-Waves-waves}.
-%Type = Article
-\bibitem[{Xie et~al.(2023)Xie, Sun, Li, Olsson, Maleki and Ahlgren}]{xieFuelConsumptionPrediction2023}
-\bibinfo{author}{Xie, X.}, \bibinfo{author}{Sun, B.}, \bibinfo{author}{Li, X.}, \bibinfo{author}{Olsson, T.}, \bibinfo{author}{Maleki, N.}, \bibinfo{author}{Ahlgren, F.}, \bibinfo{year}{2023}.
-\newblock \bibinfo{title}{Fuel {{Consumption Prediction Models Based}} on {{Machine Learning}} and {{Mathematical Methods}}} \bibinfo{volume}{11}, \bibinfo{pages}{738}.
-\newblock \URLprefix \url{https://www.mdpi.com/2077-1312/11/4/738}, \DOIprefix\doi{10.3390/jmse11040738}.
-%Type = Article
-\bibitem[{Yan et~al.(2021)Yan, Wang and Psaraftis}]{YAN2021102489}
-\bibinfo{author}{Yan, R.}, \bibinfo{author}{Wang, S.}, \bibinfo{author}{Psaraftis, H.N.}, \bibinfo{year}{2021}.
-\newblock \bibinfo{title}{Data analytics for fuel consumption management in maritime transportation: Status and perspectives}.
-\newblock \bibinfo{journal}{Transportation Research Part E: Logistics and Transportation Review} \bibinfo{volume}{155}, \bibinfo{pages}{102489}.
-\newblock \URLprefix \url{https://www.sciencedirect.com/science/article/pii/S1366554521002519}, \DOIprefix\doi{https://doi.org/10.1016/j.tre.2021.102489}.
-%Type = Article
-\bibitem[{Zhang et~al.(2017)Zhang, Ma, Liu and Wang}]{zhang2017multi}
-\bibinfo{author}{Zhang, J.}, \bibinfo{author}{Ma, W.}, \bibinfo{author}{Liu, Y.}, \bibinfo{author}{Wang, X.}, \bibinfo{year}{2017}.
-\newblock \bibinfo{title}{Multi-objective ship speed optimization for simultaneously minimizing emissions and operation cost}.
-\newblock \bibinfo{journal}{Navigation of China} \bibinfo{volume}{40}, \bibinfo{pages}{129--134}.
-%Type = Article
-\bibitem[{Zhang et~al.(2024)Zhang, Tsoulakos, Kujala and Hirdaris}]{zhangDeepLearningMethod2024}
-\bibinfo{author}{Zhang, M.}, \bibinfo{author}{Tsoulakos, N.}, \bibinfo{author}{Kujala, P.}, \bibinfo{author}{Hirdaris, S.}, \bibinfo{year}{2024}.
-\newblock \bibinfo{title}{A deep learning method for the prediction of ship fuel consumption in real operational conditions} \bibinfo{volume}{130}, \bibinfo{pages}{107425}.
-\newblock \URLprefix \url{https://linkinghub.elsevier.com/retrieve/pii/S0952197623016093}, \DOIprefix\doi{10.1016/j.engappai.2023.107425}.
-%Type = Article
-\bibitem[{Zhou et~al.(2023)Zhou, Pazouki, Murphy, Uriondo, Granado, Quincoces and Fernandes-Salvador}]{zhouPredictingShipFuel2023}
-\bibinfo{author}{Zhou, Y.}, \bibinfo{author}{Pazouki, K.}, \bibinfo{author}{Murphy, A.J.}, \bibinfo{author}{Uriondo, Z.}, \bibinfo{author}{Granado, I.}, \bibinfo{author}{Quincoces, I.}, \bibinfo{author}{Fernandes-Salvador, J.A.}, \bibinfo{year}{2023}.
-\newblock \bibinfo{title}{Predicting ship fuel consumption using a combination of metocean and on-board data} \bibinfo{volume}{285}, \bibinfo{pages}{115509}.
-\newblock \URLprefix \url{https://linkinghub.elsevier.com/retrieve/pii/S0029801823018930}, \DOIprefix\doi{10.1016/j.oceaneng.2023.115509}.
+\bibitem[{Zhu et~al.(2018)Zhu, Fu, Ng and Luo}]{Zhu2018}
+\bibinfo{author}{Zhu, S.}, \bibinfo{author}{Fu, X.}, \bibinfo{author}{Ng, A.K.Y.}, \bibinfo{author}{Luo, M.}, \bibinfo{year}{2018}.
+\newblock \bibinfo{title}{The environmental costs and economic implications of container shipping on the northern sea route}.
+\newblock \bibinfo{journal}{Maritime Policy \& Management} \bibinfo{volume}{45}, \bibinfo{pages}{456--477}.
+\newblock \DOIprefix\doi{10.1080/03088839.2018.1443228}.
 
 \end{thebibliography}

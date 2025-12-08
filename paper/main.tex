@@ -3,6 +3,8 @@
 
 \documentclass[preprint,12pt,authoryear]{elsarticle}
 
+% ---- Bibliography / citations (Elsevier uses natbib) ----
+
 \makeatletter
 \def\ps@pprintTitle{%
    \let\@oddhead\@empty
@@ -12,14 +14,17 @@
 \makeatother
 
 \usepackage{setspace} 
-\usepackage{lineno} 
+\usepackage{lineno}   
 \usepackage[nohyperlinks]{acronym}
 \usepackage[hidelinks]{hyperref}
 
 \usepackage{wrapfig} 
 \usepackage{lineno} 
 \usepackage{appendix}
+
+
 \usepackage{tikz}
+
 \usetikzlibrary{shapes.geometric, arrows} 
 \usepackage{pdfpages}
 \usepackage[T1]{fontenc}
@@ -33,8 +38,6 @@
 \usepackage{doi}
 \usepackage{listings}
 \usepackage{caption}
-\renewcommand{\lstlistingname}{Source Code}            
-\renewcommand{\lstlistlistingname}{List of Source Codes} 
 \usepackage{subcaption} 
 \lstset{
   showspaces=false,
@@ -47,31 +50,30 @@
   numberstyle=\tiny,
   captionpos=b
 }
-\renewcommand{\lstlistlistingname}{List of Source Codes}
 \usepackage{natbib}
 \usepackage{doi} % after hyperref
 
-\renewcommand{\citep}[1]{(\citeyear{#1})}  
+%\renewcommand{\citep}[1]{(\citeyear{#1})}  this to make only the year in bracket
 \bibliographystyle{elsarticle-harv}
 \captionsetup[table]{labelfont=bf}
 \captionsetup[figure]{labelfont=bf}
+
+\providecommand{\DOIprefix}{}
 
 \begin{document}
 
 \doublespacing
 \acresetall
-\title{Data Fusion and Machine Learning for Ship Fuel Consumption Modelling - A Case of Bulk Carrier Vessel}
+\title{Trans-Arctic route feasibility on a pan-Arctic grid under bathymetric and sea-ice constraints}
 \author[label1,label2]{Abdella Mohamed\corref{mycorrespondingauthor}}
 \ead{mohamed.abdella@tum.de}
 
-\author[label1]{Xiangyu Hu}
+\author[label1]{Xiangyu Hu\corref{mycorrespondingauthor}}
 \ead{xiangyu.hu@tum.de}
 
-\author[label2]{Christian Hendricks}
-\ead{christian.hendricks@everllence.com}
 
 \cortext[mycorrespondingauthor]{Corresponding author}
-\affiliation[label1]{organization={Technical Univerisity of Munich},
+\affiliation[label1]{organization={Technical University of Munich},
          addressline={Boltzmannstraße 15},
          postcode={85748},
          city={Garching},
@@ -84,76 +86,76 @@
 \input{abstract}
 \input{acronyms}
 \input{introduction}
-\input{literature_analysis}
-\input{methodological_approach}
-\input{results}
+\input{methodology}
+\input{results_and_discussion}
 \input{conclusion}
 \section*{CRediT authorship contribution statement}
 \textbf{Abdella Mohamed:} Conceptualization, Methodology, Coding, Data curation, Writing, Visualization, Investigation, Validation. 
 \textbf{Xiangyu Hu:} Supervision, Conceptualization, Methodology, Manuscript review and editing. 
-\textbf{Christian Hendricks:} Mentorship, Conceptualization, Methodology, Manuscript review and editing. 
 \section*{Acknowledgements}
 This work was supported by Technical University of Munich and Everllence (formerly: MAN Energy Solutions).
-The following tools have been used to produce this manuscript:
-\begin{itemize}
-    \item Macbook Pro M3 Pro, 36 GB RAM
-    \item Draw io  
-    \item Python and its Ecosystem
-    \item Jupyter Lab and its Ecosystem
-    \item VScode and its Ecosystem
-    \item Obsidian and its Ecosystem 
-    \item Latex  and its Ecosystem
-    \item Zotero and its Ecosystem
-\end{itemize}
+
 \section*{Data and Code Availability}
-The Datasets are available from CMEMS and ECMWF as cited in the manuscript and the code is archived on Zenodo at \doi{10.5281/zenodo.17158071}, 
-which captures the GitHub repository release corresponding to this paper. 
+
+Bathymetry data are taken from the GEBCO~2024 global grid
+\citep{GEBCO2024}, available at \url{https://www.gebco.net/}.
+Sea-ice concentration fields are taken from the CMEMS Arctic Ocean Sea Ice
+Reanalysis \citep{CMEMS_SeaIce_Reanalysis}, available via doi:10.48670/mds-00336.
+
+The Python code used to construct feasibility masks and perform A* routing,
+together with configuration files specifying all parameters used in this
+study, is openly available at \url{https://doi.org/10.xxxx/zenodo.xxxxxxx}
+[placeholder DOI], under an open-source licence.
 
 \section*{Declaration of Generative AI and AI-assisted Technologies in the Preparation of this Work}
-The author used OpenAI ChatGPT to assist with language editing during manuscript preparation.The author reviewed and edited the content and accepts full responsibility for the final manuscript.
+The authors used OpenAI ChatGPT to assist with language editing during manuscript preparation. The authors reviewed and edited all AI-generated content and take full responsibility for the scientific integrity and accuracy of the manuscript.
 
 
 \listoftables
 \listoffigures
-\lstlistoflistings
 \clearpage
-\bibliography{main}
-\newpage
+
 \appendix
-\setcounter{table}{0}
-\section{Raw Parameters Description}\label{app:raw_parameters_description}
-    \input{voyages_raw_parameters}
-    \clearpage
-    \input{cmems_raw_parameters}
-    \input{era5_raw_parameters}
-\section{Data Distribution}\label{app:data_distribution}
-\begin{figure}
-    \begin{subfigure}[b]{0.45\textwidth}
-        \centering
-        \includegraphics[width=\textwidth]{ports_distribution.pdf}
-        \caption{Ports Distribution}
-        \label{fig:ports_disctribution}
-    \end{subfigure}
-    \begin{subfigure}[b]{0.45\textwidth}
-        \centering
-        \includegraphics[width=\textwidth]{mean_wave_period.pdf}
-        \caption{Mean Wave Height}
-        \label{fig:mean_wave_height}
-    \end{subfigure}
-    \begin{subfigure}[b]{0.45\textwidth}
-        \centering
-        \includegraphics[width=\textwidth]{surface_height.pdf}
-        \caption{Surface Height}
-        \label{fig:surface_height}
-    \end{subfigure}
-    \begin{subfigure}[b]{0.45\textwidth}
-        \centering
-        \includegraphics[width=\textwidth]{surface_pressure.pdf}
-        \caption{Surface Pressure}
-        \label{fig:surface_pressure}
-    \end{subfigure}
+\section*{Appendix A. Supplementary figures}
+\setcounter{figure}{0}
+\renewcommand{\thefigure}{A\arabic{figure}}
+
+\begin{figure}[htbp]
+  \centering
+  \includegraphics[width=\linewidth]{figA1_gebco_global_domain}
+  \caption{%
+  GEBCO~2024 land/sea mask highlighting the Arctic routing domain
+  (40--85$^{\circ}$N, 20$^{\circ}$W--180$^{\circ}$E) in the global context.%
+  }
+  \label{figA_global_domain}
 \end{figure}
 
-\end{document}
+\begin{figure}[htbp]
+  \centering
+  \includegraphics[width=\linewidth]{figA2_shallow_sea_50m}
+  \caption{%
+  Shallow sea areas shallower than 50~m (red circles) over GEBCO~2024
+  bathymetry on the $0.5^{\circ}$ routing grid, together with the
+  canonical trans-Arctic sea-only route.%
+  }
+  \label{figA_shallow_sea}
+\end{figure}
 
+\begin{figure}[htbp]
+  \centering
+  \includegraphics[width=0.8\linewidth]{figA3_route_vs_ice_threshold}
+  \caption{%
+  Sensitivity of late-summer (15~September~2018) trans-Arctic route
+  distance to the choice of ice-safety threshold. Solid line: ice-constrained
+  route; dashed line: bathymetry-only sea route; dotted line: great-circle
+  distance.%
+  }
+  \label{figA_route_vs_ice_threshold}
+\end{figure}
+
+\clearpage
+
+\bibliography{main}
+\newpage
+\end{document}
 \typeout{get arXiv to do 4 passes: Label(s) may have changed. Rerun}

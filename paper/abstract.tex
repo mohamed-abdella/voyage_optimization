@@ -3,19 +3,26 @@
 \begin{frontmatter}
 
     \begin{abstract}
-        
-        
-        There is an increasing push for operational measures to reduce ships' bunker \ac{fc} and carbon emissions, driven by \ac{imo} mandates. Key performance indicators like \ac{eeoi} focus on fuel efficiency. Trim optimization, virtual arrival, and green routing strategies have emerged. The theoretical basis for all these approaches lies in the accurate predictions of \ac{fc} based on its sailing speed, displacement, trim, climate, and sea state. 
 
-        This study utilized 296 voyage reports from a Bulk Carrier Vessel over one year (from November 16, 2021, to November 21, 2022) and 28 parameters, integrating hydrometeorological big data from \ac{cmems} and \ac{ecmwf} with 19 and 61 parameters, respectively, to evaluate if fusing external public data sources may enhance modeling accuracy as well as highlighting most influential parameters affecting \ac{fc}.
-        
-        The experimental results revealed that there is a large potentioal of \ac{ml} techniques in predicting ship \ac{fc} accurately by using voyage reports and fusing reliable climate and sea data. However, further validation on similar class of vessels remains necessary to confirm the model's generalizability.
- 
+Climate-driven reductions in Arctic sea-ice extent have renewed interest in trans-Arctic shipping, yet adoption remains limited by questions of route feasibility, safety, and excess distance. Existing work often compares idealised great-circle shortcuts or uses detailed weather-routing systems that couple metocean forcing, sea ice and ship performance, leaving a gap for basin-scale diagnostics on realistic bathymetry and sea-ice fields. We develop an offline graph-based framework for trans-Arctic route feasibility on a $0.5^\circ$ pan-Arctic grid that combines General Bathymetric Chart of the Oceans (GEBCO)~2024 bathymetry with a summer 2018 Arctic sea-ice reanalysis from the Copernicus Marine Environment Monitoring Service (CMEMS). Bathymetry is regridded to construct sea-only and depth-feasibility masks, while daily sea-ice concentration (SIC) fields define ice-feasibility masks. An A* pathfinding algorithm is applied to a canonical Europe--Asia origin--destination pair to quantify route availability and route-length inflation relative to great-circle baselines.
+
+Enforcing sea-only feasibility increases route length by about 10\% before depth and ice constraints are applied. At $0.5^\circ$ resolution, depth thresholds representative of under-keel clearance ($h_\mathrm{min}=20$--$50\,\mathrm{m}$) remove up to roughly 15\% of the sea mask but preserve a trans-Arctic connection for $h_\mathrm{min}=20\,\mathrm{m}$. 
+Summer sea ice exerts a strong seasonal control: continuous ice-safe routes
+emerge only from mid-August, with distances inflated by roughly 20–25%, and
+even in late summer only about 75\% of sea cells are simultaneously depth- and
+ice-safe, leaving no continuous joint-safe trans-Arctic route in the tested
+season. These diagnostics position the framework as a basin-scale screening tool for Arctic shipping and as a baseline for subsequent forecast-driven, multi-objective Arctic routing studies.
     \end{abstract}
 
     % Research Keywords
-    \begin{keyword}
-        Voyage Optimization, Bulk Carrier, \ac{fc} Modelling, Machine Learning, CMEMS, ERA5
-    \end{keyword}
+\begin{keyword}
+Arctic shipping \sep
+trans-Arctic routes \sep
+sea-ice concentration \sep
+bathymetry \sep
+graph-based routing \sep
+A* pathfinding
+\end{keyword}
+
 
 \end{frontmatter}

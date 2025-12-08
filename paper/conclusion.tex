@@ -1,24 +1,86 @@
-\section{Conclusion}\label{sec:conclusion}
+\section{Conclusions}
+\label{sec:conclusions}
 
-This study confirmed the massive potential of using \ac{ml} methods and fusing external data to model Ship Fuel Consumption, which is the basis for all ship optimization approaches. Additional environmental factors also proved helpful in improving the predictive power. However, only a small subset of factors had a significant impact, with internal parameters such as engine \ac{rpm} being the most predictive factor for \ac{fc}. 
-Most of the features have not contributed to the overall predictive power, which is good that with fewer features, the \ac{fc} could be, to some extent, accurately predicted. Still, on the other hand, this raises the question of more investigation regarding the extensive data preparation explicitly required on the environmental parameters, for example, computing ship heading and then the angle of attack relative to the vessel. Moreover, more voyage report samples are needed to drill down on those features. Additionally, the principles developed in this study could be tested against different vessels of the same class to validate generalization on a broader scope. 
-Additionally other marine fuels should be explored. Currently, the target ships of \ac{fc} models are mostly diesel-powered, and the fuel consumption is primarily diesel. With the emergence of new or hybrid energy ships, more energy-efficient fuels such as LNG, fuel cells, methanol, and ammonia can be adopted to save ships energy.
-The \ac{fc} models should be combined with energy efficiency optimization methods. The ship energy efficiency optimization method can be divided into the supply side (inside the ship) and the demand side (outside the ship), corresponding to the energy management and operation optimization strategies. Thus it would be interesting to explore some data sources of bunker fuel consumption with a finer data granularity, such as sensor data, and the benefits of combining these data sources with other data sources that provide complementary information.
+This study developed an offline, grid-based framework for diagnosing the
+feasibility and geometry of trans-Arctic shipping routes under static
+bathymetric and historical sea-ice constraints.  Using GEBCO~2024
+bathymetry regridded to a $0.5^{\circ}$ pan-Arctic corridor
+($40$--$85^{\circ}$N, $20^{\circ}$W–$180^{\circ}$E), we constructed a
+sea-only routing mask and applied A* search to a canonical west–east
+origin–destination pair.  Even without environmental forcing, enforcing
+strict sea-only feasibility increased route length from $4{,}150$~NM
+(great-circle) to about $4{,}560$~NM (sea-only), i.e.\ a $\sim 10\%$
+penalty arising purely from the shape of coastlines and islands on a
+realistic bathymetric grid.
 
-An advanced model is developed using the features identified by the \ac{rf}. Two significant insights have been derived. First, non-linear models tend to perform much better than baseline models. Secondly, the performance significantly rose from 76 percent using the baseline model to 90 percent, 
-which highlights that with a handful of features, 90 percent of the \ac{fc} could be accurately estimated.
+Static depth constraints at $0.5^{\circ}$ resolution were found to be
+relatively benign at basin scale.  For representative under-keel limits
+of $h_{\min}=20$–$50$~m, more than $85\%$ of the sea mask remained
+depth-safe, and a sea-only route persisted for $h_{\min}=20$~m.
+Depth therefore acts as a structural constraint---eliminating shallow
+shelves and passages---but does not, by itself, prevent large-scale
+trans-Arctic connectivity in this configuration.  Bathymetry still
+matters, however, for shaping where such routes can run and for
+interpreting how close candidate paths approach shallow and coastal
+zones.
 
-The comparison clearly indicates that advanced modeling approaches result in superior predictive accuracy, lower error metrics, and more stable performance across validation folds. The transition from baseline to advanced models, particularly using more informative variables plays a critical role in enhancing fuel consumption estimation models. The findings reinforce the importance of model selection, feature engineering, and hyperparameter tuning in achieving reliable maritime fuel prediction.
+Historical sea-ice concentration emerged as the dominant
+time-varying control.  Using summer 2018 CMEMS sea-ice concentration
+regridded to the same $0.5^{\circ}$ routing grid and an ice-safety
+threshold of $\mathrm{SIC}<15\%$, the fraction of ice-safe sea increased
+from roughly $60\%$ in mid-June to over $80\%$ in mid-September.
+Continuous ice-safe trans-Arctic routes appeared only from mid-August
+onwards and were consistently longer than the sea-only benchmark:
+$\sim 5{,}200$~NM in mid-August, decreasing to $\sim 5{,}000$~NM by
+late September as the marginal ice zone retreated.  The excess-distance
+penalty relative to great-circle therefore drops from about $25\%$ to
+$20\%$ over this late-summer window, highlighting how the timing of
+Arctic transits trades off against both feasibility and path length.
 
-Nevertheless, all models demonstrate strong predictive capability, indicating the effectiveness of machine learning approaches for this application.
+At the large scales considered here, route geometry was only weakly
+sensitive to the precise sea-ice threshold once a route existed.
+Varying the concentration threshold between $5$ and $50\%$ changed the
+fraction of ice-safe sea by a few percentage points and altered
+route length by only 20–30 NM.  For coarse-grid,
+basin-scale diagnostics this suggests that the choice of SIC threshold
+is less critical than the choice of season and year, although the
+threshold will become more important once narrower passages and coastal
+traffic lanes are resolved.
 
-Overall, the results demonstrate that fuel consumption prediction is most sensitive to 
-engine and propulsion parameters, with contextual and environmental 
-variables providing complementary but lesser explanatory power. 
-These insights can guide feature selection and data acquisition strategies in future model refinement.
+Combining bathymetry and ice into a joint feasibility mask exposed a
+more restrictive picture.  For a relatively mild depth constraint
+($h_{\min}=20$~m) and $\mathrm{SIC}<15\%$ on 15~September~2018, only
+about $75\%$ of sea cells were simultaneously depth-safe and ice-safe,
+split into 35 disconnected components.  In this joint mask the canonical
+origin and destination fall into different components, and no fully
+depth- and ice-safe trans-Arctic route exists at $0.5^{\circ}$
+resolution.  This underlines that optimistic statements about a
+``seasonally ice-free'' Arctic can overstate actual navigable
+connectivity once realistic draft constraints are imposed.
 
-Another angle would be to investigate how sailing in unpopular regions like the Arctic could influence \ac{fc} since it has been observed in this study that seawater temperature and salinity played massive role in the \ac{fc} and ultimately to act as a guide to suggest a most efficient route for maritime navigation. 
+The present framework has several limitations that also point directly
+to future work.  First, the routing grid is coarse
+($0.5^{\circ}\approx 55$~km), so narrow straits, detailed coastline
+geometry and port approaches are not resolved; the results are intended
+as basin-scale diagnostics, not operational tracks.  Second, only a
+single canonical origin–destination pair and a single summer season
+(2018) were analysed; extending the analysis to a portfolio of
+Europe–Asia and intra-Arctic ODs and to multi-year sea-ice statistics
+would better capture inter-annual variability.  Third, cost was defined
+purely as geographic distance, without explicit representation of
+metocean forcing, resistance, fuel consumption, emissions, or risk.
+Finally, several safety-relevant factors---sea-ice thickness, ridging,
+traffic separation schemes, and region-specific regulatory corridors---are
+omitted and should be incorporated before any operational use.
 
-To streamline further research on the ideas developed in this study, a modular and comprehensive package has been developed that provides a baseline to build on top of for reproducible research and additional investigations.   
-
-This study has been an attempt to contribute toward environmentally sustainable shipping operations. 
+Despite these limitations, the study provides a physically grounded
+baseline for large-scale, safety-constrained Arctic routing.  It
+quantifies how static bathymetry and historical sea ice jointly shape
+the feasibility, timing and excess distance of trans-Arctic connections,
+and it delineates when such routes are even theoretically open.
+Follow-on work will build directly on this foundation by (i) increasing
+spatial resolution and adding multiple ODs, (ii) integrating
+time-evolving sea-ice forecasts and metocean forcing into dynamic
+cost fields, and (iii) extending the single-distance metric towards
+multi-objective formulations that link routing more directly to
+fuel consumption, emissions and schedule reliability.

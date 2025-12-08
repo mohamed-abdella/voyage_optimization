@@ -1,0 +1,50 @@
+This is BibTeX, Version 0.99d (TeX Live 2024)
+Capacity: max_strings=200000, hash_size=200000, hash_prime=170003
+The top-level auxiliary file: main.aux
+The style file: elsarticle-harv.bst
+Database file #1: main.bib
+Warning--entry type for "GEBCO2024" isn't style-file defined
+--line 136 of file main.bib
+Reallocated singl_function (elt_size=4) to 100 items from 50.
+You've used 15 entries,
+            2990 wiz_defined-function locations,
+            759 strings with 8968 characters,
+and the built_in function-call counts, 10667 in all, are:
+= -- 807
+> -- 462
+< -- 6
++ -- 185
+- -- 162
+* -- 1238
+:= -- 1559
+add.period$ -- 59
+call.type$ -- 15
+change.case$ -- 131
+chr.to.int$ -- 15
+cite$ -- 15
+duplicate$ -- 768
+empty$ -- 729
+format.name$ -- 205
+if$ -- 1941
+int.to.chr$ -- 1
+int.to.str$ -- 1
+missing$ -- 156
+newline$ -- 104
+num.names$ -- 60
+pop$ -- 241
+preamble$ -- 1
+purify$ -- 114
+quote$ -- 0
+skip$ -- 211
+stack$ -- 0
+substring$ -- 428
+swap$ -- 598
+text.length$ -- 1
+text.prefix$ -- 0
+top$ -- 0
+type$ -- 135
+warning$ -- 0
+while$ -- 63
+width$ -- 0
+write$ -- 256
+(There was 1 warning)
